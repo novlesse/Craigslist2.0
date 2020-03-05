@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
-    "start": "node ./db_server/server.js"
+    "db": "node-dev src/db_server/server.js"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "node-dev": "^4.0.0"
   }
 }
