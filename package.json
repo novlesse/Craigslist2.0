@@ -1,8 +1,9 @@
 {
   "name": "craigslist-2.0",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "src/web-server/server.js",
   "scripts": {
+    "dev": "node-dev src/web-server/server.js",
     "db": "node-dev src/db_server/server.js"
   },
   "dependencies": {
