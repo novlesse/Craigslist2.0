@@ -23,7 +23,16 @@ body {
 }
 
 .background-image {
-    background-image: linear-gradient(#517F89, rgb(211, 202, 156), #FFF);
+    background:
+        /* top, transparency gradient */
+        linear-gradient(rgba(0, 0, 0, 0.45),
+            rgba(255, 255, 255, 0.45)),
+        /* bottom ransparency gradient, image */
+        url(../Image_assets/science_world.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .letter-spacing {
@@ -49,5 +58,93 @@ body {
 }
 
 .btn-active {
+    padding: 10px 20px;
+    font-size: 20px;
+    text-align: center;
+    outline: none;
+    color: #fff;
     background-color: rgb(231, 61, 61);
+    border: none;
+    border-radius: 3px;
+}
+
+.btn-active:hover,
+.btn-active:focus {
+    background-color: rgb(231, 61, 61);
+    outline: 0;
+    color: #FFF;
+}
+
+.btn-active:active {
+    background-color: rgb(231, 61, 61);
+    transform: translateY(4px);
+    outline: 0;
+}
+
+.btn-active:hover span:after {
+    opacity: 1;
+    right: 0;
+    outline: 0;
+}
+
+.btn-search {
+    padding: 10px 20px;
+    font-size: 20px;
+    text-align: center;
+    outline: none;
+    color: #fff;
+    background-color: rgb(110, 216, 219);
+    border: none;
+    border-radius: 3px;
+}
+
+.btn-search:hover,
+.btn-search:focus {
+    background-color: rgb(110, 216, 219);
+    outline: 0;
+}
+
+.btn-search:active {
+    background-color: rgb(110, 216, 219);
+    transform: translateY(4px);
+    outline: 0;
+}
+
+.btn-search:hover span:after {
+    opacity: 1;
+    right: 0;
+    outline: 0;
+}
+
+.fa-compass {
+    font-size: 30px;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    outline: 0;
+}
+
+.fa-compass:hover,
+.fa-compass:focus {
+    font-size: 30px;
+    color: rgb(231, 61, 61);
+    outline: 0;
+}
+
+.fa-compass:focus {
+    font-size: 30px;
+    color: #fff;
+    outline: 0;
+}
+
+.fa-compass:active {
+    transform: translateY(4px);
+    color: rgb(231, 61, 61);
+    outline: 0;
+}
+
+.fa-compass:hover span:after {
+    opacity: 1;
+    right: 0;
+    outline: 0;
 }
