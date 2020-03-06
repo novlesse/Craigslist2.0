@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ("../partials/head") %>
+</head>
+    <%- include ("../partials/header") %>
+<body>
+    <%- include ("../partials/body") %>
+    <% if (listings.length !== 0) { %>
+        <h2 class="listing-result-heading">Listings for <%= search %></h2>
+        <% } else if (listings === " ") { %>
+            <p></p>
+            <% } else { %>
+                <p class="listing-result-heading-sm">There are no listings for <%= search %></p>
+            <% }; %>
+    <div class="card-container d-flex flex-row flex-wrap justify-content-center">
+    <% listings.forEach(function(listing) { %>
+        <div class="card shadow" style="width: 18rem;">
+            <div class="image-container">
+                <img src="<%= listing.image_link %>" class="card-img-top" alt="...">
+                <i class="fas fa-star">2.5</i>
+                <i class="far heart fa-heart"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><%= listing.title %></h5>
+                <p class="card-text"><%= listing.price %></p>
+            </div>
+            </div>    
+    <% }) %>
+    </div>   
+</body>
+    <%- include ("../partials/script") %>
+</html>
