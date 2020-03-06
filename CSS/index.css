@@ -1,0 +1,53 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(29, 29, 29);
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: rgb(110, 216, 219);
+}
+
+a:hover {
+    color: grey;
+    text-decoration: none;
+}
+
+html,
+body {
+    height: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+    overflow: hidden;
+}
+
+.background-image {
+    background-image: linear-gradient(#517F89, rgb(211, 202, 156), #FFF);
+}
+
+.letter-spacing {
+    letter-spacing: 4px;
+}
+
+.letter-spacing-header {
+    letter-spacing: 20px;
+    font-family: 'Montserrat Light';
+}
+
+.h1-color {
+    color: white;
+}
+
+.login-text:hover {
+    color: rgb(110, 216, 219);
+}
+
+.active-cyan-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid rgb(110, 216, 219) !important;
+    box-shadow: 0 0 0 1px rgb(110, 216, 219) !important;
+}
+
+.btn-active {
+    background-color: rgb(231, 61, 61);
+}
