@@ -25,5 +25,17 @@ module.exports = function(db) {
             }
         });
     });
+
+    router.get("/images", async (req, res) => {
+        connection.query("SELECT * FROM image_list", (err, rows) => {
+            if (err) {
+                console.log(`Query not run`);
+            } else {
+                // console.log(rows);
+                res.render('index', {data:rows})
+            }
+        });
+    });
+    
     return router;
 }
