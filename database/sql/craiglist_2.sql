@@ -55,6 +55,23 @@ CREATE TABLE `image_list` (
   `images_link` TEXT NOT NULL
 );
 
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
+  `id` INT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL
+);
+
+DROP TABLE IF EXISTS `sub_category`;
+CREATE TABLE `sub_category` (
+  `id` INT,
+  `category_id` INT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id, category_id),
+  FOREIGN KEY (category_id) REFERENCES category (id) 
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+);
+
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
@@ -63,12 +80,20 @@ CREATE TABLE `post` (
   `description` TEXT,
   `price` DECIMAL(13, 2) NOT NULL,
   `item_condition_id` INT,
+  `category_id` INT NOT NULL,
+  `sub_category_id` INT NOT NULL,
   `created_at` TIMESTAMP DEFAULT NOW(),
   `image_list_id` INT,
   `is_active` BOOLEAN DEFAULT TRUE,
   FOREIGN KEY (seller) REFERENCES user (id) 
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
+  FOREIGN KEY (category_id) REFERENCES sub_category (category_id) 
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  FOREIGN KEY (sub_category_id) REFERENCES sub_category (id) 
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,  
   FOREIGN KEY (item_condition_id) REFERENCES item_condition (id) 
     ON DELETE SET NULL
     ON UPDATE CASCADE,
@@ -113,7 +138,8 @@ CREATE TABLE `biding` (
 -- possible state: bid and reserve for incoming, refund and payment for outgoing
 DROP TABLE IF EXISTS `trans_status`;
 CREATE TABLE `trans_status` (
-  `code` INT PRIMARY KEY AUTO_INCREMENT
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `name` VARCHAR(255)
 );
 
 DROP TABLE IF EXISTS `incoming_transaction`;
@@ -123,7 +149,7 @@ CREATE TABLE `incoming_transaction` (
   `sender` INT NOT NULL,
   `post_id` INT NOT NULL,
   `account_num` VARCHAR(255) NOT NULL,
-  `trans_status_code` CHAR,
+  `trans_status_id` int,
   `created_at` TIMESTAMP DEFAULT NOW(),
   FOREIGN KEY (sender) REFERENCES user (id) 
     ON DELETE RESTRICT
@@ -140,7 +166,7 @@ CREATE TABLE `outgoing_transaction` (
   `receiver` INT NOT NULL,
   `incoming_transaction_id` INT NOT NULL,
   `account_num` VARCHAR(255) NOT NULL,
-  `trans_status_code` CHAR,
+  `trans_status_id` int,
   `created_at` TIMESTAMP DEFAULT NOW(),
   FOREIGN KEY (receiver) REFERENCES user (id) 
     ON DELETE RESTRICT

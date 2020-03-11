@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/novlesse/Craigslist2.0#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mysql": "^2.18.1"
   }
