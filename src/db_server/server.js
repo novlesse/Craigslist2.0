@@ -1,7 +1,7 @@
 const database = require("../database/DB");
 const app = require("./app")(database);
-const port = process.env.PORT || 3300;
+const port = process.env.PORT || 3306;
 
 app.listen(port, () => {
-	console.log(`Server running at ${port}`);
+	console.log(`\nServer running at ${port}`);
 });
