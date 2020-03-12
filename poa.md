@@ -35,7 +35,7 @@ Database ERD and Schema will be created and implemented into a server. Wireframe
 
 ##### Roles
 ````
-- Sherlyn: Research/ Database ERD + Schema
+- Sherlyn: Database ERD + Schema
 - Chris: Research/ Server
 - Jeff: Research/Set-up github/wireframe
 - Emmy: Research/Trello
@@ -56,6 +56,6 @@ The team will complete front-end pages and use EJS for templating and views.
 - Sherlyn: Database
 - Chris: Server
 - Jeff: Front-end
-- Emmy: 
-- John: Front-End
+- Emmy: EJS
+- John: Front-End/
 ````

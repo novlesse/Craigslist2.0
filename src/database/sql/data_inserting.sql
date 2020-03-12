@@ -79,7 +79,7 @@ VALUES
     "https://cdn.pixabay.com/photo/2015/09/02/12/28/light-918450_1280.jpg"
 ),
 (
-    "/Craigslist2.0/HTML/images/light-918450_1920.jpg"
+    "https://cdn.pixabay.com/photo/2018/01/24/17/33/light-bulb-3104355_1280.jpg"
 );
 
 INSERT INTO
