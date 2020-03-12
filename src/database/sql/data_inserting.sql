@@ -71,6 +71,15 @@ VALUES
 ),
 (
     'https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+),
+(
+    "https://cdn.pixabay.com/photo/2016/02/15/22/47/kerosene-lamp-1202277_1280.jpg"
+),
+(
+    "https://cdn.pixabay.com/photo/2015/09/02/12/28/light-918450_1280.jpg"
+),
+(
+    "https://cdn.pixabay.com/photo/2018/01/24/17/33/light-bulb-3104355_1280.jpg"
 );
 
 INSERT INTO
@@ -82,3 +91,8 @@ VALUES
 (
     1, 'drawing tools', 15, 2, 2
 );
+
+INSERT INTO post (seller, title, price, item_condition_id, image_list_id)
+VALUES (1, "light 1", 50, 1, 3),
+(1, "light 2", 100, 1, 4),
+(1, "light 3", 500, 1, 5);
