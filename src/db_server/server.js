@@ -66,5 +66,5 @@ app.post("/search", async (req, res) => {
 });
 
 app.listen(port, () => {
-	console.log(`\nServer live at http://localhost:${port}`);
+	console.log(`\nServer running at ${port}`);
 });

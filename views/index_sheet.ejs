@@ -1,0 +1,43 @@
+<%- include("header") -%> 
+    <body>
+        <div>
+            <h3>Employees List</h3>
+            <div id="sheet">
+                <%if (data.length > 0) { %> 
+                    <% for(let i=0; i < data.length; i++) { %>
+                        
+                        <!-- <form id="<%= i+1 %> "method= "POST" action="/update/<%= i+2 %>" > -->
+                        <form id="<%= data[i].ID %>" >
+                            <!-- <input name="_method" type="hidden" value="patch" /> -->
+                            <label for="LastName"></label>
+                            <input class="update" type="text" name="LastName" value="<%=data[i].LastName%>"/>
+                            <label for="FirstName"></label>
+                            <input class="update" type="text" name="FirstName" value="<%=data[i].FirstName%>"/>
+                            <label for="Email"></label>
+                            <input class="update" type="text" name="Email" value="<%=data[i].Email%>"/>
+                            <label for="Address"></label>
+                            <input class="update" type="text" name="Address" value="<%=data[i].Address%>"/>
+                            <label for="City"></label>
+                            <input class="update" type="text" name="City" value="<%=data[i].City%>"/>
+                            <!-- <button type="submit">submit</button> -->
+                        </form>
+                    <% } %>
+                <% } %>
+            </div>
+            <h3> Insert a new employee below</h3>
+            <form id="insert">
+                <label for="LastName"></label>
+                <input type="text" name="LastName"/>
+                <label for="FirstName"></label>
+                <input type="text" name="FirstName" />
+                <label for="Email"></label>
+                <input type="text" name="Email"/>
+                <label for="Address"></label>
+                <input type="text" name="Address"/>
+                <label for="City"></label>
+                <input type="text" name="City"/>
+                <button id="form_btn" type="submit">submit</button>
+            </form>
+        </div>
+        </body>
+        </html>

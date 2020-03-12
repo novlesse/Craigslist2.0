@@ -1,0 +1,14 @@
+<%- include("header") -%> 
+    <body>
+        <div>
+            <h1>Test</h1>
+            <%if (data.length > 0) { %> 
+            <% data.forEach(item => { %>
+            <div>
+                <img src="<%= item.images_link %>" alt="">
+            </div>
+            <% }); %> 
+            <% } %>
+        </div>
+    </body>
+    </html>
