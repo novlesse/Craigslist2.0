@@ -63,6 +63,14 @@ VALUES
     'open box'
 );
 
+INSERT INTO 
+    category (id, `name`)
+VALUES (1, "Test-category");
+
+INSERT INTO
+    sub_category (id, category_id, `name`)
+VALUES (1, 1, "Test-sub-category");
+
 INSERT INTO
     image_list (images_link)
 VALUES
@@ -83,16 +91,16 @@ VALUES
 );
 
 INSERT INTO
-    post (seller, title, price, item_condition_id, image_list_id)
+    post (seller, title, price, item_condition_id, category_id, sub_category_id, image_list_id)
 VALUES
 (
-    1, 'shelf', 45, 1, 1
+    1, 'shelf', 45, 1, 1, 1, 1
 ),
 (
-    1, 'drawing tools', 15, 2, 2
+    1, 'drawing tools', 15, 2, 1, 1, 2
 );
 
-INSERT INTO post (seller, title, price, item_condition_id, image_list_id)
-VALUES (1, "light 1", 50, 1, 3),
-(1, "light 2", 100, 1, 4),
-(1, "light 3", 500, 1, 5);
+INSERT INTO post (seller, title, price, item_condition_id, category_id, sub_category_id, image_list_id)
+VALUES (1, "light 1", 50, 1, 1, 1, 3),
+(1, "light 2", 100, 1, 1, 1, 4),
+(1, "light 3", 500, 1, 1, 1, 5);
