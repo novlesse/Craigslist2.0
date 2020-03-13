@@ -65,6 +65,49 @@ app.post("/search", async (req, res) => {
 	});
 });
 
+app.post("/postlisting", async (req, res) => {
+	let listing = {
+		title: req.body.title,
+		price: req.body.price,
+		condition: req.body.condition,
+		category: req.body.category,
+		subCategory: req.body.subCategory,
+		description: req.body.description
+	};
+	let listingImage = {
+		image_link: req.body.testImage
+	} 
+	connection.beginTransaction((err) => {
+		if (err) {
+			throw err;
+		}
+		connection.query("INSERT INTO post SET ?", listing, (err, success) => {
+			if (err) {
+				connection.rollback(() => {
+					throw err;
+				});
+			}
+			connection.query("INSERT INTO image_list SET ?", listingImage, (err, success) => {
+				if (err) {
+					connection.rollback(() => {
+						throw err;
+					});
+				}
+				connection.commit(() => {
+					if (err) {
+						connection.rollback(() => {
+							throw err;
+						});
+					}
+					console.log("successfully created posting with image");
+					connection.end();
+				});
+			});
+		});
+	});
+
+});
+
 app.listen(port, () => {
 	console.log(`\nServer running at ${port}`);
 });
