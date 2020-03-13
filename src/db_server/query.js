@@ -3,6 +3,10 @@ const router = express.Router();
 const connection = require("../database/DB");
 
 module.exports = function(db) {
+    router.get("/test", (req, res) => {
+        res.status(200).send('hello world');
+    });
+
     router.get("/users", async (req, res) => {
         connection.query("SELECT firstname, lastname, email, house_num, street, city, province_code, country_code, postcode FROM user", (err, rows) => {
             if (err) {
