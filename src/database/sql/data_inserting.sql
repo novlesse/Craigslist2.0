@@ -46,6 +46,21 @@ VALUES
 (
     'Wowooo', 'Sam', 'Brown', 'sam@test.com', 'test', '453', 'West 12th Avenue', 'Vancouver','BC','V5Y 1V4', 'CA'
 );
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `stars` INT NOT NULL,
+  `rater` INT NOT NULL,
+  `ratee` INT NOT NULL,
+  `title` VARCHAR(255),
+
+INSERT INTO 
+    rating (stars, rater, ratee, `description`)
+VALUES 
+(
+    4, 2, 1, "Very fast and reliable!"
+),
+(
+    2, 1, 2, "Really bad communication and item quality"
+);
 
 INSERT INTO
     item_condition (name)
