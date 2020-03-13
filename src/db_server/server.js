@@ -68,28 +68,31 @@ app.post("/search", async (req, res) => {
 app.post("/postlisting", async (req, res) => {
 	let listing = {
 		title: req.body.title,
-		price: req.body.price,
-		condition: req.body.condition,
-		category: req.body.category,
-		subCategory: req.body.subCategory,
+		price: parseInt(req.body.price),
+		item_condition_id: parseInt(req.body.condition),
+		category_id: parseInt(req.body.category),
+		sub_category_id: parseInt(req.body.subCategory),
 		description: req.body.description
 	};
 	let listingImage = {
-		image_link: req.body.testImage
+		images_link: req.body.testImage
 	} 
 	connection.beginTransaction((err) => {
 		if (err) {
+			console.log("transaction did not being");
 			throw err;
 		}
 		connection.query("INSERT INTO post SET ?", listing, (err, success) => {
 			if (err) {
 				connection.rollback(() => {
+					console.log("did not insert into posting");
 					throw err;
 				});
 			}
 			connection.query("INSERT INTO image_list SET ?", listingImage, (err, success) => {
 				if (err) {
 					connection.rollback(() => {
+						console.log("did not insert into image")
 						throw err;
 					});
 				}

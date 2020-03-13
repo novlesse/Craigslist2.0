@@ -152,8 +152,8 @@
             a
             Listing</button>
         <!--Modal: Listing Form-->
-        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-            aria-hidden="true">
+        <form class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+            aria-hidden="true" method="post" action="/postlisting">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
 
@@ -170,7 +170,7 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Condition</label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="condition">
-                                    <option>New</option>
+                                    <option>1</option>
                                     <option>Used</option>
                                     <option>Refurbished</option>
                                     <option>Open Box</option>
@@ -180,7 +180,7 @@
                                 <div class="col">
                                     <label for="exampleFormControlSelect1">Categories</label>
                                     <select class="form-control" id="exampleFormControlSelect1" name="category">
-                                        <option>Test-category</option>
+                                        <option>1</option>
                                         <option>Clothing</option>
                                         <option>Electronics</option>
                                         <option>Furniture</option>
@@ -190,7 +190,7 @@
                                 <div class="col">
                                     <label for="exampleFormControlSelect1">Sub Categories</label>
                                     <select class="form-control" id="exampleFormControlSelect1" name="subCategory">
-                                        <option>Sub-test-category</option>
+                                        <option>1</option>
                                     </select>
                                 </div>
                             </div>
@@ -204,13 +204,13 @@
                         <div class="form-group">
                             <label for="exampleFormControlFile1">Upload Image</label>
                             <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
-                            <input type="file" class="form-control-file" id="exampleFormControlFile1" name="testImage">
+                            <input type="text" class="form-control-file" id="exampleFormControlFile1" name="testImage">
                         </div>
                         <button type="submit" class="btn-search">Submit</button>
                     </form>
 
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
