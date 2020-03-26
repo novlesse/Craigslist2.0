@@ -2,19 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = function(db) {
-<<<<<<< HEAD
-    router.get("/test", (req, res) => {
-        res.status(200).send('hello world');
-    });
-
-=======
     const connection = db();
     router.get("/", (req,res)=>{
         res.status(200).send("<h1>welcome</h1>")
     })
 
     //get all the user lists
->>>>>>> 48e43c33afa66b9c4954269433f4f77befc89bed
     router.get("/users", async (req, res) => {
         connection.query("SELECT * FROM view_user_detail", (err, rows) => {
             if (err) {
@@ -178,15 +171,45 @@ module.exports = function(db) {
             `,
             (err, result) => {
                 if (err) {
+                    connection.rollback(() => {
+                        console.log("did not insert into posting");
+                        res.status(500).send(err.message);
+                    });
                     console.log(`Query not run`); 
-                    res.status(500).send(err.message);
                 } else {
-                    res.redirect(307 , `/images/${result.insertId}`)
-                    // res.status(200).send(result);
+                    const images = JSON.parse(req.body.images);
+                    let values = [];
+                    images.forEach(image => {
+                        values.push([result.insertId, image]);
+                    })
+                    console.log(values)
+                    connection.query(
+                        'INSERT INTO image_list (post_id, images_link) VALUES ?',
+                        [values],
+                        (err, result) => {
+                            if (err) {
+                                connection.rollback(() => {
+                                    console.log("did not insert into image")
+                                    throw err;
+                                });
+                            }
+                            connection.commit(() => {
+                                if (err) {
+                                    connection.rollback(() => {
+                                        throw err;
+                                    });
+                                }
+                                console.log("successfully created posting with image");
+                                connection.end();
+                                res.status(200).send(result);
+                            });
+                    // res.redirect(307 , `/images/${result.insertId}`)
+                    });
                 }
         });
     });
 
+    
     //update a post
     router.put("/posts", async (req, res) => {
         //to do
@@ -227,24 +250,30 @@ module.exports = function(db) {
     });
 
     //post images of a given post
-    router.post("/images/:post_id", async (req, res) => {
-        const images = JSON.parse(req.body.images);
-        let values = [];
-        images.forEach(image => {
-            values.push([req.params.post_id, image]);
-        })
-        console.log(values)
-        connection.query(
-            'INSERT INTO image_list (post_id, images_link) VALUES ?',
-            [values],
-            (err, result) => {
-                if (err) {
-                    console.log(`Query not run`); 
-                    res.status(500).send(err.message);
-                } else {
-                    res.status(200).send(result);
-                }
-        });
+    // router.post("/images/:post_id", async (req, res) => {
+    //     const images = JSON.parse(req.body.images);
+    //     let values = [];
+    //     images.forEach(image => {
+    //         values.push([req.params.post_id, image]);
+    //     })
+    //     console.log(values)
+    //     connection.query(
+    //         'INSERT INTO image_list (post_id, images_link) VALUES ?',
+    //         [values],
+    //         (err, result) => {
+    //             if (err) {
+    //                 console.log(`Query not run`); 
+    //                 connection.query('DELETE FROM `post` WHERE `id`=?', [req.params.post_id], (error, results, fields) => {
+    //                     if (error) {
+    //                         console.log("Fail to delete related post when image inserting failure", err.message)
+    //                     };
+                        
+    //                   });
+    //                 res.status(500).send(err.message);
+    //             } else {
+    //                 res.status(200).send(result);
+    //             }
+    //     });
         
     });
     

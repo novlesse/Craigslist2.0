@@ -21,10 +21,13 @@
             <% listings.forEach(function(listing) { %>
 
                 <div class="card shadow" style="width: 18rem;">
+                    <% listings.image_list.forEach(function(image) { %>
                     <div class="image-container">
-                        <img src='<%=listing.images_link%>' class="card-img-top" alt="..."/>
+                        <img src='<%= image %>' class="card-img-top" alt="..."/>
                         <i class="far heart fa-heart"></i>
+                        
                     </div>
+                    <% }) %>
                     <div class="card-body">
                         <h5 class="card-title"><%= listing.title %></h5>
                         <p class="card-text">$ <%= listing.price %></p>

@@ -53,7 +53,7 @@
 
 ***"/users/:id" method:get***
 - find user by given id
-> request: '/users/1
+> request: "/users/1
 response
 ```json
 [
@@ -81,7 +81,7 @@ response
 
 ***"/users/username/:username" method:get***
 - find user by given username & verify username is available
-> request: '/users/username/Wowooo
+> request: "/users/username/Wowooo
 response
 ```JSON
 request:
@@ -141,24 +141,24 @@ response
 >request body format:
 ```JSON
 {   
-    username:user5,
-    firstname:Lily,
-    lastname:Jim,
-    email:lily@test.com,
-    password:test,
-    house_num:2,
-    street:9718 161A St,
-    city:Surrey,
-    province_code:BC,
-    country_code:CA,
-    postcode:V5H 6S7,
-    isVerified: true //optional default value false
-    payment_account: ############ //optional default value null
+    "username":"user5",
+    "firstname":"Lily",
+    "lastname":"Jim",
+    "email":"lily@test.com",
+    "password":"test",
+    "house_num":2,
+    "street":"9718 161A St",
+    "city":"Surrey",
+    "province_code":"BC",
+    "country_code":"CA",
+    "postcode":"V5H 6S7",
+    "is_verified": true, //optional default value false
+    "payment_account": "############" //optional default value null
 }
 
 ```
 ***"/user" method:put***
-- update user's profile
+- update user"s profile
 ```javascript
     
         //to do
@@ -167,9 +167,9 @@ response
 - example parameters:
 ```json
 {
-    id:1,
-    username:newname,
-    house_num:12
+    "id":1,
+    "username":"newname",
+    "house_num":12
 }
 ```
 ***"/user" method:post***
@@ -177,21 +177,21 @@ response
 - expecting parameters:
 ```json
 {
-    username:'',
-    firstname:'',
-    lastname:'',
-    email:'',
-    password:'',
-    house_num:'',
-    street:'',
-    city:'',
-    province_code:'',
-    postcode:'',
-    country_code:'',
+    "username":"",
+    "firstname":"",
+    "lastname":"",
+    "email":"",
+    "password":"",
+    "house_num":"",
+    "street":"",
+    "city":"",
+    "province_code":"",
+    "postcode":"",
+    "country_code":"",
     //optional, default value is False
-    is_verified:'', 
+    "is_verified":"", 
     //optional
-    payment_account:''
+    "payment_account":""
 }
 ```
 
@@ -252,18 +252,18 @@ response
 - expecting parameters:
 ```json
 {
-    seller:3
-    title:'iphone x'
-    price:400
-    item_condition_id:2
-    category_id:4
-    sub_category_id:1
-    images:["https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", "https://images.pexels.com/photos/1294886/pexels-photo-1294886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"]
+    "seller":3,
+    "title":"iphone x",
+    "price":400,
+    "item_condition_id":2,
+    "category_id":4,
+    "sub_category_id":1,
+    "images":["https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", "https://images.pexels.com/photos/1294886/pexels-photo-1294886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"]
 }
 ```
 
 ***"/posts" method:put***
-- update a post's content
+- update a post"s content
 ```
         //to do
     
@@ -271,9 +271,9 @@ response
 - expecting parameters:
 ```json
 {
-    id:'post_id',
-    title:new-title,
-    price:new-price
+    "id":"post_id",
+    "title":"new-title",
+    "price":"new-price"
 }
 ```
 
@@ -360,7 +360,7 @@ response
 response
 ```json
 {
-    images:[]
+    "images":[]
 }
 ```
 
@@ -403,17 +403,17 @@ response
 - expecting parameters:
 ```JSON
 {
-    stars:5,
-    rater:1,
-    ratee:3,
-    title:"very satisfied",
+    "stars":5,
+    "rater":1,
+    "ratee":3,
+    "title":"very satisfied",
     //optional
-    description:""
+    "description":""
 }
 ```
 
 ***"/incoming_transaction/:user_id" method:get***
-- get a user's all incoming transactions
+- get a user"s all incoming transactions
 ```javascript
     router.get("/incoming_transaction/:user_id", async(req, res) => {
         //to do
@@ -430,17 +430,17 @@ response
 - expecting parameters:
 ```json
 {
-    amount:'',
-    sender:'user_id',
-    post_id:'',
-    account_num:'',
+    "amount":"",
+    "sender":"user_id",
+    "post_id":"",
+    "account_num":"",
     //1 for bidding and 2 for on hold to seller
-    trans_status_id:''
+    "trans_status_id":""
 }
 ```
 
 ***"/outgoing_transaction/:user_id" method:get***
-- get a user's all outgoing transaction
+- get a user"s all outgoing transaction
 ```javascript
     router.get("/outgoing_transaction/:user_id", async(req, res) => {
         //to do
@@ -448,7 +448,7 @@ response
 ```
 
 ***"/outgoing_transaction/:user_id" method:post***
-- insert a user's all outgoing transaction 
+- insert a user"s all outgoing transaction 
 ```javascript
     router.get("/outgoing_transaction/:user_id", async(req, res) => {
         //to do
@@ -457,11 +457,11 @@ response
 - expecting parameters:
 ```json
 {
-    amount:'',
-    receiver:'user_id',
-    incoming_transaction_id:'',
-    account_num:'',
+    "amount":"",
+    "receiver":"user_id",
+    "incoming_transaction_id":"",
+    "account_num":"",
     //4 for refund and 5 for release payment to seller
-    trans_status_id:''
+    "trans_status_id":""
 }
 ```

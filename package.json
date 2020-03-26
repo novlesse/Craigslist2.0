@@ -4,8 +4,7 @@
   "main": "src/web-server/server.js",
   "scripts": {
     "start": "nodemon ./src/db_server/server.js",
-    "dev": "node-dev src/web-server/server.js",
-    "db": "node-dev src/db_server/server.js",
+    "dev": "nodemon ./src/web-server/server.js",
     "test": "jest"
   },
   "dependencies": {
@@ -14,6 +13,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
