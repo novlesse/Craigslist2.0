@@ -58,7 +58,8 @@ SELECT
    vu.id AS user_id,
    vu.username,
    vu.average_rating,
-   vu.total_rating
+   vu.total_rating,
+    vi.image_list
 FROM
     post AS p
     INNER JOIN view_user_detail AS vu ON p.seller = vu.id
