@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 require("dotenv").config();
 
+
 const dbConfig = ({
     host: process.env.dsn,
     user: process.env.admin,

@@ -138,4 +138,3 @@ VALUES
 (5,4,3,'great'),
 (3,1,4,'not impressed'),
 (4,2,4,'Ok');
-
