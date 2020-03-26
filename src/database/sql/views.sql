@@ -31,6 +31,15 @@ SELECT
 FROM user AS u
      INNER JOIN view_user_rating_summary AS ur ON u.id = ur.user_id;
 
+
+DROP VIEW IF EXISTS 'view_post_image_list';
+CREATE VIEW view_post_image_list AS
+SELECT 
+    post_id, 
+    JSON_ARRAYAGG(images_link) image_list 
+FROM image_list 
+GROUP BY post_id;
+
 DROP VIEW IF EXISTS 'view_post_detail';
 CREATE VIEW view_post_detail AS
 SELECT
@@ -69,11 +78,3 @@ FROM
     biding AS b
     INNER JOIN user AS u ON u.id = b.bidder
     GROUP BY u.id;
-
-DROP VIEW IF EXISTS 'view_post_image_list';
-CREATE VIEW view_post_image_list AS
-SELECT 
-    post_id, 
-    JSON_ARRAYAGG(images_link) image_list 
-FROM image_list 
-GROUP BY post_id;
