@@ -23,7 +23,9 @@ module.exports = function(db) {
 
     //find user by id
     router.get("/users/:id", async (req, res) => {
-        connection.query(`SELECT * FROM view_user_detail WHERE id=${req.params.id}`, (err, rows) => {
+        connection.query(`SELECT * FROM view_user_detail WHERE id=?`,
+        [req.params.id],
+        (err, rows) => {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
@@ -75,7 +77,7 @@ module.exports = function(db) {
             ` INSERT INTO user
               SET ?
             `,
-            req.body,
+            [req.body],
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
@@ -98,10 +100,10 @@ module.exports = function(db) {
         })
         connection.query(
             ` UPDATE user
-              SET ${params})
+              SET ?
               WHERE id=?
             `,
-            [req.body.id],
+            [params, req.body.id],
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
@@ -167,8 +169,9 @@ module.exports = function(db) {
         req.body.description = req.body.description? req.body.description:null;
         connection.query(
             `INSERT INTO post(seller, title, description, price, item_condition_id, category_id, sub_category_id) 
-             VALUES(${req.body.seller}, ${req.body.title}, ${req.body.description}, ${req.body.price}, ${req.body.item_condition_id}, ${req.body.category_id}, ${req.body.sub_category_id})
+             VALUES ? 
             `,
+            [req.body],
             (err, result) => {
                 if (err) {
                     connection.rollback(() => {
@@ -237,7 +240,9 @@ module.exports = function(db) {
 
     //get all images of a given post
     router.get("/images/:post_id", async (req, res) => {
-        connection.query(`SELECT * FROM image_list where post_id = ${req.params.post_id}`, (err, rows) => {
+        connection.query(`SELECT * FROM image_list where post_id = ?`,
+        [req.params.post_id], 
+        (err, rows) => {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
@@ -262,7 +267,9 @@ module.exports = function(db) {
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
-                    connection.query('DELETE FROM `post` WHERE `id`=?', [req.params.post_id], (error, results, fields) => {
+                    connection.query('DELETE FROM `post` WHERE `id`=?', 
+                    [req.params.post_id], 
+                    (error, results, fields) => {
                         if (error) {
                             console.log("Fail to delete related post when image inserting failure", err.message)
                         };
@@ -279,10 +286,10 @@ module.exports = function(db) {
     router.put("/images/:image_id", async (req, res) => {
         connection.query(
             ` UPDATE image_list
-              SET ${req.body.image}
+              SET ?
               WHERE image_id =?
             `,
-            [req.params.image_id],
+            [req.body.image, req.params.image_id],
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
@@ -320,7 +327,7 @@ module.exports = function(db) {
             ` INSERT INTO rating
               SET ?
             `,
-            req.body,
+            [req.body],
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
@@ -362,7 +369,9 @@ module.exports = function(db) {
 
     //get all bid by given post_id 
     router.get("/biding/:post_id", async(req, res) => {
-        connection.query(`SELECT * FROM biding where post_id = ${req.params.post_id} ORDER BY bid DESC`, (err, rows) => {
+        connection.query(`SELECT * FROM biding where post_id = ? ORDER BY bid DESC`, 
+        [req.params.post_id],
+        (err, rows) => {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
