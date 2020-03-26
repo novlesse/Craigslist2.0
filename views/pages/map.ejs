@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Meetup Location</title>
+	<style>
+		body {
+			display: grid;
+			justify-content: center;
+			justify-items: center;
+			background-color: #222;
+			color: whitesmoke;
+		}
+		h1 {
+			margin: 0.5rem 0 2rem 0;
+		}
+		iframe {
+			width: 40rem;
+			height: 30rem;
+			border-radius: 0.5rem;
+			border: none;
+		}
+		form {
+			display: flex;
+			justify-content: center;
+			margin: 1rem;
+			width: 30rem;
+			height: 2.5rem;
+		}
+		input {
+			width: 80%;
+			font-size: 0.95rem;
+			border-radius: 0.5rem 0 0 0.5rem;
+			border: none;
+			outline: none;
+			text-indent: 1rem;
+		}
+		button {
+			border-radius: 0 0.5rem 0.5rem 0;
+			border: none;
+			font-size: 1rem;
+		}
+	</style>
+</head>
+
+<body>
+  <h1>👇 Meetup Location 📍</h1>
+
+	<iframe
+		src='
+			https://www.google.com/maps/embed/v1/place
+			?q=place_id:<%= placeID %>
+			&zoom=15
+			&maptype=roadmap
+			&key=<%= key %>'>
+	</iframe>
+
+	<form method='post' action='/map'>
+		<input
+			name='search'
+			value='<%= search %>'
+			placeholder='Enter meetup location'
+			type='text'
+			required />
+		<button>🔍</button>
+	</form>
+</body>
+</html>
