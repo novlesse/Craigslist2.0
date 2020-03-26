@@ -1,6 +1,6 @@
-const express = require('express')
-const { port, entry } = require('./globals')
-const server = express()
+const express = require('express');
+const { port, entry } = require('./globals');
+const server = express();
 
 server.get( '/', (req,res) => res.sendFile( entry ) )
 
