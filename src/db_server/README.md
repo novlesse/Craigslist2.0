@@ -211,12 +211,13 @@ request:
         "category_name": "furnitures",
         "sub_category_id": 4,
         "sub_category_name": "office",
-        "created_at": "2020-03-11T11:24:30.000Z",
+        "created_at": "2020-03-26T07:19:03.000Z",
         "is_active": 1,
         "user_id": 1,
         "username": "FlyingDuck",
         "average_rating": 2.6667,
-        "total_rating": 3
+        "total_rating": 3,
+        "image_list": "[\"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\"]"
     },
     {
         "post_id": 2,
@@ -229,12 +230,13 @@ request:
         "category_name": "arts & crafts",
         "sub_category_id": 2,
         "sub_category_name": "drawing & painting",
-        "created_at": "2020-03-11T11:24:30.000Z",
+        "created_at": "2020-03-26T07:19:03.000Z",
         "is_active": 1,
         "user_id": 1,
         "username": "FlyingDuck",
         "average_rating": 2.6667,
-        "total_rating": 3
+        "total_rating": 3,
+        "image_list": "[\"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/1294886/pexels-photo-1294886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500\"]"
     }
 ]
 ```
