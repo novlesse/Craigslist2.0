@@ -2,6 +2,7 @@ const database = require("../database/DB");
 const express = require("express");
 const app = require("./app")(database);
 const port = process.env.PORT || 3306;
+const { getPlaceID } = require('../map/map')
 
 const connection = require("../database/DB");
 
@@ -15,6 +16,27 @@ app.get("/", (req, res) => {
 app.get("/test", (req, res) => {
 	res.render("pages/test")
 });
+
+app.get( '/map', async (req,res) => {
+	// get address from chosen meetup location
+	const address = '500 W Georgia St, Vancouver, BC V7Y 1G5'
+
+	res.render( 'pages/map', {
+		placeID: await getPlaceID( address ),
+		search: '',
+		key: process.env.MAPS_APIKEY
+	})
+})
+
+app.post( '/map', async (req,res) => {
+	const { search } = req.body
+
+	res.render( 'pages/map', {
+		placeID: await getPlaceID( search ),
+		search: search,
+		key: process.env.MAPS_APIKEY
+	})
+})
 
 app.post("/signup", async (req, res) => {
 	let signup = {
