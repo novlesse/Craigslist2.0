@@ -21,10 +21,10 @@ CREATE TABLE `country` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `username` VARCHAR(255) NOT NULL,
+  `username` VARCHAR(255) NOT NULL UNIQUE,
   `firstname` VARCHAR(255) NOT NULL,
   `lastname` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
   `password` VARCHAR(255) NOT NULL,
   `house_num` VARCHAR(255) NOT NULL,
   `street` VARCHAR(255),
@@ -47,12 +47,6 @@ DROP TABLE IF EXISTS `item_condition`;
 CREATE TABLE `item_condition` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL
-);
-
-DROP TABLE IF EXISTS `image_list`;
-CREATE TABLE `image_list` (
-  `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `images_link` TEXT NOT NULL
 );
 
 DROP TABLE IF EXISTS `category`;
@@ -83,7 +77,6 @@ CREATE TABLE `post` (
   `category_id` INT NOT NULL,
   `sub_category_id` INT NOT NULL,
   `created_at` TIMESTAMP DEFAULT NOW(),
-  `image_list_id` INT,
   `is_active` BOOLEAN DEFAULT TRUE,
   FOREIGN KEY (seller) REFERENCES user (id) 
     ON DELETE RESTRICT
@@ -96,9 +89,16 @@ CREATE TABLE `post` (
     ON UPDATE CASCADE,  
   FOREIGN KEY (item_condition_id) REFERENCES item_condition (id) 
     ON DELETE SET NULL
-    ON UPDATE CASCADE,
-  FOREIGN KEY (image_list_id) REFERENCES image_list (id) 
-    ON DELETE SET NULL
+    ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS `image_list`;
+CREATE TABLE `image_list` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `post_id` INT NOT NULL,
+  `images_link` TEXT NOT NULL,
+  FOREIGN KEY (post_id) REFERENCES post (id) 
+    ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
