@@ -42,6 +42,7 @@ app.post("/signup", async (req, res) => {
 		}
 	});
 });
+
 app.post("/search", async (req, res) => {
 	let search = req.body.product;
 	if (search.length == 0 || search == " ") {
@@ -68,18 +69,18 @@ app.post("/search", async (req, res) => {
 app.post("/postlisting", async (req, res) => {
 	let listing = {
 		title: req.body.title,
-		price: parseInt(req.body.price),
-		item_condition_id: parseInt(req.body.condition),
-		category_id: parseInt(req.body.category),
-		sub_category_id: parseInt(req.body.subCategory),
+		price: req.body.price,
+		item_condition_id: req.body.condition,
+		category_id: req.body.category,
+		sub_category_id: req.body.subCategory,
 		description: req.body.description
 	};
 	let listingImage = {
 		images_link: req.body.testImage
-	} 
+	} ;
 	connection.beginTransaction((err) => {
 		if (err) {
-			console.log("transaction did not being");
+			console.log("transaction did not begin");
 			throw err;
 		}
 		connection.query("INSERT INTO post SET ?", listing, (err, success) => {
@@ -90,21 +91,35 @@ app.post("/postlisting", async (req, res) => {
 				});
 			}
 			connection.query("INSERT INTO image_list SET ?", listingImage, (err, success) => {
+				console.log(listingImage)
 				if (err) {
 					connection.rollback(() => {
 						console.log("did not insert into image")
 						throw err;
 					});
 				}
-				connection.commit(() => {
+				connection.query(`UPDATE post SET image_list_id = (SELECT id FROM image_list WHERE image_list.images_link = ?)`, req.body.testImage, (err, success) => {
 					if (err) {
 						connection.rollback(() => {
+							console.log("Could not update id's");
 							throw err;
-						});
+						}) ;
 					}
-					console.log("successfully created posting with image");
-					connection.end();
+					connection.commit(() => {
+						if (err) {
+							connection.rollback(() => {
+								throw err;
+							});
+						}
+						console.log(listing)
+						res.render("pages/index", {
+							listing: listing
+						});
+						console.log("successfully created posting with image");
+						// connection.end();
+					});
 				});
+
 			});
 		});
 	});
