@@ -1,31 +1,23 @@
 {
-  "name": "Craigslist2.0",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "craigslist-2.0",
+  "version": "0.1.0",
+  "main": "src/web-server/server.js",
   "scripts": {
     "start": "nodemon ./src/db_server/server.js",
-    "dev": "nodemon ./src/db_server/server.js",
+    "dev": "node-dev src/web-server/server.js",
+    "db": "node-dev src/db_server/server.js",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/novlesse/Craigslist2.0.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/novlesse/Craigslist2.0/issues"
-  },
-  "homepage": "https://github.com/novlesse/Craigslist2.0#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
+    "node-dev": "^4.0.0",
     "@testing-library/dom": "^6.12.2",
     "dotenv": "^8.2.0",
     "jest": "^25.1.0",

@@ -1,15 +1,18 @@
 const express = require("express"),
-      app = express(),
-      path = require("path");
-      
+    app = express();
+
+
 module.exports = (database) => {
-    const dbQuery = require("./query")(database),
-          sheetRouter = require("./route/sheet_router")(database); 
+    const dbQuery = require("./query")(database);
+    app.use("/", dbQuery);
     app.set('view engine', 'ejs');
-    app.use(express.json())
-    app.use(express.urlencoded({extended: true}))
-    app.use(express.static(path.join(__dirname, "../public")));
-    app.use("/sheet", sheetRouter);
-    app.use("/db", dbQuery);
+    const bodyParser = require("body-parser");
+    app.use(express.json());
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+    app.use(bodyParser.json());
+    app.use(express.static(__dirname + "/../../../CSS"));
+    console.log(__dirname)
     return app;
 };
