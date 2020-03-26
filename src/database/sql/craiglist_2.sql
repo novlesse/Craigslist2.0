@@ -176,4 +176,3 @@ CREATE TABLE `outgoing_transaction` (
     ON UPDATE CASCADE
 );
 
-
