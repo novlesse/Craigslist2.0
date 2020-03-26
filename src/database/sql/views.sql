@@ -31,7 +31,6 @@ SELECT
 FROM user AS u
      INNER JOIN view_user_rating_summary AS ur ON u.id = ur.user_id;
 
-
 DROP VIEW IF EXISTS 'view_post_image_list';
 CREATE VIEW view_post_image_list AS
 SELECT 
@@ -68,7 +67,6 @@ FROM
     INNER JOIN category AS c ON sc.category_id = c.id
     INNER JOIN view_post_image_list AS vi ON vi.post_id = p.id;
 
-
 DROP VIEW IF EXISTS 'view_highest_biding';
 CREATE VIEW view_highest_biding AS
 SELECT 
@@ -79,3 +77,15 @@ FROM
     biding AS b
     INNER JOIN user AS u ON u.id = b.bidder
     GROUP BY u.id;
+
+DROP VIEW IF EXISTS 'view_rating_list';
+CREATE VIEW view_rating_list AS
+SELECT
+    r.stars AS stars,
+    r.ratee AS ratee,
+    u.username AS username,
+    r.title AS title,
+    r.`description` AS `description`,
+    r.created_at AS created_at
+FROM rating AS r
+    INNER JOIN user AS u ON u.id = r.rater;

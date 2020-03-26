@@ -357,10 +357,58 @@ request:
 ***"/images/:post_id" method:post***
 - post all images of a given post
 >request /images/3
-- expecting parameters:
+>response
 ```json
 {
     images:[]
+}
+```
+
+***"/ratings/:user_id" method:get***
+- get ratings of a given user
+>request /ratings/2
+>response
+```json
+{
+    [
+    {
+        "stars": 4,
+        "ratee": 2,
+        "username": "FlyingDuck",
+        "title": "great service",
+        "description": null,
+        "created_at": "2020-03-26T07:19:03.000Z"
+    },
+    {
+        "stars": 2,
+        "ratee": 2,
+        "username": "user3",
+        "title": "terrible",
+        "description": null,
+        "created_at": "2020-03-26T07:19:03.000Z"
+    },
+    {
+        "stars": 4,
+        "ratee": 2,
+        "username": "user4",
+        "title": "Ok",
+        "description": null,
+        "created_at": "2020-03-26T07:19:03.000Z"
+    }
+]
+}
+```
+***"/ratings/" method:post***
+- post a ratings
+- expecting parameters:
+```JSON
+{
+    stars:5,
+    rater:1,
+    ratee:3,
+    title:"very satisfied",
+    //optional
+    description:""
 }
 ```
 

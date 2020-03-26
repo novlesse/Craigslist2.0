@@ -13,7 +13,7 @@ module.exports = function(db) {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
-                // throw err;
+                
             } else {
                 // console.log(rows);
                 res.status(200).send(rows);
@@ -27,7 +27,7 @@ module.exports = function(db) {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
-                // throw err;
+                
             } else {
                 // console.log(rows);
                 res.status(200).send(rows);
@@ -43,7 +43,7 @@ module.exports = function(db) {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
-                // throw err;
+                
             } else {
                 // console.log(rows);
                 res.status(200).send(rows);
@@ -60,7 +60,7 @@ module.exports = function(db) {
                 if (err) {
                     console.log(`Query not run`); 
                     res.status(500).send(err.message);
-                    // throw err;
+                    
                 } else {
                     res.status(200).send(rows);
                 }
@@ -124,7 +124,7 @@ module.exports = function(db) {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
-                // throw err;
+                
             } else {
                 res.status(200).send(rows);
             }
@@ -139,7 +139,7 @@ module.exports = function(db) {
                 if (err) {
                     console.log(`Query not run`); 
                     res.status(500).send(err.message);
-                    // throw err;
+                    
                 } else {
                     res.status(200).send(rows);
                 }
@@ -199,7 +199,7 @@ module.exports = function(db) {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
-                // throw err;
+                
             } else {
                 res.status(200).send(rows);
             }
@@ -212,7 +212,7 @@ module.exports = function(db) {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
-                // throw err;
+                
             } else {
                 res.status(200).send(rows);
             }
@@ -264,6 +264,38 @@ module.exports = function(db) {
         //to do
     });
 
+    //get rating of a given user
+    router.get("/ratings/:user_id", async (req, res) => {
+        connection.query(
+            "SELECT * FROM view_rating_list WHERE ratee=?", 
+            [req.params.user_id],
+            ( err, rows) => {
+                if (err) {
+                    console.log(`Query not run`); 
+                    res.status(500).send(err.message);
+                } else {
+                    res.status(200).send(rows);
+                }
+        });
+    })
+
+    //post a new rating of a given user
+    router.post("/ratings", async (req, res) => {
+        req.body.description = req.body.description? req.body.description:null
+        connection.query(
+            ` INSERT INTO rating
+              SET ?
+            `,
+            req.body,
+            (err, result) => {
+                if (err) {
+                    console.log(`Query not run`); 
+                    res.status(500).send(err.message);
+                } else {
+                    res.status(200).send(result);
+                }
+        });
+    })
     //get a user's all incoming transactions
     router.get("/incoming_transaction/:user_id", async(req, res) => {
         // to do
@@ -300,7 +332,6 @@ module.exports = function(db) {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
-                // throw err;
             } else {
                 res.status(200).send(rows);
             }
