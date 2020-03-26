@@ -54,7 +54,7 @@
 ***"/users/:id" method:get***
 - find user by given id
 > request: '/users/1
-> response
+response
 ```json
 [
     {
@@ -82,7 +82,7 @@
 ***"/users/username/:username" method:get***
 - find user by given username & verify username is available
 > request: '/users/username/Wowooo
-> response
+response
 ```JSON
 request:
 [
@@ -111,7 +111,7 @@ request:
 ***"/users/email/:email" method:get***
 - find user by email & verify email is available
 >request: /users/email/kevin@test.com
->response
+response
 ```JSON
 [
     {
@@ -279,7 +279,7 @@ request:
 
 ***"/category" method:get***
 - get all category and sub_category lists
->response
+response
 ```JSON
     [
     {
@@ -323,7 +323,7 @@ request:
 ***"/images/:post_id" method:get***
 - get all images of a given post
 >request: /images/2
->response
+response
 ```JSON
 [
     {
@@ -357,7 +357,7 @@ request:
 ***"/images/:post_id" method:post***
 - post all images of a given post
 >request /images/3
->response
+response
 ```json
 {
     images:[]
@@ -367,7 +367,7 @@ request:
 ***"/ratings/:user_id" method:get***
 - get ratings of a given user
 >request /ratings/2
->response
+response
 ```json
 {
     [
