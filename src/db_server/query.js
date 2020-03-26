@@ -69,7 +69,7 @@ module.exports = function(db) {
 
     //create a new user
     router.post("/users", async (req, res) => {
-        req.body.isVerified = req.body.isVerified ? req.body.isVerified:false;
+        req.body.is_verified = req.body.is_verified ? req.body.is_verified:false;
         req.body.payment_account = req.body.payment_account? req.body.payment_account:null;
         connection.query(
             ` INSERT INTO user
@@ -200,7 +200,6 @@ module.exports = function(db) {
                                     });
                                 }
                                 console.log("successfully created posting with image");
-                                connection.end();
                                 res.status(200).send(result);
                             });
                     // res.redirect(307 , `/images/${result.insertId}`)
@@ -250,31 +249,30 @@ module.exports = function(db) {
     });
 
     //post images of a given post
-    // router.post("/images/:post_id", async (req, res) => {
-    //     const images = JSON.parse(req.body.images);
-    //     let values = [];
-    //     images.forEach(image => {
-    //         values.push([req.params.post_id, image]);
-    //     })
-    //     console.log(values)
-    //     connection.query(
-    //         'INSERT INTO image_list (post_id, images_link) VALUES ?',
-    //         [values],
-    //         (err, result) => {
-    //             if (err) {
-    //                 console.log(`Query not run`); 
-    //                 connection.query('DELETE FROM `post` WHERE `id`=?', [req.params.post_id], (error, results, fields) => {
-    //                     if (error) {
-    //                         console.log("Fail to delete related post when image inserting failure", err.message)
-    //                     };
+    router.post("/images/:post_id", async (req, res) => {
+        const images = JSON.parse(req.body.images);
+        let values = [];
+        images.forEach(image => {
+            values.push([req.params.post_id, image]);
+        })
+        console.log(values)
+        connection.query(
+            'INSERT INTO image_list (post_id, images_link) VALUES ?',
+            [values],
+            (err, result) => {
+                if (err) {
+                    console.log(`Query not run`); 
+                    connection.query('DELETE FROM `post` WHERE `id`=?', [req.params.post_id], (error, results, fields) => {
+                        if (error) {
+                            console.log("Fail to delete related post when image inserting failure", err.message)
+                        };
                         
-    //                   });
-    //                 res.status(500).send(err.message);
-    //             } else {
-    //                 res.status(200).send(result);
-    //             }
-    //     });
-        
+                      });
+                    res.status(500).send(err.message);
+                } else {
+                    res.status(200).send(result);
+                }
+        });
     });
     
     //update images of a given post
