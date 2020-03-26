@@ -1,6 +1,6 @@
 const database = require("../database/DB");
-const express = require("express");
 const app = require("./app")(database);
+<<<<<<< HEAD
 const port = process.env.PORT || 3306;
 
 const connection = require("../database/DB");
@@ -125,6 +125,9 @@ app.post("/postlisting", async (req, res) => {
 	});
 
 });
+=======
+const port = process.env.PORT || 8080;
+>>>>>>> 999ea0d68e1340019cb2e692bb1e328b7691b8d0
 
 app.listen(port, () => {
 	console.log(`\nServer running at ${port}`);
