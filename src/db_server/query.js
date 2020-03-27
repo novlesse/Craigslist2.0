@@ -149,18 +149,26 @@ module.exports = function(db) {
     });
 
     //search posts by category & keywords
-    router.get("/posts/search/:category_id", async (req, res) => {
-        // to do
-    });
-
-    //search posts by category, sub_category & keywords
-    router.get("/posts/search/:category_id", async (req, res) => {
-        // to do
-    });
-
-    //search posts by keywords
-    router.get("/posts/search/:keywords", async (req, res) => {
-        // to do
+    router.post("/posts/search", async (req, res) => {
+        req.body.category_id = req.body.category_id? req.body.category_id:null
+        req.body.sub_category_id = req.body.sub_category_id? req.body.Sub_category_id:null
+        req.body.keyword = req.body.keyword? req.body.keyword:null
+            connection.query(
+                `SELECT * FROM view_post_detail 
+                WHERE CASE WHEN ? IS NOT NULL THEN category_id = ? ELSE 1=1 END
+                AND CASE WHEN ? IS NOT NULL THEN sub_category_id = ? ELSE 1=1 END
+                AND CASE WHEN ? IS NOT NULL THEN (LOWER(\`post_title\`) LIKE CONCAT('%' , ?, '%')
+                    OR LOWER(\`post_description\`) LIKE CONCAT('%' , ?, '%')) ELSE 1=1 END`,
+                [req.body.category_id, req.body.category_id, req.body.sub_category_id, req.body.sub_category_id, req.body.keyword, req.body.keyword, req.body.keyword],
+                (err, rows) => {
+                    if (err) {
+                        console.log(`Query not run`); 
+                        res.status(500).send(err.message);
+                        
+                    } else {
+                        res.status(200).send(rows);
+                    }
+            });
     });
 
     //create a new post
@@ -205,7 +213,6 @@ module.exports = function(db) {
                                 console.log("successfully created posting with image");
                                 res.status(200).send(result);
                             });
-                    // res.redirect(307 , `/images/${result.insertId}`)
                     });
                 }
         });

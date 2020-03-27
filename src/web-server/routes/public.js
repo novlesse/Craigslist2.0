@@ -51,17 +51,17 @@ module.exports = function() {
     });
     
     router.post("/search", (req, res) => {
-        let search = req.body.product;
-        if (search.length == 0 || search == " ") {
-            search = null;
-        }
-        console.log(search);
-        axios.post(urlbase + "/posts/search/", search)
+        req.body.category_id = req.body.category_id? req.body.category_id:null
+        req.body.sub_category_id = req.body.sub_category_id? req.body.Sub_category_id:null
+        req.body.keyword = req.body.keyword? req.body.keyword:null
+        console.log(req.body)
+        axios.post(urlbase + "/posts/search", req.body)
         .then((response) => {
-            res.render("pages/listing", {
-                listings: response,
-                search: search
-            });
+            // res.render("pages/listing", {
+            //     listings: response.body,
+            //     search: req.body.keyword
+            // });
+            res.status(200).send(response.data); //testing purpose
         })
         .catch((err) => {
             console.log("Error:", err.message);

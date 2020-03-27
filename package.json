@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon ./src/db_server/server.js",
     "dev": "nodemon ./src/web-server/server.js",
+    "db": "nodemon ./src/db_server/server.js",
     "test": "jest"
   },
   "dependencies": {
