@@ -2,7 +2,6 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const bodyParser = require("body-parser")
-//({authenticate: jwt.authenticateJWT, generateAccessToken: jwt.generateAccessToken})
 
 module.exports = function(jwt) {
   const publicRouter = require('./routes/public')({authenticate: jwt.authenticateJWT, generateAccessToken: jwt.generateAccessToken})
@@ -13,11 +12,12 @@ module.exports = function(jwt) {
   
   app.set('view engine', 'ejs');
   app.use(bodyParser.json());
-  app.use(express.urlencoded({extended: false}))
+  app.use(express.urlencoded({extended: true}))
   app.use(express.json())
 
   app.use('/', publicRouter)
   app.use('/api/users', usersRouter)
+  
   // Create a generic error function for development
   app.use((req, res, next) => {
     res.sendGenericServerError = () => {
