@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const urlbase = "http://99.79.9.84:8080";
+const imagUrlBase = "http://craiglist2.s3-website.ca-central-1.amazonaws.com/300xAUTO/";
 module.exports = function() {
     // get all category & sub_category 
     // can be used to render new post form
@@ -19,20 +20,20 @@ module.exports = function() {
     //create new post
     router.post("/posts", (req, res) => {
         req.body.description = req.body.description? req.body.description: null
+        const images = JSON.parse(req.body.images).map(element => imagUrlBase + element);
         const listing = {
-            seller:req.body.seller,
+            seller: parseInt(req.body.seller),
             title: req.body.title,
-            price: parseInt(req.body.price),
+            price: parseFloat(req.body.price),
             item_condition_id: parseInt(req.body.condition),
             category_id: parseInt(req.body.category),
             sub_category_id: parseInt(req.body.subCategory),
             description: req.body.description,
-            images:req.body.images
+            images: JSON.stringify(images)
         };
 
         axios.post(urlbase + "/posts", listing)
         .then(response => {
-            
             console.log('successfully create post')
             res.status(200).send(response.body);
         })

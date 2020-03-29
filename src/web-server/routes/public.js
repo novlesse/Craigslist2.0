@@ -15,7 +15,7 @@ module.exports = function() {
     router.get("/posts", (req, res) => {
         axios.get(urlbase + "/posts")
         .then(response => {
-
+            // render home page
         })
         .catch(err => {
             console.log("Error:", err.message);

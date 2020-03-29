@@ -171,13 +171,16 @@ module.exports = function(db) {
             });
     });
 
-    //create a new post
+    //create a new post (seller, title, description, price, item_condition_id, category_id, sub_category_id)
     router.post("/posts", async (req, res) => {
+        const images = JSON.parse(req.body.images);
+        delete req.body.images; 
         console.log(req.body);
         req.body.description = req.body.description? req.body.description:null;
+        
         connection.query(
-            `INSERT INTO post(seller, title, description, price, item_condition_id, category_id, sub_category_id) 
-             VALUES ? 
+            `INSERT INTO post 
+             SET ? 
             `,
             [req.body],
             (err, result) => {
@@ -188,8 +191,7 @@ module.exports = function(db) {
                     });
                     console.log(`Query not run`); 
                 } else {
-                    const images = JSON.parse(req.body.images);
-                    let values = [];
+                    const values = [];
                     images.forEach(image => {
                         values.push([result.insertId, image]);
                     })
