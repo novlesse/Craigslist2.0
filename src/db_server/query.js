@@ -247,6 +247,18 @@ module.exports = function(db) {
         });
     });
 
+    //get item condition list
+    router.get("/condition", async (req, res) => {
+        connection.query("SELECT * FROM item_condition", ( err, rows) => {
+            if (err) {
+                console.log(`Query not run`); 
+                res.status(500).send(err.message);
+            } else {
+                res.status(200).send(rows);
+            }
+        });
+    });
+
     //get all images of a given post
     router.get("/images/:post_id", async (req, res) => {
         connection.query(`SELECT * FROM image_list where post_id = ?`,

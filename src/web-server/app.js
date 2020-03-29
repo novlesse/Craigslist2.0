@@ -12,7 +12,7 @@ module.exports = function(jwt) {
   
   app.set('view engine', 'ejs');
   app.use(bodyParser.json());
-  app.use(express.urlencoded({extended: false}))
+  app.use(express.urlencoded({extended: true}))
   app.use(express.json())
 
   app.use('/', publicRouter)
