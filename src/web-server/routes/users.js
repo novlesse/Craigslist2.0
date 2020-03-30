@@ -30,13 +30,14 @@ module.exports = function() {
         try{
             req.body.description = req.body.description? req.body.description: null
             const images = JSON.parse(req.body.images).map(element => imagUrlBase + element);
+            //hard code user_id for testing purpose
             const listing = {
-                seller: parseInt(req.body.seller),
+                seller: 3,
                 title: req.body.title,
                 price: parseFloat(req.body.price),
-                item_condition_id: parseInt(req.body.condition),
-                category_id: parseInt(req.body.category),
-                sub_category_id: parseInt(req.body.subCategory),
+                item_condition_id: parseInt(req.body.condition_id),
+                category_id: parseInt(req.body.category_id),
+                sub_category_id: parseInt(req.body.sub_category_id),
                 description: req.body.description,
                 images: JSON.stringify(images)
             }
