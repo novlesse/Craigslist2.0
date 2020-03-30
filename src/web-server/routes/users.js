@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const urlbase = "http://99.79.9.84:8080";
-const imagUrlBase = "http://craiglist2.s3-website.ca-central-1.amazonaws.com/300xAUTO/";
+const imagUrlBase = "https://craiglist2.s3-website.ca-central-1.amazonaws.com/300xAUTO/";
 module.exports = function() {
     // get all category & sub_category 
     // can be used to render new post form
