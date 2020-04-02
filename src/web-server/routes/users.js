@@ -24,6 +24,28 @@ module.exports = function() {
             res.status(500).send("oops, something is wrong");
         })
     });
+    //get an user's profile
+    router.get('/user', (req, res) => {
+        axios.get(urlbase + '/users/1')
+            .then((response) => {
+                //console.log(response);
+                const { username, email, average_rating, is_verified } = response['data'][0];
+                axios.get('http://99.79.9.84:8080/ratings/1')
+                    .then((response) => {
+                        let ratings = response['data'];
+                        console.log(ratings)
+                        res.render('pages/userprofile', {
+                            username: username,
+                            email: email,
+                            average_rating: average_rating,
+                            is_verified: is_verified,
+                            ratings: ratings
+                        })
+                    })
+                    .catch((err) => console.log(err))
+            })
+            .catch((err) => { console.log(err) })
+    }) 
 
     //create new post
     router.post("/posts", (req, res) => {
