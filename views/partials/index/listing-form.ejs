@@ -1,16 +1,16 @@
-<form id="new-listing-form "class="container p-4">
+<form id="new-listing-form" class="container p-4" method="post">
     <div class="form-group">
         <label for="title">Title</label>
-        <input class="form-control" name="title">
+        <input type="text" class="form-control" name="title">
     </div>
     <div class="form-group">
         <label for="price">Price</label>
-        <input class="form-control" name="price">
+        <input type="text" class="form-control" name="price">
     </div>
     <div>
         <div class="form-group">
             <label for="condition">Condition</label>
-            <select class="form-control" name="condition">
+            <select class="form-control" name="condition_id">
                 <option value="" disabled selected>Select your item's condition</option>
                 <%if (condition.length > 0) { %> 
                     <% for(let i=0; i < condition.length; i++) { %>
@@ -19,11 +19,10 @@
                 <% } %>
             </select>
         </div>
-        <div class="form-group">
+        <div id="category-container" class="form-group">
             <%- include('category-block') -%>
         </div>
     </div>
-
     <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" rows="5" name="description" maxlength="250"></textarea>
@@ -31,8 +30,9 @@
     <div class="form-group row">
         <div class="col">
             <label for="image">Upload Image</label>
-            <input type="file" class="form-control-file" name="image">
+            <input type="file" class="form-control-file" id="file-chooser" name="images" multiple>
         </div>
     </div>
-    <button type="submit" class="btn btn-info">Submit</button>
+    <div id="message"></div>
+    <button type="submit" id="upload-btn" class="btn btn-info">Submit</button>
 </form>

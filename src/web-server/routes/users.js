@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const urlbase = "http://99.79.9.84:8080";
-const imagUrlBase = "http://craiglist2.s3-website.ca-central-1.amazonaws.com/300xAUTO/";
+const imagUrlBase = "https://craiglist2-resized.s3.ca-central-1.amazonaws.com/";
 module.exports = function() {
     // get all category & sub_category 
     // can be used to render new post form
@@ -24,19 +24,43 @@ module.exports = function() {
             res.status(500).send("oops, something is wrong");
         })
     });
+    
+    //get a user's profile
+    router.get('/user', (req, res) => {
+        axios.get(urlbase + '/users/1')
+            .then((response) => {
+                //console.log(response);
+                const { username, email, average_rating, is_verified } = response['data'][0];
+                axios.get('http://99.79.9.84:8080/ratings/1')
+                    .then((response) => {
+                        let ratings = response['data'];
+                        console.log(ratings)
+                        res.render('pages/userprofile', {
+                            username: username,
+                            email: email,
+                            average_rating: average_rating,
+                            is_verified: is_verified,
+                            ratings: ratings
+                        })
+                    })
+                    .catch((err) => console.log(err))
+            })
+            .catch((err) => { console.log(err) })
+    }) 
 
     //create new post
     router.post("/posts", (req, res) => {
         try{
             req.body.description = req.body.description? req.body.description: null
             const images = JSON.parse(req.body.images).map(element => imagUrlBase + element);
+            //hard code user_id for testing purpose
             const listing = {
-                seller: parseInt(req.body.seller),
+                seller: 3,
                 title: req.body.title,
                 price: parseFloat(req.body.price),
-                item_condition_id: parseInt(req.body.condition),
-                category_id: parseInt(req.body.category),
-                sub_category_id: parseInt(req.body.subCategory),
+                item_condition_id: parseInt(req.body.condition_id),
+                category_id: parseInt(req.body.category_id),
+                sub_category_id: parseInt(req.body.sub_category_id),
                 description: req.body.description,
                 images: JSON.stringify(images)
             }
