@@ -275,7 +275,7 @@ module.exports = function(db) {
     //             }
     //     });
         
-    });
+    // });
     
     //update images of a given post
     router.put("/images/:image_id", async (req, res) => {
