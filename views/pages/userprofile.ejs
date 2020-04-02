@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Profile</title>
+</head>
+<body>
+    <%- include ("../partials/index/header") %> 
+    <div class="container-fluid">
+        <div class="row">
+            <!--User Information Card-->
+            <div class="profile-information-container card col-3 mx-4 my-4 shadow  mb-5 bg-white rounded position-sticky p-0">
+                <div class="card-body p-0">
+                    
+                    <div class="profile-image-container">
+                        <img class="img-fluid profile-image w-100 rounded " src="https://images.unsplash.com/photo-1539418561314-565804e349c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80">
+                        
+                    </div>
+                    <div class="profile-information-text p-3">
+                        <h3 class="username">@ <%= username %></h3> 
+                        <p contenteditable="true">About text : While happily ignoring when being called going to catch the red dot today trophy. Kick up litter pet my belly, you know you want to; seize the hand and shred it! stand with legs in litter box, but poop outsid</p>
+                        <h4 class="info-text"> Email: <%= email %></h4>
+                        <h4 class="info-text"> Last Active: </h4>
+                        <h4 class="info-text">Average Rating: <%= average_rating %> </h4>
+                        <h4>Verification: <% if (is_verified == 0) {%> 👌 <%} else { %> ❌ <%} %></h4>
+                    </div>
+                    <!-- <div class="button-container d-flex flex-row bd-highlight mb-3 justify-content-around">
+                        <div class="message-button flex-fill">
+                            <button type="button" class="btn btn-primary px-5 mr-1">Message Contact </button>
+                        </div>
+                        <div class="setting-button ">
+                            <button type="button" class="btn btn-secondary px-5 ml-1">Account Settings</button> 
+                            
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <!--end-->
+
+
+            <div class="col container-fluid">
+                <div class="jumbotron m-4">
+                <h1 class="component-title text-center"> Recent Listings</h1>
+                <!--User post-->
+                <ul class="list-group list-group-horizontal m-2">
+                    <li class="list-group-item"><img class="img-fluid rounded" style="width: 10rem; height: auto" src="https://images.unsplash.com/photo-1566393028639-d108a42c46a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1627&q=80"></li>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">List group item heading</h5>
+                          <small>3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small>Donec id elit non mi porta.</small>
+                      </a>
+                </ul>
+                <!--End-->
+
+                <div class="jumbotron m-4">
+                    <h1 class="component-title text-center"> Reviews & Ratings</h1>
+                    <!-- Ratings and Reviews Section -->
+                    <% for (i=0; i < ratings.length; i++) { %>
+                    <ul class="list-group list-group-horizontal m-2">
+                        <li class="list-group-item"><img class="img-fluid rounded" style="width: 10rem; height: auto" src="https://images.unsplash.com/photo-1566393028639-d108a42c46a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1627&q=80"></li>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                
+                                
+                             
+                                    <h5 class="mb-1"> <%= ratings[i]['title'] %></h5>
+            
+                                    <small> <%= ratings[i]['created_at'] %></small>
+                              
+                            </div>
+
+                            <p class="mb-1"><%= ratings[i]['username'] %> </p>
+                            <p class="mb-1"><%= ratings[i]['description'] %></p>
+                            
+                          </a>
+                    </ul>
+                    <% } %>
+
+                    <a href="#"><h3 class="text-center m-4 ">Read More</h3></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+</body>
+</html>
