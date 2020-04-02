@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const urlbase = "http://99.79.9.84:8080";
+
 module.exports = function() {
     router.get("/", (req, res) => {
         res.render("pages/index")
@@ -10,7 +11,6 @@ module.exports = function() {
     router.get("/test", (req, res) => {
         res.render("pages/test")
     });
-
     
     router.get("/posts", (req, res) => {
         axios.get(urlbase + "/posts")
@@ -22,7 +22,6 @@ module.exports = function() {
             res.status(500).send("oops, something is wrong");
         })
     })
-
 
     router.post("/signup", (req, res) => {
         let signup = {

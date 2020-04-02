@@ -23,7 +23,9 @@ module.exports = function(db) {
 
     //find user by id
     router.get("/users/:id", async (req, res) => {
-        connection.query(`SELECT * FROM view_user_detail WHERE id=${req.params.id}`, (err, rows) => {
+        connection.query(`SELECT * FROM view_user_detail WHERE id=?`,
+        [req.params.id],
+        (err, rows) => {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
@@ -69,13 +71,13 @@ module.exports = function(db) {
 
     //create a new user
     router.post("/users", async (req, res) => {
-        req.body.isVerified = req.body.isVerified ? req.body.isVerified:false;
+        req.body.is_verified = req.body.is_verified ? req.body.is_verified:false;
         req.body.payment_account = req.body.payment_account? req.body.payment_account:null;
         connection.query(
             ` INSERT INTO user
               SET ?
             `,
-            req.body,
+            [req.body],
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
@@ -98,10 +100,10 @@ module.exports = function(db) {
         })
         connection.query(
             ` UPDATE user
-              SET ${params})
+              SET ?
               WHERE id=?
             `,
-            [req.body.id],
+            [params, req.body.id],
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
@@ -167,8 +169,9 @@ module.exports = function(db) {
         req.body.description = req.body.description? req.body.description:null;
         connection.query(
             `INSERT INTO post(seller, title, description, price, item_condition_id, category_id, sub_category_id) 
-             VALUES(${req.body.seller}, ${req.body.title}, ${req.body.description}, ${req.body.price}, ${req.body.item_condition_id}, ${req.body.category_id}, ${req.body.sub_category_id})
+             VALUES ? 
             `,
+            [req.body],
             (err, result) => {
                 if (err) {
                     connection.rollback(() => {
@@ -200,7 +203,6 @@ module.exports = function(db) {
                                     });
                                 }
                                 console.log("successfully created posting with image");
-                                connection.end();
                                 res.status(200).send(result);
                             });
                     // res.redirect(307 , `/images/${result.insertId}`)
@@ -238,7 +240,9 @@ module.exports = function(db) {
 
     //get all images of a given post
     router.get("/images/:post_id", async (req, res) => {
-        connection.query(`SELECT * FROM image_list where post_id = ${req.params.post_id}`, (err, rows) => {
+        connection.query(`SELECT * FROM image_list where post_id = ?`,
+        [req.params.post_id], 
+        (err, rows) => {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
@@ -250,41 +254,42 @@ module.exports = function(db) {
     });
 
     //post images of a given post
-    // router.post("/images/:post_id", async (req, res) => {
-    //     const images = JSON.parse(req.body.images);
-    //     let values = [];
-    //     images.forEach(image => {
-    //         values.push([req.params.post_id, image]);
-    //     })
-    //     console.log(values)
-    //     connection.query(
-    //         'INSERT INTO image_list (post_id, images_link) VALUES ?',
-    //         [values],
-    //         (err, result) => {
-    //             if (err) {
-    //                 console.log(`Query not run`); 
-    //                 connection.query('DELETE FROM `post` WHERE `id`=?', [req.params.post_id], (error, results, fields) => {
-    //                     if (error) {
-    //                         console.log("Fail to delete related post when image inserting failure", err.message)
-    //                     };
+    router.post("/images/:post_id", async (req, res) => {
+        const images = JSON.parse(req.body.images);
+        let values = [];
+        images.forEach(image => {
+            values.push([req.params.post_id, image]);
+        })
+        console.log(values)
+        connection.query(
+            'INSERT INTO image_list (post_id, images_link) VALUES ?',
+            [values],
+            (err, result) => {
+                if (err) {
+                    console.log(`Query not run`); 
+                    connection.query('DELETE FROM `post` WHERE `id`=?', 
+                    [req.params.post_id], 
+                    (error, results, fields) => {
+                        if (error) {
+                            console.log("Fail to delete related post when image inserting failure", err.message)
+                        };
                         
-    //                   });
-    //                 res.status(500).send(err.message);
-    //             } else {
-    //                 res.status(200).send(result);
-    //             }
-    //     });
-        
-    // });
+                      });
+                    res.status(500).send(err.message);
+                } else {
+                    res.status(200).send(result);
+                }
+        });
+    });
     
     //update images of a given post
     router.put("/images/:image_id", async (req, res) => {
         connection.query(
             ` UPDATE image_list
-              SET ${req.body.image}
+              SET ?
               WHERE image_id =?
             `,
-            [req.params.image_id],
+            [req.body.image, req.params.image_id],
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
@@ -322,7 +327,7 @@ module.exports = function(db) {
             ` INSERT INTO rating
               SET ?
             `,
-            req.body,
+            [req.body],
             (err, result) => {
                 if (err) {
                     console.log(`Query not run`); 
@@ -364,7 +369,9 @@ module.exports = function(db) {
 
     //get all bid by given post_id 
     router.get("/biding/:post_id", async(req, res) => {
-        connection.query(`SELECT * FROM biding where post_id = ${req.params.post_id} ORDER BY bid DESC`, (err, rows) => {
+        connection.query(`SELECT * FROM biding where post_id = ? ORDER BY bid DESC`, 
+        [req.params.post_id],
+        (err, rows) => {
             if (err) {
                 console.log(`Query not run`); 
                 res.status(500).send(err.message);
