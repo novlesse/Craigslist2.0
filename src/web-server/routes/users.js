@@ -24,7 +24,7 @@ module.exports = function() {
             res.status(500).send("oops, something is wrong");
         })
     });
-
+    
     //get a user's profile
     router.get('/user', (req, res) => {
         axios.get(urlbase + '/users/1')
