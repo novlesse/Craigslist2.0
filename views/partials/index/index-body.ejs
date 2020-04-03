@@ -29,18 +29,20 @@
             <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
               <!--Body-->
               <div class="modal-body mb-1">
-                <div class="md-form form-sm mb-2 active-cyan-4">
-                  <label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
-                  <input type="text" id="modalLRInput10" class="form-control form-control-sm validate">
-                </div>
+                <form method="post" action="/login">
+                  <div class="md-form form-sm mb-2 active-cyan-4">
+                    <label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
+                    <input type="text" id="modalLRInput10" name="email" class="form-control form-control-sm validate">
+                  </div>
 
-                <div class="md-form form-sm mb-1 active-cyan-4">
-                  <label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
-                  <input type="text" id="modalLRInput11" class="form-control form-control-sm validate">
-                </div>
-                <div class="text-left form-sm mt-2">
-                  <button class="btn btn-info">Log In</button>
-                </div>
+                  <div class="md-form form-sm mb-1 active-cyan-4">
+                    <label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
+                    <input type="text" id="modalLRInput11" name="password" class="form-control form-control-sm validate">
+                  </div>
+                  <div class="text-left form-sm mt-2">
+                    <input type="submit" class="btn btn-info" value="Log In">
+                  </div>
+                </form>
               </div>
               <!--Footer-->
               <div class="modal-footer">

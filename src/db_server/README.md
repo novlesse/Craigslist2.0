@@ -241,9 +241,70 @@ response
 ]
 ```
 
-***"/post/:seller_id" method:get***
+***"/post/:post_id" method:get***
+- list a post details of given post_id
+```Json
+[
+    {"post_id":1,
+    "post_title":"shelf",
+    "post_description":null,
+    "post_price":45,
+    "seller":1,
+    "item_condition":"new",
+    "category_id":2,
+    "category_name":"furnitures",
+    "sub_category_id":4,
+    "sub_category_name":"office",
+    "created_at":"2020-03-26T03:03:03.000Z",
+    "is_active":1,
+    "user_id":1,"username":"FlyingDuck",
+    "average_rating":2.6667,
+    "total_rating":3,
+    "image_list":"[\"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\"]"},
+    
+    {
+        "post_id":2,
+        "post_title":"drawing brush",
+        "post_description":null,
+        "post_price":15,
+        "seller":1,
+        "item_condition":"used",
+        "category_id":6,
+        "category_name":"arts & crafts",
+        "sub_category_id":2,
+        "sub_category_name":"drawing & painting",
+        "created_at":"2020-03-26T03:03:03.000Z",
+        "is_active":1,
+        "user_id":1,
+        "username":"FlyingDuck",
+        "average_rating":2.6667,
+        "total_rating":3,
+        "image_list":"[\"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\"]"}
+]
+```
+
+***"/post/seller/:seller_id" method:get***
 - list all posts of given seller id
 ```Json
+{
+    "post_id":2,
+    "post_title":"drawing brush",
+    "post_description":null,
+    "post_price":15,
+    "seller":1,
+    "item_condition":"used",
+    "category_id":6,
+    "category_name":"arts & crafts",
+    "sub_category_id":2,
+    "sub_category_name":"drawing & painting",
+    "created_at":"2020-03-26T03:03:03.000Z",
+    "is_active":1,
+    "user_id":1,
+    "username":"FlyingDuck",
+    "average_rating":2.6667,
+    "total_rating":3,
+    "image_list":"[\"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/3777939/pexels-photo-3777939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\"]"
+}
 
 ```
 

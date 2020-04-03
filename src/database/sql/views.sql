@@ -29,7 +29,7 @@ CREATE VIEW view_user_detail AS
 SELECT
     u.*, ur.average_rating, ur.total_rating
 FROM user AS u
-     INNER JOIN view_user_rating_summary AS ur ON u.id = ur.user_id;
+     LEFT JOIN view_user_rating_summary AS ur ON u.id = ur.user_id;
 
 DROP VIEW IF EXISTS 'view_post_image_list';
 CREATE VIEW view_post_image_list AS
