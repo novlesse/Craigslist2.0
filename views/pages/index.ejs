@@ -1,9 +1,14 @@
-<%- include('../partials/head', {css: "index.css"}) -%>
+<%- include('../partials/head', {title: "Index", css:"index.css"}) -%>
 <body class="background-image">
     <header class="d-flex justify-content-between align-items-center mt-4">
+        <% if(locals.isLoggedIn) {%>
+        <%- include('../partials/index/header') -%> 
+        <% } else {%>
         <%- include('../partials/index/index-body') -%> 
-    </header>   
-    <%- include('../partials/index/search-form') -%> 
+        <% } %>
+    </header>
+    <% if(!locals.msg) { msg = ''} %>
+    <%- include('../partials/index/search-form', {message: msg}) -%> 
 </body>
-    <%- include('../partials/script', {javascript:"index.css"}) -%>
+    <%- include('../partials/script', {javascript:"index.js"}) -%>
 </html>

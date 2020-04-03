@@ -3,11 +3,18 @@ const router = express.Router();
 const axios = require("axios");
 const urlbase = "http://99.79.9.84:8080";
 const imagUrlBase = "http://craiglist2.s3-website.ca-central-1.amazonaws.com/300xAUTO/";
-module.exports = function() {
-    // get all category & sub_category 
-    // can be used to render new post form
 
-    router.get("/listing-form", (req, res) => {
+module.exports = function (passport) {
+    const authenticate = (req, res, next) => {
+        if (req.isAuthenticated()) {
+            console.log('success')
+            next();
+        } else {
+            res.redirect("/?msg=Please login to continue");
+        }
+    }
+    
+    router.get("/listing-form", authenticate, (req, res) => {
         axios.get(urlbase + "/condition")
         .then(condition => {
             axios.get(urlbase + "/category")
@@ -26,11 +33,13 @@ module.exports = function() {
     });
     
     //get a user's profile
-    router.get('/user', (req, res) => {
+    router.get('/user/:id', authenticate, (req, res) => {
+        // axios.get(`${urlbase}/users/${req.params.id}`)
         axios.get(urlbase + '/users/1')
             .then((response) => {
                 //console.log(response);
                 const { username, email, average_rating, is_verified } = response['data'][0];
+                // axios.get(`http://99.79.9.84:8080/ratings/${req.params.id}`)
                 axios.get('http://99.79.9.84:8080/ratings/1')
                     .then((response) => {
                         let ratings = response['data'];
@@ -49,7 +58,7 @@ module.exports = function() {
     }) 
 
     //create new post
-    router.post("/posts", (req, res) => {
+    router.post("/posts", authenticate, (req, res) => {
         try{
             req.body.description = req.body.description? req.body.description: null
             const images = JSON.parse(req.body.images).map(element => imagUrlBase + element);
@@ -76,6 +85,12 @@ module.exports = function() {
         } catch(err) {
             res.status(400).send('Bad request')
         }
+    });
+    
+    //logout a user
+    router.get("/logout", (req, res) => {
+        req.logout();
+        res.redirect("/?msg=You are now logged out.");
     });
 
     //update a post

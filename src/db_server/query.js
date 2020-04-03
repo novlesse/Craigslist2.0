@@ -56,7 +56,7 @@ module.exports = function(db) {
      //find user by email & verify email is available
      router.get("/users/email/:email", async (req, res) => {
         connection.query(
-            `SELECT * FROM view_user_detail WHERE email=?`,
+            `SELECT * FROM user WHERE email=?`,
             [req.params.email], 
             (err, rows) => {
                 if (err) {
