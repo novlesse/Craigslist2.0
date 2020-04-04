@@ -56,7 +56,7 @@ module.exports = function(db) {
      //find user by email & verify email is available
      router.get("/users/email/:email", async (req, res) => {
         connection.query(
-            `SELECT * FROM view_user_detail WHERE email=?`,
+            `SELECT * FROM user WHERE email=?`,
             [req.params.email], 
             (err, rows) => {
                 if (err) {
@@ -133,6 +133,21 @@ module.exports = function(db) {
         });
     });
 
+    //list a post details of given post_id
+    router.get("/posts/:post_id", async (req, res) => {
+        connection.query(`SELECT * FROM view_post_detail where id=? `,
+            [req.params.post_id],
+            (err, rows) => {
+                if (err) {
+                    console.log(`Query not run`);
+                    res.status(500).send(err.message);
+
+                } else {
+                    res.status(200).send(rows);
+                }
+            });
+    });
+    
     //list all posts of given seller
     router.get("/posts/seller/:seller_id", async (req, res) => {
         connection.query(`SELECT * FROM view_post_detail where seller=? `,
