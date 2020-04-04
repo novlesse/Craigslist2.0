@@ -22,11 +22,14 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "node-dev": "^4.0.0",
     "@testing-library/dom": "^6.12.2",
+    "bufferutil": "^4.0.1",
+    "canvas": "^2.6.1",
     "dotenv": "^8.2.0",
     "jest": "^25.1.0",
+    "node-dev": "^4.0.0",
     "nodemon": "^2.0.2",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "utf-8-validate": "^5.0.2"
   }
 }

@@ -124,7 +124,8 @@ module.exports = function() {
         res.render("pages/listing", {
           listings: response.data,
           search: req.body.keyword,
-          css:"listings.css"
+          css:"listings.css",
+          javascript:"index.js"
         });
         // res.status(200).send(response.data); //testing purpose
       })
