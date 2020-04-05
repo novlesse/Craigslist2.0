@@ -130,6 +130,7 @@ module.exports = function() {
       req.body.category_id = req.body.category_id? req.body.category_id:null
       req.body.sub_category_id = req.body.sub_category_id? req.body.sub_category_id:null
       req.body.keyword = req.body.keyword? req.body.keyword:null
+
       Promise.all([
         axios.get(urlbase + "/category"),
         axios.get(urlbase + "/province"),
@@ -153,6 +154,7 @@ module.exports = function() {
             listings: responses[2].data,
             search: req.body.keyword,
           }); 
+
         // res.status(200).send(response.data); //testing purpose
       })
         .catch((err) => {
