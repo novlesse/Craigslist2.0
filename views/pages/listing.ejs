@@ -1,5 +1,4 @@
 <%- include ("../partials/head") -%>
-
 <header class="d-flex justify-content-between align-items-center mt-4">
     <%- include('../partials/index/'+header) -%>
 </header>
@@ -16,9 +15,10 @@
                     <img src='<%= listing.image_list[0] %>' class="card-img-top" alt="..." />
                     <i class="far heart fa-heart"></i>
                 </div>
-                <div id="<%= listing.post_id %>"class="card-body">
+                <div id="<%= listing.post_id %>" class="card-body">
                     <h5 class="card-title"><%= listing.post_title %></h5>
                     <p class="card-text">$ <%= listing.post_price %></p>
+                    <a id="<%= listing.user_id %>" href="/user/<%= listing.user_id %>"><%= listing.username %></a>
                     <div class="card-text">
                         <%- include("../partials/listings/rating", {average_rating:listing.average_rating.toFixed(2), total_rating:listing.total_rating}) -%>
                     </div>
@@ -27,10 +27,10 @@
             <% }) %>
         </div>
     </div>
-    
+
     <% } else { %>
     <p class="listing-result-heading-sm">There are no listings for <%= search %></p>
     <% } %>
-    <%- include ('../partials/script') -%>
+    <%- include('../partials/script', {javascript:"index.js"}) -%>
 </body>
 </html>

@@ -4,85 +4,90 @@
 
 ## Endpoints
 
-***"/users" method:get***
+**_"/users" method:get_**
+
 - get all the user lists
->response
+  > response
+
 ```json
 [
-    {
-        "id": 1,
-        "username": "FlyingDuck",
-        "firstname": "Jim",
-        "lastname": "Davis",
-        "email": "jim@test.com",
-        "password": "test",
-        "house_num": "473",
-        "street": "4567 Canada Way",
-        "city": "Burnaby",
-        "province_code": "BC",
-        "postcode": "V5G 4T1",
-        "country_code": "CA",
-        "is_verified": 0,
-        "payment_account": null,
-        "created_at": "2020-03-11T11:24:30.000Z",
-        "average_rating": 2.6667,
-        "total_rating": 3
-    },
-    {
-        "id": 2,
-        "username": "Wowooo",
-        "firstname": "Sam",
-        "lastname": "Brown",
-        "email": "sam@test.com",
-        "password": "test",
-        "house_num": "453",
-        "street": "West 12th Avenue",
-        "city": "Vancouver",
-        "province_code": "BC",
-        "postcode": "V5Y 1V4",
-        "country_code": "CA",
-        "is_verified": 0,
-        "payment_account": null,
-        "created_at": "2020-03-11T11:24:30.000Z",
-        "average_rating": 3.3333,
-        "total_rating": 3
-    },
+  {
+    "id": 1,
+    "username": "FlyingDuck",
+    "firstname": "Jim",
+    "lastname": "Davis",
+    "email": "jim@test.com",
+    "password": "test",
+    "house_num": "473",
+    "street": "4567 Canada Way",
+    "city": "Burnaby",
+    "province_code": "BC",
+    "postcode": "V5G 4T1",
+    "country_code": "CA",
+    "is_verified": 0,
+    "payment_account": null,
+    "created_at": "2020-03-11T11:24:30.000Z",
+    "average_rating": 2.6667,
+    "total_rating": 3
+  },
+  {
+    "id": 2,
+    "username": "Wowooo",
+    "firstname": "Sam",
+    "lastname": "Brown",
+    "email": "sam@test.com",
+    "password": "test",
+    "house_num": "453",
+    "street": "West 12th Avenue",
+    "city": "Vancouver",
+    "province_code": "BC",
+    "postcode": "V5Y 1V4",
+    "country_code": "CA",
+    "is_verified": 0,
+    "payment_account": null,
+    "created_at": "2020-03-11T11:24:30.000Z",
+    "average_rating": 3.3333,
+    "total_rating": 3
+  }
 ]
-
 ```
 
-***"/users/:id" method:get***
+**_"/users/:id" method:get_**
+
 - find user by given id
-> request: "/users/1
-response
+  > request: "/users/1
+  > response
+
 ```json
 [
-    {
-        "id": 1,
-        "username": "FlyingDuck",
-        "firstname": "Jim",
-        "lastname": "Davis",
-        "email": "jim@test.com",
-        "password": "test",
-        "house_num": "473",
-        "street": "4567 Canada Way",
-        "city": "Burnaby",
-        "province_code": "BC",
-        "postcode": "V5G 4T1",
-        "country_code": "CA",
-        "is_verified": 0,
-        "payment_account": null,
-        "created_at": "2020-03-11T11:24:30.000Z",
-        "average_rating": 2.6667,
-        "total_rating": 3
-    }
+  {
+    "id": 1,
+    "username": "FlyingDuck",
+    "firstname": "Jim",
+    "lastname": "Davis",
+    "email": "jim@test.com",
+    "password": "test",
+    "house_num": "473",
+    "street": "4567 Canada Way",
+    "city": "Burnaby",
+    "province_code": "BC",
+    "postcode": "V5G 4T1",
+    "country_code": "CA",
+    "is_verified": 0,
+    "payment_account": null,
+    "created_at": "2020-03-11T11:24:30.000Z",
+    "average_rating": 2.6667,
+    "total_rating": 3
+  }
 ]
 ```
 
-***"/users/username/:username" method:get***
+**_"/users/username/:username" method:get_**
+
 - find user by given username & verify username is available
-> request: "/users/username/Wowooo
-response
+  > request: "/users/username/Wowooo
+  > response
+
 ```JSON
 request:
 [
@@ -108,10 +113,12 @@ request:
 ]
 ```
 
-***"/users/email/:email" method:get***
+**_"/users/email/:email" method:get_**
+
 - find user by email & verify email is available
->request: /users/email/kevin@test.com
-response
+  > request: /users/email/kevin@test.com
+  > response
+
 ```JSON
 [
     {
@@ -136,11 +143,13 @@ response
 ]
 ```
 
-***"/user" method:post***
+**_"/user" method:post_**
+
 - Create a new user
->request body format:
+  > request body format:
+
 ```JSON
-{   
+{
     "username":"user5",
     "firstname":"Lily",
     "lastname":"Jim",
@@ -157,47 +166,55 @@ response
 }
 
 ```
-***"/user" method:put***
+
+**_"/user" method:put_**
+
 - update user"s profile
+
 ```javascript
-    
-        //to do
-    
+//to do
 ```
+
 - example parameters:
+
 ```json
 {
-    "id":1,
-    "username":"newname",
-    "house_num":12
-}
-```
-***"/user" method:post***
-- signup a new user
-- expecting parameters:
-```json
-{
-    "username":"",
-    "firstname":"",
-    "lastname":"",
-    "email":"",
-    "password":"",
-    "house_num":"",
-    "street":"",
-    "city":"",
-    "province_code":"",
-    "postcode":"",
-    "country_code":"",
-    //optional, default value is False
-    "is_verified":"", 
-    //optional
-    "payment_account":""
+  "id": 1,
+  "username": "newname",
+  "house_num": 12
 }
 ```
 
-***"/posts" method:get***
+**_"/user" method:post_**
+
+- signup a new user
+- expecting parameters:
+
+```json
+{
+  "username": "",
+  "firstname": "",
+  "lastname": "",
+  "email": "",
+  "password": "",
+  "house_num": "",
+  "street": "",
+  "city": "",
+  "province_code": "",
+  "postcode": "",
+  "country_code": "",
+  //optional, default value is False
+  "is_verified": "",
+  //optional
+  "payment_account": ""
+}
+```
+
+**_"/posts" method:get_**
+
 - list all posts detailed content
->response  
+  > response
+
 ```JSON
 [
     {
@@ -241,8 +258,10 @@ response
 ]
 ```
 
-***"/post/:post_id" method:get***
+**_"/post/:post_id" method:get_**
+
 - list a post details of given post_id
+
 ```Json
 [
     {"post_id":1,
@@ -261,7 +280,7 @@ response
     "average_rating":2.6667,
     "total_rating":3,
     "image_list":"[\"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\", \"https://images.pexels.com/photos/279618/pexels-photo-279618.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260\"]"},
-    
+
     {
         "post_id":2,
         "post_title":"drawing brush",
@@ -283,8 +302,10 @@ response
 ]
 ```
 
-***"/post/seller/:seller_id" method:get***
+**_"/post/seller/:seller_id" method:get_**
+
 - list all posts of given seller id
+
 ```Json
 {
     "post_id":2,
@@ -308,39 +329,50 @@ response
 
 ```
 
-***"/post" method:post***
+**_"/post" method:post_**
+
 - insert a new post
 - expecting parameters:
+
 ```json
 {
-    "seller":3,
-    "title":"iphone x",
-    "price":400,
-    "item_condition_id":2,
-    "category_id":4,
-    "sub_category_id":1,
-    "images":["https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", "https://images.pexels.com/photos/1294886/pexels-photo-1294886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"]
+  "seller": 3,
+  "title": "iphone x",
+  "price": 400,
+  "item_condition_id": 2,
+  "category_id": 4,
+  "sub_category_id": 1,
+  "images": [
+    "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    "https://images.pexels.com/photos/1294886/pexels-photo-1294886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+  ]
 }
 ```
 
-***"/posts" method:put***
+**_"/posts" method:put_**
+
 - update a post"s content
+
 ```
         //to do
-    
+
 ```
+
 - expecting parameters:
+
 ```json
 {
-    "id":"post_id",
-    "title":"new-title",
-    "price":"new-price"
+  "id": "post_id",
+  "title": "new-title",
+  "price": "new-price"
 }
 ```
 
-***"/category" method:get***
+**_"/category" method:get_**
+
 - get all category and sub_category lists
-response
+  response
+
 ```JSON
     [
     {
@@ -381,10 +413,12 @@ response
 ]
 ```
 
-***"/images/:post_id" method:get***
+**_"/images/:post_id" method:get_**
+
 - get all images of a given post
->request: /images/2
-response
+  > request: /images/2
+  > response
+
 ```JSON
 [
     {
@@ -415,20 +449,24 @@ response
 ]
 ```
 
-***"/images/:post_id" method:post***
+**_"/images/:post_id" method:post_**
+
 - post all images of a given post
->request /images/3
-response
+  > request /images/3
+  > response
+
 ```json
 {
-    "images":[]
+  "images": []
 }
 ```
 
-***"/ratings/:user_id" method:get***
+**_"/ratings/:user_id" method:get_**
+
 - get ratings of a given user
->request /ratings/2
-response
+  > request /ratings/2
+  > response
+
 ```json
 {
     [
@@ -459,9 +497,12 @@ response
 ]
 }
 ```
-***"/ratings/" method:post***
+
+**_"/ratings/" method:post_**
+
 - post a ratings
 - expecting parameters:
+
 ```JSON
 {
     "stars":5,
@@ -473,56 +514,68 @@ response
 }
 ```
 
-***"/incoming_transaction/:user_id" method:get***
+**_"/incoming_transaction/:user_id" method:get_**
+
 - get a user"s all incoming transactions
+
 ```javascript
-    router.get("/incoming_transaction/:user_id", async(req, res) => {
-        //to do
-    });
+router.get("/incoming_transaction/:user_id", async (req, res) => {
+  //to do
+});
 ```
 
-***"/incoming_transaction/:user_id" method:post***
+**_"/incoming_transaction/:user_id" method:post_**
+
 - insert an incoming transaction by given user
+
 ```javascript
-    router.post("/incoming_transaction/:user_id", async(req, res) => {
-        //to do
-    });
+router.post("/incoming_transaction/:user_id", async (req, res) => {
+  //to do
+});
 ```
+
 - expecting parameters:
+
 ```json
 {
-    "amount":"",
-    "sender":"user_id",
-    "post_id":"",
-    "account_num":"",
-    //1 for bidding and 2 for on hold to seller
-    "trans_status_id":""
+  "amount": "",
+  "sender": "user_id",
+  "post_id": "",
+  "account_num": "",
+  //1 for bidding and 2 for on hold to seller
+  "trans_status_id": ""
 }
 ```
 
-***"/outgoing_transaction/:user_id" method:get***
+**_"/outgoing_transaction/:user_id" method:get_**
+
 - get a user"s all outgoing transaction
+
 ```javascript
-    router.get("/outgoing_transaction/:user_id", async(req, res) => {
-        //to do
-    });
+router.get("/outgoing_transaction/:user_id", async (req, res) => {
+  //to do
+});
 ```
 
-***"/outgoing_transaction/:user_id" method:post***
-- insert a user"s all outgoing transaction 
+**_"/outgoing_transaction/:user_id" method:post_**
+
+- insert a user"s all outgoing transaction
+
 ```javascript
-    router.get("/outgoing_transaction/:user_id", async(req, res) => {
-        //to do
-    });
+router.get("/outgoing_transaction/:user_id", async (req, res) => {
+  //to do
+});
 ```
+
 - expecting parameters:
+
 ```json
 {
-    "amount":"",
-    "receiver":"user_id",
-    "incoming_transaction_id":"",
-    "account_num":"",
-    //4 for refund and 5 for release payment to seller
-    "trans_status_id":""
+  "amount": "",
+  "receiver": "user_id",
+  "incoming_transaction_id": "",
+  "account_num": "",
+  //4 for refund and 5 for release payment to seller
+  "trans_status_id": ""
 }
 ```

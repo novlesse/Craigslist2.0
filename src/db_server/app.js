@@ -1,6 +1,6 @@
 const express = require("express"),
-      app = express(),
-      bodyParser = require("body-parser");
+    app = express(),
+    bodyParser = require("body-parser");
 
 module.exports = (database) => {
     const dbQuery = require("./query")(database);
@@ -10,6 +10,6 @@ module.exports = (database) => {
     }));
     app.use(bodyParser.json());
     app.use("/", dbQuery);
-    
+
     return app;
 };
