@@ -11,7 +11,7 @@
                 <h5 class="mb-1"> <%= ratings[i]['title'] %></h5>
                 <small> <%= ratings[i]['created_at'] %></small>
             </div>
-            <a href="/api/users/profile/<%= ratings[i]['username'] %>" class="mb-1"
+            <a href="/user/<%= ratings[i]['rater'] %>" class="mb-1"
                 name="username"><%= ratings[i]['username'] %></a>
             <p class=" mb-1"><%= ratings[i]['description'] %></p>
         </div>

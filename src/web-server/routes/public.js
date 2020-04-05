@@ -26,7 +26,7 @@ module.exports = function() {
           header: header,
           category: responses[0].data,
           province: responses[1].data,
-          message: message
+          msg: message
         });
       } else {
         // console.log("Error:", err.message);
@@ -72,25 +72,26 @@ module.exports = function() {
   //get a user's public profile by id
   router.get('/user/:id', (req, res) => {
     //if the user sent request logged in and his id equals to the user's id he required redirect to his own profile page
+    console.log(req.user.id, req.params.id)
     if (req.user && req.user.id === req.params.id) res.redirect("/api/users/account")
 
     Promise.all([
-      axios.get(`${urlbase}/users/${req.user.id}`),
-      axios.get(`${urlbase}/ratings/${req.user.id}`)
+      axios.get(`${urlbase}/users/${req.params.id}`),
+      axios.get(`${urlbase}/ratings/${req.params.id}`)
     ])
       .then((responses) => {
         //console.log(response);
         let ratings = responses[1].data;
         //set average_rating to 0 if user has no rating
-        responses[0].data.average_rating = ratings.length == 0 ? 0 : responses[0].data.average_rating 
-        const { username, email, average_rating, total_rating, is_verified } = responses[0].data;
+        responses[0].data[0].average_rating = ratings.length == 0 ? 0 : responses[0].data[0].average_rating.toFixed(2)
+        const { username, email, average_rating, total_rating, is_verified } = responses[0].data[0];
         
         // console.log(ratings)
         ratings.map(rating => rating.created_at = rating.created_at.substr(0, 10));
         res.render('pages/userprofile', {
           username: username,
           email: email,
-          average_rating: average_rating.toFixed(2),
+          average_rating: average_rating,
           total_rating: total_rating,
           is_verified: is_verified,
           ratings: ratings,
@@ -105,11 +106,13 @@ module.exports = function() {
 
   router.post("/signup", (req, res) => {
     //form data validation
-    if (req.body.username && req.body.firstname && req.body.lastname && req.body.email
-      && req.body.password && req.body.housenumber && req.body.province && req.body.postalcode && req.body.country) res.status(400).send("Form data is invalid!")
+    if (!(req.body.username && req.body.firstname && req.body.lastname && req.body.email
+        && req.body.password && req.body.housenumber && req.body.province && req.body.postalcode 
+        && req.body.country)) res.status(400).send("Form data is invalid!")
     try {
       bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(req.body.password, salt, (err, hash) => {
+          
           if (err) throw err;
           const signup = {
             username: req.body.username,
@@ -121,22 +124,31 @@ module.exports = function() {
             street: req.body.street,
             city: req.body.city,
             province_code: req.body.province.toUpperCase(),
+            country_code: req.body.country.toUpperCase(),
             postcode: req.body.postalcode,
-            country_code: req.body.country.toUpperCase()
           }
-          axios.post(urlbase + "/users", signup)
-            .then((response) => {
-              // console.log(response.data);
-
-              res.cookie('user_id', response.data.id);
-              console.log(response.data.id)
-              res.redirect('/?msg=success');
-              // res.redirect(`/api/users/user`);
-            })
-            .catch((err) => {
-              console.log("Error:", err.message);
-              res.status(500).send("oops, something is wrong");
-            })
+          Promise.all([
+            axios.get(`${urlbase}/users/email/${signup.email}`),
+            axios.get(`${urlbase}/users/username/${signup.username}`)
+          ])
+          .then(responses => {
+            if(responses[0].data.length != 0 && responses[1].data.length != 0) {
+              res.redirect('/?msg=username or email has already been used');
+            } else {
+              axios.post(urlbase + "/users", signup)
+              .then((response) => {
+                // console.log(response.data);
+                res.cookie('user_id', response.data.id);
+                console.log(response.data.id)
+                res.redirect('/?msg=success');
+                // res.redirect(`/api/users/user`);
+              })
+              .catch((err) => {
+                console.log("Error:", err.message);
+                res.status(500).send("oops, something is wrong");
+              })
+            }
+          })
         });
       });
     } catch(err) {

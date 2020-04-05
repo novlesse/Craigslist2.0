@@ -83,6 +83,7 @@ CREATE VIEW view_rating_list AS
 SELECT
     r.stars AS stars,
     r.ratee AS ratee,
+    r.rater AS rater,
     u.username AS username,
     r.title AS title,
     r.`description` AS `description`,

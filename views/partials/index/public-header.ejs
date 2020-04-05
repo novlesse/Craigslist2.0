@@ -58,7 +58,7 @@
             <!--Panel 2-->
             <div class="tab-pane fade" id="panel8" role="tabpanel">
             <!--Body-->
-              <form class="modal-body" method="post" action="/signup">
+              <form id="signup" class="modal-body" method="post" action="/signup">
                 <div class="form-group">
                   <label for="inputusername">Username</label>
                   <input type="text" class="form-control" id="inputusername" name="username" required>
@@ -89,7 +89,7 @@
                       <select name="province" id="province">
                         <%if (province.length > 0) { %>
                           <% for(let i=0; i < province.length; i++) { %>
-                              <option value="<%= province[i] %>"><%= province[i]["code"] %></option>
+                              <option value="<%= province[i]["code"] %>"><%= province[i]["code"] %></option>
                             <% } %>
                             <% } %>
                       </select>
