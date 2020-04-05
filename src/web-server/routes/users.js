@@ -10,7 +10,8 @@ module.exports = function (passport) {
             console.log('success')
             next();
         } else {
-            res.redirect("/?msg=Please login to continue");
+            if(req.url = "/listing-form") res.send("<h5>Please login to continue</h5>")
+            else res.redirect("/?msg=Please login to continue");
         }
     }
     
@@ -33,21 +34,24 @@ module.exports = function (passport) {
     });
     
     //get a user's profile
-    router.get('/user/:id', authenticate, (req, res) => {
+    router.get('/user', authenticate, (req, res) => {
         // axios.get(`${urlbase}/users/${req.params.id}`)
-        axios.get(urlbase + '/users/1')
+        console.log(req.user.id)
+        axios.get(`${urlbase}/users/${req.user.id}`)
             .then((response) => {
                 //console.log(response);
-                const { username, email, average_rating, is_verified } = response['data'][0];
+                const { username, email, average_rating, total_rating,  is_verified } = response['data'][0];
                 // axios.get(`http://99.79.9.84:8080/ratings/${req.params.id}`)
                 axios.get('http://99.79.9.84:8080/ratings/1')
                     .then((response) => {
                         let ratings = response['data'];
                         console.log(ratings)
+                        ratings.map(rating=>rating.created_at=rating.created_at.substr(0,10));
                         res.render('pages/userprofile', {
                             username: username,
                             email: email,
-                            average_rating: average_rating,
+                            average_rating: average_rating.toFixed(2),
+                            total_rating:total_rating,
                             is_verified: is_verified,
                             ratings: ratings
                         })

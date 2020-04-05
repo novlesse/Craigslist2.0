@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Profile</title>
-</head>
+<%- include('../partials/head', {title: "Profile", css:"../../profile.css"}) -%>
 <body>
-    <%- include ("../partials/index/header") %> 
+    <%- include ("../partials/index/profile-header") %> 
     <div class="container-fluid">
         <div class="row">
             <!--User Information Card-->
@@ -23,7 +16,9 @@
                         <p contenteditable="true">About text : While happily ignoring when being called going to catch the red dot today trophy. Kick up litter pet my belly, you know you want to; seize the hand and shred it! stand with legs in litter box, but poop outsid</p>
                         <h4 class="info-text"> Email: <%= email %></h4>
                         <h4 class="info-text"> Last Active: </h4>
-                        <h4 class="info-text">Average Rating: <%= average_rating %> </h4>
+                        
+                        <%- include("../partials/listings/rating", {average_rating:average_rating, total_rating:total_rating}) -%>
+                        
                         <h4>Verification: <% if (is_verified == 0) {%> 👌 <%} else { %> ❌ <%} %></h4>
                     </div>
                     <!-- <div class="button-container d-flex flex-row bd-highlight mb-3 justify-content-around">
@@ -38,8 +33,6 @@
                 </div>
             </div>
             <!--end-->
-
-
             <div class="col container-fluid">
                 <div class="jumbotron m-4">
                 <h1 class="component-title text-center"> Recent Listings</h1>
@@ -65,15 +58,9 @@
                         <li class="list-group-item"><img class="img-fluid rounded" style="width: 10rem; height: auto" src="https://images.unsplash.com/photo-1566393028639-d108a42c46a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1627&q=80"></li>
                         <a href="#" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
-                                
-                                
-                             
-                                    <h5 class="mb-1"> <%= ratings[i]['title'] %></h5>
-            
+                                <h5 class="mb-1"> <%= ratings[i]['title'] %></h5>
                                     <small> <%= ratings[i]['created_at'] %></small>
-                              
                             </div>
-
                             <p class="mb-1"><%= ratings[i]['username'] %> </p>
                             <p class="mb-1"><%= ratings[i]['description'] %></p>
                             
@@ -87,13 +74,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
-<%- include('../partials/script', {javascript:"../../index.js"}) -%>
+<%- include('../partials/script') -%>
 </body>
 </html>

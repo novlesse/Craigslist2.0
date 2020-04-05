@@ -135,7 +135,7 @@ module.exports = function(db) {
 
     //list a post details of given post_id
     router.get("/posts/:post_id", async (req, res) => {
-        connection.query(`SELECT * FROM view_post_detail where id=? `,
+        connection.query(`SELECT * FROM view_post_detail where post_id=? `,
             [req.params.post_id],
             (err, rows) => {
                 if (err) {
@@ -166,7 +166,7 @@ module.exports = function(db) {
     //search posts by category & keywords
     router.post("/posts/search", async (req, res) => {
         req.body.category_id = req.body.category_id? req.body.category_id:null
-        req.body.sub_category_id = req.body.sub_category_id? req.body.Sub_category_id:null
+        req.body.sub_category_id = req.body.sub_category_id? req.body.sub_category_id:null
         req.body.keyword = req.body.keyword? req.body.keyword:null
             connection.query(
                 `SELECT * FROM view_post_detail 
@@ -261,6 +261,19 @@ module.exports = function(db) {
             }
         });
     });
+
+    //get province lists
+    router.get("/province", async (req, res) => {
+        connection.query("SELECT code FROM province", (err, rows) => {
+            if (err) {
+                console.log(`Query not run`);
+                res.status(500).send(err.message);
+
+            } else {
+                res.status(200).send(rows);
+            }
+        });
+    })
 
     //get item condition list
     router.get("/condition", async (req, res) => {

@@ -4,18 +4,15 @@ const axios = require("axios");
 const urlbase = "http://99.79.9.84:8080";
 
 module.exports = function (passport) {
-  console.log("in passport")
   passport.use('local',
     new LocalStrategy({
       usernameField: "email"
     }, function(email, password, done) {
       // Match user
-      console.log(email)
       let user = {};
       axios.get(`${urlbase}/users/email/${email}`)
       .then((response) => {
         if (response.data) {
-          console.log('login', response.data)
           user = response.data[0]
           userPW = response.data[0].password
         } else {
@@ -49,7 +46,6 @@ module.exports = function (passport) {
     axios.get(`${urlbase}/users/${id}`)
       .then((response) => {
         if (response.data) {
-          console.log('check login', response.data)
           user = response.data[0]
           if(user)
           done(null, user)
