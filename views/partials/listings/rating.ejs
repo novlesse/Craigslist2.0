@@ -1,5 +1,6 @@
 <div class="d-flex flex-row justify-content-start">
   <span>Rating:</span>
+
   <div class="star-rating">
     <div class="back-stars">
       <% for(let i=0; i < 5; i++) { %>
@@ -13,4 +14,4 @@
     </div>
   </div>
 </div>
-<p><%= average_rating %> average based on <%=total_rating%> ratings.</p>
+<p><%= average_rating.toFixed(2) %> average based on <%=total_rating%> ratings.</p>
