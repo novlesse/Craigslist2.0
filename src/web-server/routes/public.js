@@ -8,41 +8,54 @@ const passport = require("passport");
 require("../utilities/passport")(passport);
 
 module.exports = function() {
-  
   router.get("/", (req, res) => {
     axios.get(urlbase + "/category")
     .then(response => {
       response.data.map((category) => {category.sub_categories = JSON.parse(category.sub_categories)})
-      const msg = req.query.msg || null
-      const isLoggedIn = msg === 'success'? true:false
-      res.render("pages/index", 
-        { title:"Index", 
-          css:"index.css", 
-          javascript:"index.js",
-          label:"search", 
-          category:response.data,
-          msg: msg,
-          isLoggedIn:isLoggedIn});
-    })
-    .catch(err => {
-      console.log("Error:", err.message);
-      res.status(500).send("oops, something is wrong");
+      if (response.data) {
+        const header = req.user ? 'private-header' : 'public-header'
+        const msg = req.query.msg || null
+        res.render("pages/index",
+        {
+          title: "Index",
+          css: "index.css",
+          label: "search",
+          header: header,
+          province: "province",
+          category: response.data,
+          msg: msg
+        });
+      } else {
+        // console.log("Error:", err.message);
+        res.status(500).send("oops, something is wrong");
+      }  
     })
   });
-  
-  // router.get("/test", (req, res) => {
-  //   res.render("pages/upload", { 
-  //     title:"upload", 
-  //     css:"index.css", 
-  //     javascript:"upload.js"})
-  // });
-  
+
   router.get("/posts", (req, res) => {
-    axios.get(urlbase + "/posts")
-    .then(response => {
-      res.status(200).send(response.data)
-      // res.render("pages/listing", {listing:response.data});
-    })
+    Promise.all([
+      axios.get(urlbase + "/category"),
+      axios.get(urlbase + "/province"),
+      axios.get(urlbase + "/posts")
+    ])
+    .then(responses => {
+      responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
+      responses[2].data.map((listing) => { listing.image_list = JSON.parse(listing.image_list) })
+      const header = req.user ? 'private-header' : 'public-header'
+      const msg = req.query.msg || null
+      res.render("pages/listing",
+        {
+          title: "Listings",
+          css: "listings.css",
+          label: "search",
+          search:"",
+          header: header,
+          category: responses[0].data,
+          province: responses[1].data,
+          message: msg,
+          listings: responses[2].data
+        }); 
+      })
     .catch(err => {
       console.log("Error:", err.message);
       res.status(500).send("oops, something is wrong");
@@ -50,9 +63,12 @@ module.exports = function() {
   })
 
   router.post("/signup", (req, res) => {
+    //form data validation
+    if (req.body.username && req.body.firstname && req.body.lastname && req.body.email
+      && req.body.password && req.body.housenumber && req.body.province && req.body.postalcode && req.body.country) res.status(400).send("Form data is invalid!")
     try {
       bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
+          bcrypt.hash(req.body.password, salt, (err, hash) => {
           if (err) throw err;
           const signup = {
             username: req.body.username,
@@ -73,7 +89,7 @@ module.exports = function() {
               
               res.cookie('user_id', response.data.id);
               res.redirect('/?msg=success');
-              // res.redirect(`/api/users/user/${user.id}`);
+              // res.redirect(`/api/users/user`);
             })
             .catch((err) => {
               console.log("Error:", err.message);
@@ -81,7 +97,6 @@ module.exports = function() {
             })
         });
       });
-      
     } catch(err) {
       res.status(400).send('Bad request')
     }
@@ -89,12 +104,8 @@ module.exports = function() {
   });
   
   router.post("/login", (req, res, next) => {
-    console.log('login')
-    // passport.authenticate("local", {
-      // successRedirect: `/api/users/user/${user.id}`,
-      // failureRedirect: "/?msg=Login failed",
-      // failureFlash: "Missing credentials."
-    // });
+    //form data validation
+    if(!(req.body.email && req.body.password)) res.status(400).send("Form data is invalid")
     passport.authenticate('local', (err, user, info) => {
       if (info !== undefined) {
         console.log('info ' + info.message);
@@ -108,7 +119,7 @@ module.exports = function() {
           if (err) { console.log('err'); return next(err) };
           res.cookie('user_id', req.user.id);
           res.redirect('/?msg=success');
-          // res.redirect(`/api/users/user/${user.id}`);
+          // res.redirect(`/api/users/user`);
         });
       }
     })(req, res);
@@ -119,14 +130,31 @@ module.exports = function() {
       req.body.category_id = req.body.category_id? req.body.category_id:null
       req.body.sub_category_id = req.body.sub_category_id? req.body.sub_category_id:null
       req.body.keyword = req.body.keyword? req.body.keyword:null
-      axios.post(urlbase + "/posts/search", req.body)
-      .then((response) => {
-        res.render("pages/listing", {
-          listings: response.data,
-          search: req.body.keyword,
-          css:"listings.css",
-          javascript:"index.js"
-        });
+
+      Promise.all([
+        axios.get(urlbase + "/category"),
+        axios.get(urlbase + "/province"),
+        axios.post(urlbase + "/posts/search", req.body)
+      ])
+      .then(responses => {
+        // console.log(, values[1].data, values[2].data);
+        responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
+        responses[2].data.map((listing) => { listing.image_list = JSON.parse(listing.image_list) })
+        const header = req.user ? 'private-header' : 'public-header'
+        const msg = req.query.msg || null
+        res.render("pages/listing", 
+          {
+            title: "Listings",
+            css: "listings.css",
+            label: "search",
+            header: header,
+            category: responses[0].data,
+            province: responses[1].data,
+            message: msg,
+            listings: responses[2].data,
+            search: req.body.keyword,
+          }); 
+
         // res.status(200).send(response.data); //testing purpose
       })
         .catch((err) => {
@@ -134,7 +162,7 @@ module.exports = function() {
         res.status(500).send("oops, something is wrong");
       })
     } catch(err) {
-        res.status(400).send('Bad request')
+        res.status(400).send('Bad request'+ err.message)
     }
   });
   

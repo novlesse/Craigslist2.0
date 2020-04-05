@@ -79,14 +79,6 @@
     color: white;
 }
 
-.fa-star {
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
-    font-size: 20px;
-    color: #FAFF01;
-    letter-spacing: 2px;
-}
 
 .fas.heart {
     color: #EE6350;
