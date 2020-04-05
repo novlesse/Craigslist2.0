@@ -7,7 +7,7 @@
       <span class="fa fa-star"></span>
       <% } %>
     </div>
-    <div class="front-stars" style="width:<%= Math.round(average_rating/5*100)%>%">
+    <div class="front-stars" style="width:<%= Math.round(Math.round(average_rating/5*100))%>%">
       <% for(let i=0; i < 5; i++) { %>
       <span class="fa fa-star full"></span>
       <% } %>

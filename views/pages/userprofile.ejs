@@ -54,8 +54,12 @@
             <!--end-->
 
             <div class="col container">
-                <%- include('../partials/profile/mylistings') -%>
-                <%- include('../partials/profile/reviews') -%>
+                <% if(show_personal_listings) {%>
+                    <%- include('../partials/profile/mylistings') -%>
+                    
+                <% } else { %>
+                    <%- include('../partials/profile/reviews') -%>
+                <% } %>
             </div>
         </div>
     </div>
