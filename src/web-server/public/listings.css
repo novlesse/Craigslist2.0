@@ -1,8 +1,132 @@
 * {
-  font-family: "Montserrat", sans-serif;
-  color: rgb(29, 29, 29);
-  margin: 0;
-  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.top-header {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.card-img-top {
+  height: 250px;
+}
+
+.big-container {
+  margin-left: 6%;
+}
+
+.card-container {
+  margin: auto;
+  width: 75%;
+}
+
+.listing-result-heading,
+.listing-result-heading-sm {
+  margin-left: 18.5%;
+  width: 75%;
+  margin-top: 2.5%;
+}
+
+.listing-result-heading {
+  font-size: 24px;
+}
+
+.listing-result-heading-sm {
+  font-size: 16px;
+}
+
+.search-form {
+  margin: auto;
+  width: 75%;
+  margin-bottom: 5%;
+  margin-top: 2.5%;
+}
+
+.card {
+  margin: 1%;
+}
+
+.card:hover {
+  -webkit-transform: scale(1.10);
+  -moz-transform: scale(1.10);
+  -o-transform: scale(1.10);
+  position: relative;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.app-title {
+  font-size: 30px;
+  letter-spacing: 4px;
+}
+
+.city {
+  width: 150px;
+  margin-left: 2.5%;
+}
+
+.search-bar {
+  width: 700px;
+  margin-right: 2.5%;
+}
+
+.image-container {
+  position: relative;
+}
+
+.fa-heart {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  font-size: 20px;
+  color: white;
+}
+
+.fa-star {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  font-size: 20px;
+  color: #FAFF01;
+  letter-spacing: 2px;
+}
+
+.fas.heart {
+  color: #EE6350;
+}
+
+.heading {
+  width: 95%;
+  margin: auto;
+}
+
+.app-title-container {
+  width: 50%
+}
+
+.heading-buttons {
+  text-align: center;
+  width: 50%;
+}
+
+/* 
+.post-listing-button {
+    margin-left: 2%;
+} */
+.app-title,
+.heading-buttons {
+  margin-top: 1%;
+}
+
+/* new */
+header {
+  height: 100%;
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow: hidden;
 }
 
 a {
@@ -12,28 +136,6 @@ a {
 a:hover {
   color: grey;
   text-decoration: none;
-}
-
-html,
-body {
-  height: 100%;
-  margin-left: 5%;
-  margin-right: 5%;
-  overflow: hidden;
-}
-
-.background-image {
-  background:
-        /* top, transparency gradient */ linear-gradient(
-      rgba(0, 0, 0, 0.45),
-      rgba(255, 255, 255, 0.45)
-    ),
-    /* bottom ransparency gradient, image */
-      url(images/science_world.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
 
 .letter-spacing {
@@ -46,7 +148,7 @@ body {
 }
 
 .h1-color {
-  color: white;
+  color: black;
 }
 
 .login-text:hover {
@@ -119,7 +221,7 @@ body {
 
 .fa-compass {
   font-size: 30px;
-  color: #fff;
+  color: black;
   background-color: transparent;
   border: none;
   outline: 0;
