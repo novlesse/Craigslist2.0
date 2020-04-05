@@ -10,21 +10,23 @@ module.exports = function (passport) {
             console.log('success')
             next();
         } else {
-            if(req.url = "/listing-form") res.send("<h5>Please login to continue</h5>")
+            if (req.url = "/listing-form") res.send("<h5>Please login to continue</h5>")
             else res.redirect("/?msg=Please login to continue");
         }
     }
-    
+
     router.get("/listing-form", authenticate, (req, res) => {
-        axios.get(urlbase + "/condition")
-        .then(condition => {
+        Promise.all([
+            axios.get(urlbase + "/condition"),
             axios.get(urlbase + "/category")
-            .then(response => {
-                response.data.map((category) => {category.sub_categories = JSON.parse(category.sub_categories)})
-                res.render('partials/index/listing-form', 
-                          { condition:condition.data, 
-                            label:"post",
-                            category:response.data})
+        ])
+        .then(responses => {
+            responses[1].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) });
+            res.render('partials/index/listing-form',
+            {
+                label: "post",
+                condition: responses[0].data,
+                category: responses[1].data
             })
         })
         .catch(err => {
@@ -32,39 +34,42 @@ module.exports = function (passport) {
             res.status(500).send("oops, something is wrong");
         })
     });
-    
-    //get a user's profile
-    router.get('/user', authenticate, (req, res) => {
-        // axios.get(`${urlbase}/users/${req.params.id}`)
-        console.log(req.user.id)
-        axios.get(`${urlbase}/users/${req.user.id}`)
-            .then((response) => {
-                //console.log(response);
-                const { username, email, average_rating, total_rating,  is_verified } = response['data'][0];
-                // axios.get(`http://99.79.9.84:8080/ratings/${req.params.id}`)
-                axios.get('http://99.79.9.84:8080/ratings/1')
-                    .then((response) => {
-                        let ratings = response['data'];
-                        console.log(ratings)
-                        ratings.map(rating=>rating.created_at=rating.created_at.substr(0,10));
-                        res.render('pages/userprofile', {
-                            username: username,
-                            email: email,
-                            average_rating: average_rating.toFixed(2),
-                            total_rating:total_rating,
-                            is_verified: is_verified,
-                            ratings: ratings
-                        })
-                    })
-                    .catch((err) => console.log(err))
-            })
-            .catch((err) => { console.log(err) })
-    }) 
 
+    router.get('/account', authenticate, (req, res) => {
+        console.log(req.user.id)
+        Promise.all([
+            axios.get(`${urlbase}/users/${req.user.id}`),
+            axios.get(`${urlbase}/ratings/${req.user.id}`),
+            axios.get(`${urlbase}/posts/seller/${req.user.id}`)
+        ])
+        .then((responses) => {
+            //console.log(response);
+            const { username, email, average_rating, total_rating, is_verified } = responses[0].data;
+            let ratings = responses[1].data;
+            // console.log(ratings)
+            ratings.map(rating => rating.created_at = rating.created_at.substr(0, 10));
+            res.render('pages/userprofile', {
+                username: username,
+                email: email,
+                average_rating: average_rating.toFixed(2),
+                total_rating: total_rating,
+                is_verified: is_verified,
+                ratings: ratings,
+                show_personal_listings: true,
+                listing: responses[2].data
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).send("Internal server error")
+        })
+    })
+
+    
     //create new post
     router.post("/posts", authenticate, (req, res) => {
-        try{
-            req.body.description = req.body.description? req.body.description: null
+        try {
+            req.body.description = req.body.description ? req.body.description : null
             const images = JSON.parse(req.body.images).map(element => imagUrlBase + element);
             //hard code user_id for testing purpose
             const listing = {
@@ -78,19 +83,19 @@ module.exports = function (passport) {
                 images: JSON.stringify(images)
             }
             axios.post(urlbase + "/posts", listing)
-            .then(response => {
-                console.log('successfully create post')
-                res.status(200).send(response.body);
-            })
-            .catch(err => {
-                console.log("error:",  err.message)
-                res.status(500).send("oops, something is wrong");
-            })
-        } catch(err) {
+                .then(response => {
+                    console.log('successfully create post')
+                    res.status(200).send(response.body);
+                })
+                .catch(err => {
+                    console.log("error:", err.message)
+                    res.status(500).send("oops, something is wrong");
+                })
+        } catch (err) {
             res.status(400).send('Bad request')
         }
     });
-    
+
     //logout a user
     router.get("/logout", (req, res) => {
         req.logout();
@@ -99,31 +104,31 @@ module.exports = function (passport) {
 
     //update a post
     router.put("/posts/:post_id", (req, res) => {
-    
+
     })
 
     //list a user's rating
     router.get("/ratings/:user_id", (req, res) => {
-    
+
     })
     //create a new rating
     router.post("/ratings/:user_id", (req, res) => {
-    
+
     })
 
     //update a rating
     router.put("/ratings/:rating_id", (req, res) => {
-    
+
     })
 
     //create a transaction
     router.post("/transactions/:post_id", (req, res) => {
-    
+
     })
 
     //list all transaction by given user
     router.get("/transactions/:user_id", (req, res) => {
-    
+
     })
     return router;
 }

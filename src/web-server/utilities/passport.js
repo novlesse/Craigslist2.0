@@ -7,7 +7,7 @@ module.exports = function (passport) {
   passport.use('local',
     new LocalStrategy({
       usernameField: "email"
-    }, function(email, password, done) {
+    }, function (email, password, done) {
       // Match user
       let user = {};
       axios.get(`${urlbase}/users/email/${email}`)
@@ -28,9 +28,10 @@ module.exports = function (passport) {
             console.log("match")
             return done(null, user);
           } else {
+            console.log("no response")
             return done(null, false, {
-              message: "Email or password is incorrect."
-            });
+              message: "Email or password is incorrect"
+            })
           }
         })
       }).catch(err => console.log(err));
@@ -43,15 +44,16 @@ module.exports = function (passport) {
 
   passport.deserializeUser(function (id, done) {
     let user = {}
+    console.log(user)
     axios.get(`${urlbase}/users/${id}`)
       .then((response) => {
         if (response.data) {
           user = response.data[0]
-          if(user)
-          done(null, user)
+          if (user)
+            done(null, user)
         } else {
-          done (err, null)
+          done(err, null)
         }
-    });
+      });
   });
-}; 
+};

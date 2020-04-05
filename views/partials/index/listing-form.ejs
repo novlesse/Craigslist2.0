@@ -12,15 +12,15 @@
             <label for="condition">Condition</label>
             <select class="form-control" name="condition_id">
                 <option value="" disabled selected>Select your item's condition</option>
-                <%if (condition.length > 0) { %> 
-                    <% for(let i=0; i < condition.length; i++) { %>
-                    <option value="<%= condition[i].id %>"><%= condition[i].name %></option>
-                    <% } %>
+                <% if (condition.length > 0) { %>
+                <% for(let i=0; i < condition.length; i++) { %>
+                <option value="<%= condition[i].id %>"><%= condition[i].name %></option>
+                <% } %>
                 <% } %>
             </select>
         </div>
         <div id="category-container" class="form-group">
-            <%- include('category-block' , {label:"listing"}) -%>
+            <%- include('category-block') -%>
         </div>
     </div>
     <div class="form-group">
