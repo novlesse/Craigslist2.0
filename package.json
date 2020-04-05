@@ -32,5 +32,17 @@
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2",
     "utf-8-validate": "^5.0.2"
-  }
+  },
+  "description": "Craigslist 2.0, the Amazon clone",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/novlesse/Craigslist2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/novlesse/Craigslist2.0/issues"
+  },
+  "homepage": "https://github.com/novlesse/Craigslist2.0#readme"
 }
