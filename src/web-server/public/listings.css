@@ -1,114 +1,124 @@
 * {
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
+
 .top-header {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
+
 .card-img-top {
-    height: 250px;
+  height: 250px;
 }
 
 .big-container {
-    margin-left: 6%;
-}
-.card-container{
-    margin: auto;
-    width: 75%;
+  margin-left: 6%;
 }
 
-.listing-result-heading, .listing-result-heading-sm {
-    margin-left: 18.5%;
-    width: 75%;
-    margin-top: 2.5%;
+.card-container {
+  margin: auto;
+  width: 75%;
+}
+
+.listing-result-heading,
+.listing-result-heading-sm {
+  margin-left: 18.5%;
+  width: 75%;
+  margin-top: 2.5%;
 }
 
 .listing-result-heading {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .listing-result-heading-sm {
-    font-size: 16px;
+  font-size: 16px;
 }
+
 .search-form {
-    margin: auto;
-    width: 75%;
-    margin-bottom: 5%;
-    margin-top: 2.5%;
+  margin: auto;
+  width: 75%;
+  margin-bottom: 5%;
+  margin-top: 2.5%;
 }
+
 .card {
-    margin: 1%;
+  margin: 1%;
 }
 
 .card:hover {
-    -webkit-transform: scale(1.10);
-    -moz-transform: scale(1.10);
-    -o-transform: scale(1.10);
-    position: relative;
+  -webkit-transform: scale(1.10);
+  -moz-transform: scale(1.10);
+  -o-transform: scale(1.10);
+  position: relative;
 }
 
 .card-title {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .app-title {
-    font-size: 30px;
-    letter-spacing: 4px;
+  font-size: 30px;
+  letter-spacing: 4px;
 }
 
 .city {
-    width: 150px;
-    margin-left: 2.5%;
+  width: 150px;
+  margin-left: 2.5%;
 }
 
 .search-bar {
-    width: 700px;
-    margin-right: 2.5%;
+  width: 700px;
+  margin-right: 2.5%;
 }
 
 .image-container {
-    position: relative;
+  position: relative;
 }
 
-.fa-heart{
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
-    font-size: 20px;
-    color: white;
+.fa-heart {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  font-size: 20px;
+  color: white;
 }
 
 .fa-star {
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
-    font-size: 20px;
-    color: #FAFF01;
-    letter-spacing: 2px;
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  font-size: 20px;
+  color: #FAFF01;
+  letter-spacing: 2px;
 }
 
 .fas.heart {
-    color: #EE6350;
+  color: #EE6350;
 }
 
 .heading {
-    width: 95%;
-    margin: auto;
+  width: 95%;
+  margin: auto;
 }
+
 .app-title-container {
-    width: 50%
+  width: 50%
 }
+
 .heading-buttons {
-    text-align: center;
-    width: 50%;
+  text-align: center;
+  width: 50%;
 }
+
 /* 
 .post-listing-button {
     margin-left: 2%;
 } */
-.app-title, .heading-buttons {
-    margin-top: 1%;
+.app-title,
+.heading-buttons {
+  margin-top: 1%;
 }
 
 /* new */
@@ -118,126 +128,126 @@ header {
   margin-right: 10%;
   overflow: hidden;
 }
+
 a {
-    color: rgb(110, 216, 219);
-  }
-  
-  a:hover {
-    color: grey;
-    text-decoration: none;
-  }
-  
-  .letter-spacing {
-    letter-spacing: 4px;
-  }
-  
-  .letter-spacing-header {
-    letter-spacing: 20px;
-    font-family: "Montserrat Light";
-  }
-  
-  .h1-color {
-    color: black;
-  }
-  
-  .login-text:hover {
-    color: rgb(110, 216, 219);
-  }
-  
-  .active-cyan-4 input[type="text"]:focus:not([readonly]) {
-    border: 1px solid rgb(110, 216, 219) !important;
-    box-shadow: 0 0 0 1px rgb(110, 216, 219) !important;
-  }
-  
-  .btn-active {
-    padding: 10px 20px;
-    font-size: 20px;
-    text-align: center;
-    outline: none;
-    color: #fff;
-    background-color: rgb(231, 61, 61);
-    border: none;
-    border-radius: 3px;
-  }
-  
-  .btn-active:hover,
-  .btn-active:focus {
-    background-color: rgb(231, 61, 61);
-    outline: 0;
-    color: #fff;
-  }
-  
-  .btn-active:active {
-    background-color: rgb(231, 61, 61);
-    transform: translateY(4px);
-    outline: 0;
-  }
-  
-  .btn-active:hover span:after {
-    opacity: 1;
-    right: 0;
-    outline: 0;
-  }
-  
-  .btn-search {
-    padding: 10px 20px;
-    font-size: 20px;
-    text-align: center;
-    outline: none;
-    color: #fff;
-    background-color: rgb(110, 216, 219);
-    border: none;
-    border-radius: 3px;
-  }
-  
-  .btn-search:hover,
-  .btn-search:focus {
-    background-color: rgb(110, 216, 219);
-    outline: 0;
-  }
-  
-  .btn-search:active {
-    background-color: rgb(110, 216, 219);
-    transform: translateY(4px);
-    outline: 0;
-  }
-  
-  .btn-search:hover span:after {
-    opacity: 1;
-    right: 0;
-    outline: 0;
-  }
-  
-  .fa-compass {
-    font-size: 30px;
-    color: black;
-    background-color: transparent;
-    border: none;
-    outline: 0;
-  }
-  
-  .fa-compass:hover,
-  .fa-compass:focus {
-    font-size: 30px;
-    color: rgb(231, 61, 61);
-    outline: 0;
-  }
-  
-  .fa-compass:focus {
-    font-size: 30px;
-    color: #fff;
-    outline: 0;
-  }
-  
-  .fa-compass:active {
-    transform: translateY(4px);
-    color: rgb(231, 61, 61);
-    outline: 0;
-  }
-  
-  .fa-compass:hover span:after {
-    opacity: 1;
-    right: 0;
-    outline: 0;
-  }
-  
+  color: rgb(110, 216, 219);
+}
+
+a:hover {
+  color: grey;
+  text-decoration: none;
+}
+
+.letter-spacing {
+  letter-spacing: 4px;
+}
+
+.letter-spacing-header {
+  letter-spacing: 20px;
+  font-family: "Montserrat Light";
+}
+
+.h1-color {
+  color: black;
+}
+
+.login-text:hover {
+  color: rgb(110, 216, 219);
+}
+
+.active-cyan-4 input[type="text"]:focus:not([readonly]) {
+  border: 1px solid rgb(110, 216, 219) !important;
+  box-shadow: 0 0 0 1px rgb(110, 216, 219) !important;
+}
+
+.btn-active {
+  padding: 10px 20px;
+  font-size: 20px;
+  text-align: center;
+  outline: none;
+  color: #fff;
+  background-color: rgb(231, 61, 61);
+  border: none;
+  border-radius: 3px;
+}
+
+.btn-active:hover,
+.btn-active:focus {
+  background-color: rgb(231, 61, 61);
+  outline: 0;
+  color: #fff;
+}
+
+.btn-active:active {
+  background-color: rgb(231, 61, 61);
+  transform: translateY(4px);
+  outline: 0;
+}
+
+.btn-active:hover span:after {
+  opacity: 1;
+  right: 0;
+  outline: 0;
+}
+
+.btn-search {
+  padding: 10px 20px;
+  font-size: 20px;
+  text-align: center;
+  outline: none;
+  color: #fff;
+  background-color: rgb(110, 216, 219);
+  border: none;
+  border-radius: 3px;
+}
+
+.btn-search:hover,
+.btn-search:focus {
+  background-color: rgb(110, 216, 219);
+  outline: 0;
+}
+
+.btn-search:active {
+  background-color: rgb(110, 216, 219);
+  transform: translateY(4px);
+  outline: 0;
+}
+
+.btn-search:hover span:after {
+  opacity: 1;
+  right: 0;
+  outline: 0;
+}
+
+.fa-compass {
+  font-size: 30px;
+  color: black;
+  background-color: transparent;
+  border: none;
+  outline: 0;
+}
+
+.fa-compass:hover,
+.fa-compass:focus {
+  font-size: 30px;
+  color: rgb(231, 61, 61);
+  outline: 0;
+}
+
+.fa-compass:focus {
+  font-size: 30px;
+  color: #fff;
+  outline: 0;
+}
+
+.fa-compass:active {
+  transform: translateY(4px);
+  color: rgb(231, 61, 61);
+  outline: 0;
+}
+
+.fa-compass:hover span:after {
+  opacity: 1;
+  right: 0;
+  outline: 0;
+}

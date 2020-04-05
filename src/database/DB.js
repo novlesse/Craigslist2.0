@@ -17,17 +17,17 @@ const connectionHandler = () => {
             console.log(err.message);
             //set a timer for reconnecting
             setTimeout(connectionHandler, 2000);
-       } else {
+        } else {
             console.log("connected");
-       }
-     });
+        }
+    });
 
-     connection.on("error", (err) => {
-       if(err.code === 'PROTOCOL_CONNECTION_LOST') {
-          connectionHandler();
-       } else {
+    connection.on("error", (err) => {
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            connectionHandler();
+        } else {
             throw err;
-       }
+        }
     });
     return connection;
 };

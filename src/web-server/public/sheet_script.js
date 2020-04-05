@@ -35,30 +35,30 @@ $(document).ready(() => {
         });
     });
 
-    $(".update").change(e=>{
+    $(".update").change(e => {
         const id = $(e.target).parent().attr("id");
         const name = $(e.target).attr("name");
         const value = $(e.target).val();
         let obj = {};
         obj[name] = value
         console.log(obj);
-    
-        fetch(`https://sheet.best/api/sheets/bf74a7d5-8229-46a0-8cc0-ff36e26822f9/`+ id, {
-            method: 'PATCH',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(obj),
-        })
-        .then(data => {
-            // The response comes here
-            console.log(data);
-        })
-        .catch(error => {
-            // Errors are reported there
-            console.log(error);
-        });
-    });   
+
+        fetch(`https://sheet.best/api/sheets/bf74a7d5-8229-46a0-8cc0-ff36e26822f9/` + id, {
+                method: 'PATCH',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj),
+            })
+            .then(data => {
+                // The response comes here
+                console.log(data);
+            })
+            .catch(error => {
+                // Errors are reported there
+                console.log(error);
+            });
+    });
 
 });
