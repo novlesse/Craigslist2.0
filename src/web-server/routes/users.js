@@ -40,10 +40,11 @@ module.exports = function (passport) {
         axios.get(`${urlbase}/users/${req.user.id}`)
             .then((response) => {
                 //console.log(response);
-                const { username, email, average_rating, total_rating,  is_verified } = response['data'][0];
-                // axios.get(`http://99.79.9.84:8080/ratings/${req.params.id}`)
-                axios.get('http://99.79.9.84:8080/ratings/1')
-                    .then((response) => {
+                const { username, email, average_rating, total_rating, is_verified } = response['data'][0];
+                if (average_rating) { //if not null, fetch rating
+                    axios.get(`http://99.79.9.84:8080/ratings/${req.params.id}`)
+                    // axios.get('http://99.79.9.84:8080/ratings/1')
+                    .then((response) => { 
                         let ratings = response['data'];
                         console.log(ratings)
                         ratings.map(rating=>rating.created_at=rating.created_at.substr(0,10));
@@ -57,6 +58,16 @@ module.exports = function (passport) {
                         })
                     })
                     .catch((err) => console.log(err))
+                } else { //if null there is no rating
+                    res.render('pages/userprofile', {
+                        username: username,
+                        email: email,
+                        average_rating: 0,
+                        total_rating: total_rating,
+                        is_verified: is_verified,
+                        ratings: []
+                    })
+                }
             })
             .catch((err) => { console.log(err) })
     }) 
