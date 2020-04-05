@@ -1,38 +1,36 @@
-<%- include ("../partials/head", {title:"Home"}), {css:"/listings.css"} %>
+<%- include ("../partials/head") -%>
 
 <header class="d-flex justify-content-between align-items-center mt-4">
-        <%- include ("../partials/index/header") %>
+    <%- include('../partials/index/'+header) -%>
 </header>
 
 <body class="background-image">
-    <%- include ("../partials/listings/listings-body") %>
+    <%- include ("../partials/listings/listings-body") -%>
     <% if (listings.length !== 0) { %>
-        <h2 class="listing-result-heading">Listings for <%= search %></h2>
-        <% } else if (listings === " ") { %>
-            <p></p>
-            <% } else { %>
-                <p class="listing-result-heading-sm">There are no listings for <%= search %></p>
-            <% }; %>
+    <h2 class="listing-result-heading">Listings for <%= search %></h2>
     <div class="big-container d-flex justify-content-center">
         <div class="card-container d-flex flex-row flex-wrap justify-content-start">
             <% listings.forEach(function(listing) { %>
-
-                <div class="card shadow" style="width: 18rem;">
-                    <!-- <% listings.images.forEach(function(image) { %> -->
-                    <div class="image-container">
-                        <img src='<%= images[0] %>' class="card-img-top" alt="..."/>
-                        <i class="far heart fa-heart"></i>
-                        
+            <div class="card shadow" style="width: 18rem;">
+                <div class="image-container">
+                    <img src='<%= listing.image_list[0] %>' class="card-img-top" alt="..." />
+                    <i class="far heart fa-heart"></i>
+                </div>
+                <div id="<%= listing.post_id %>"class="card-body">
+                    <h5 class="card-title"><%= listing.post_title %></h5>
+                    <p class="card-text">$ <%= listing.post_price %></p>
+                    <div class="card-text">
+                        <%- include("../partials/listings/rating", {average_rating:listing.average_rating.toFixed(2), total_rating:listing.total_rating}) -%>
                     </div>
-                    <!-- <% }) %> -->
-                    <div class="card-body">
-                        <h5 class="card-title"><%= listing.title %></h5>
-                        <p class="card-text">$ <%= listing.price %></p>
-                    </div>
-                    </div>    
-                <% }) %>
-                    </div>   
+                </div>
+            </div>
+            <% }) %>
+        </div>
     </div>
+    
+    <% } else { %>
+    <p class="listing-result-heading-sm">There are no listings for <%= search %></p>
+    <% } %>
+    <%- include ('../partials/script') -%>
 </body>
-<%- include ("../partials/script") %>
 </html>

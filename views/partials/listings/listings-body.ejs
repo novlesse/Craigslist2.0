@@ -1,8 +1,25 @@
 <form class="search-form form-group d-flex flex-row align-items-center justify-content-center" method="post" action="/search">
-    <input name="product" type="text submit" class="form-control search-bar" id="formGroupExampleInput" placeholder="Products, categories, or users">
-    <select class="custom-select my-1 mr-sm-2 city" id="inlineFormCustomSelectPref">
-        <option selected>Vancouver</option>
-        <option value="1">City 2</option>
-        <option value="2">City 3</option>
-    </select>
+  <div class="my-auto w-75">
+    <% if (message) { %>
+    <div class="font-weight-bolder text-info"><%= message %></div>
+    <% }; %>
+    <div class="input-group md-form form-sm form-2 active-cyan-4">
+      <input class="form-control letter-spacing p-4" type="text" name="keyword" placeholder="Products, categories, or users?"
+          aria-label="Search">
+      <div class="input-group-append">
+        <span class="input-group md-form form-sm form-2" id="basic-text1">
+          <button class="btn-search" type="submit" aria-hidden="true">Search</button>
+        </span>
+      </div>
+    </div>
+    <div>
+      <a id="advance-search-btn" type="button" class="btn btn-link" aria-hidden="true">Advanced</a>
+      <span class="invisible"><%- include('../index/category-block', {label:"search"}) -%></span>
+    </div>
+  </div>
 </form>
+<!-- <select class="custom-select my-1 mr-sm-2 city" id="inlineFormCustomSelectPref">
+  <option selected>Vancouver</option>
+  <option value="1">City 2</option>
+  <option value="2">City 3</option>
+</select> -->
