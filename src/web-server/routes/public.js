@@ -71,30 +71,31 @@ module.exports = function () {
 
   //get a user's public profile
   router.get('/user/:id', (req, res) => {
+    console.log(req.user);
     const publicId = req.params.id
     if (!req.user) {
       Promise.all([
         axios.get(`${urlbase}/users/${publicId}`),
-        axios.get(`http://99.79.9.84:8080/ratings/${publicId}`)
+        axios.get(`${urlbase}/ratings/${publicId}`)
       ])
         .then((response) => {
+          console.log("response:",response[0].data[0])
           const {
-            username,
             email,
             total_rating,
             average_rating,
             is_verified
           } = response[0].data[0];
+          const userName = response[0].data[0]['username'];
           let ratings = response[1].data[0];
           res.render('pages/userprofile', {
             css: "index.css",
-            username: username,
+            username: userName,
             email: email,
             average_rating: average_rating,
             total_rating: total_rating,
             is_verified: is_verified,
-            ratings: ratings,
-            show_personal_listings: false
+            ratings: ratings
           })
         })
         .catch((err) => {
