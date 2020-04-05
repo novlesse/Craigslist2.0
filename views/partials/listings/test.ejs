@@ -1,0 +1,26 @@
+<%if (average_rating > 1) { %>
+<% for(let i=1; i < average_rating; i++) { %>
+<span class="fa fa-star" style="color:orange"></span>
+<% } %>
+<% for(let i=0; i < 5 - average_rating; i++) { %>
+<span class="fa fa-star"></span>
+<% } %>
+<% } %>
+
+<div class="star-ratings-css">
+  <div class="star-ratings-css-top" style="width:54%">
+    <% for(let i=0; i < 5; i++) { %>
+    <span class="fa fa-star""></span>
+    <% } %>
+  </div>
+  <div class=" star-ratings-css-bottom">
+      <% for(let i=0; i < 5; i++) { %>
+      <span class="fa fa-star""></span>
+    <% } %>
+  </div>
+</div>
+
+<% if(locals.isLoggedIn) {%>
+<%- include('../partials/index/<%= header%>') -%>
+<% } else {%>
+  <% } %>
