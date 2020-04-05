@@ -46,14 +46,15 @@ module.exports = function (passport) {
             //console.log(response);
             let ratings = responses[1].data;
             //set average_rating to 0 if user has no rating
-            responses[0].data.average_rating = ratings.length == 0 ? 0 : responses[0].data.average_rating
-            const { username, email, average_rating, total_rating, is_verified } = responses[0].data;
-             // console.log(ratings)
+            responses[0].data[0].average_rating = ratings.length == 0 ? 0 : responses[0].data[0].average_rating
+            const { username, email, average_rating, total_rating, is_verified } = responses[0].data[0];
+            console.log(responses[0].data)
             ratings.map(rating => rating.created_at = rating.created_at.substr(0, 10));
             res.render('pages/userprofile', {
+                javascript: "../../index.js",
                 username: username,
                 email: email,
-                average_rating: average_rating,
+                average_rating: average_rating.toFixed(2),
                 total_rating: total_rating,
                 is_verified: is_verified,
                 ratings: ratings,
