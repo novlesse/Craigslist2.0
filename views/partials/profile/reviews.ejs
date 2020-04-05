@@ -1,21 +1,23 @@
 <div class="jumbotron m-4 shadow">
     <h1 class="component-title">Reviews & Ratings</h1>
     <!-- Ratings and Reviews Section -->
-    <% for (i=0; i < ratings.length; i++) { %>
-    <ul class="list-group list-group-horizontal">
-        <li class="list-group-item"><img class="img-fluid rounded" style="width: 10rem; height: auto"
-                src="https://images.unsplash.com/photo-1566393028639-d108a42c46a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1627&q=80">
-        </li>
-        <div class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"> <%= ratings[i]['title'] %></h5>
-                <small> <%= ratings[i]['created_at'] %></small>
+    <% if (ratings) { %>
+        <% for (i=0; i < ratings.length; i++) { %>
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item"><img class="img-fluid rounded" style="width: 10rem; height: auto"
+                    src="https://images.unsplash.com/photo-1566393028639-d108a42c46a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1627&q=80">
+            </li>
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"> <%= ratings[i]['title'] %></h5>
+                    <small> <%= ratings[i]['created_at'] %></small>
+                </div>
+                <a href="/api/user/<%= ratings[i]['username'] %>" class="mb-1"
+                    name="username"><%= ratings[i]['username'] %></a>
+                <p class=" mb-1"><%= ratings[i]['description'] %></p>
             </div>
-            <a href="/api/users/profile/<%= ratings[i]['username'] %>" class="mb-1"
-                name="username"><%= ratings[i]['username'] %></a>
-            <p class=" mb-1"><%= ratings[i]['description'] %></p>
-        </div>
-    </ul>
-    <% } %>
+        </ul>
+        <% } %>
     <a class="btn btn-outline-info mt-4" href="#">Read More</a>
+    <% } %>
 </div>

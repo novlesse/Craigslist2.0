@@ -36,14 +36,12 @@ module.exports = function (passport) {
     });
 
     router.get('/account', authenticate, (req, res) => {
-        console.log(req.user.id)
         Promise.all([
             axios.get(`${urlbase}/users/${req.user.id}`),
             axios.get(`${urlbase}/ratings/${req.user.id}`),
             axios.get(`${urlbase}/posts/seller/${req.user.id}`)
         ])
         .then((responses) => {
-            //console.log(response);
             const { username, email, average_rating, total_rating, is_verified } = responses[0].data[0];
             let ratings = responses[1].data;
             ratings.map(rating => rating.created_at = rating.created_at.substr(0, 10));

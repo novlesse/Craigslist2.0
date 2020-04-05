@@ -7,36 +7,36 @@ const urlbase = "http://99.79.9.84:8080";
 const passport = require("passport");
 require("../utilities/passport")(passport);
 
-module.exports = function() {
+module.exports = function () {
   router.get("/", (req, res) => {
     Promise.all([
       axios.get(urlbase + "/category"),
       axios.get(urlbase + "/province")
     ])
-    .then(responses => {
-      if (responses[0].data && responses[1].data) {
-        responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
-        const header = req.user ? 'private-header' : 'public-header'
-        const message = req.query.msg || null
-        res.render("pages/index",
-        {
-          title: "Index",
-          css: "index.css",
-          label: "search",
-          header: header,
-          category: responses[0].data,
-          province: responses[1].data,
-          message: message
-        });
-      } else {
-        // console.log("Error:", err.message);
+      .then(responses => {
+        if (responses[0].data && responses[1].data) {
+          responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
+          const header = req.user ? 'private-header' : 'public-header'
+          const message = req.query.msg || null
+          res.render("pages/index",
+            {
+              title: "Index",
+              css: "index.css",
+              label: "search",
+              header: header,
+              category: responses[0].data,
+              province: responses[1].data,
+              message: message
+            });
+        } else {
+          // console.log("Error:", err.message);
+          res.status(500).send("oops, something is wrong");
+        }
+      })
+      .catch(err => {
+        console.log(err.message);
         res.status(500).send("oops, something is wrong");
-      }  
-    })
-    .catch(err=> {
-      console.log(err.message);
-      res.status(500).send("oops, something is wrong");
-    })
+      })
   });
 
   router.get("/posts", (req, res) => {
@@ -45,66 +45,63 @@ module.exports = function() {
       axios.get(urlbase + "/province"),
       axios.get(urlbase + "/posts")
     ])
-    .then(responses => {
-      responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
-      responses[2].data.map((listing) => { listing.image_list = JSON.parse(listing.image_list) })
-      const header = req.user ? 'private-header' : 'public-header'
-      const msg = req.query.msg || null
-      res.render("pages/listing",
-        {
-          title: "Listings",
-          css: "listings.css",
-          label: "search",
-          search:"",
-          header: header,
-          category: responses[0].data,
-          province: responses[1].data,
-          message: msg,
-          listings: responses[2].data
-        }); 
+      .then(responses => {
+        responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
+        responses[2].data.map((listing) => { listing.image_list = JSON.parse(listing.image_list) })
+        const header = req.user ? 'private-header' : 'public-header'
+        const msg = req.query.msg || null
+        res.render("pages/listing",
+          {
+            title: "Listings",
+            css: "listings.css",
+            label: "search",
+            search: "",
+            header: header,
+            category: responses[0].data,
+            province: responses[1].data,
+            message: msg,
+            listings: responses[2].data
+          });
       })
-    .catch(err => {
-      console.log("Error:", err.message);
-      res.status(500).send("oops, something is wrong");
-    })
+      .catch(err => {
+        console.log("Error:", err.message);
+        res.status(500).send("oops, something is wrong");
+      })
   })
 
   //get a user's public profile
   router.get('/user/:id', (req, res) => {
-    userId = res['req']['user']['id'];
-    console.log("current users id:", userId)
-    if (req.user && req.user.id === req.params.id) res.redirect("/api/users/account")
-    axios.get(`${urlbase}/users/${userId}`)
-      // axios.get(urlbase + '/users/32')
-      .then((response) => {
-        const {
-          username,
-          email,
-          average_rating,
-          is_verified
-        } = response['data'][0];
-        console.log(userId);
-        axios.get(`http://99.79.9.84:8080/ratings/${userId}`)
-          // axios.get('http://99.79.9.84:8080/ratings/32')
-          .then((response) => {
-            // console.log("my response", response)
-            let ratings = response['data'];
-            console.log(ratings)
-            res.render('pages/userprofile', {
-              css: "index.css",
-              username: username,
-              email: email,
-              average_rating: average_rating,
-              is_verified: is_verified,
-              ratings: ratings,
-              show_personal_listings: false
-            })
+    const publicId = req.params.id
+    if (!req.user) {
+      Promise.all([
+        axios.get(`${urlbase}/users/${publicId}`),
+        axios.get(`http://99.79.9.84:8080/ratings/${publicId}`)
+      ])
+        .then((response) => {
+          const {
+            username,
+            email,
+            total_rating,
+            average_rating,
+            is_verified
+          } = response[0].data[0];
+          let ratings = response[1].data[0];
+          res.render('pages/userprofile', {
+            css: "index.css",
+            username: username,
+            email: email,
+            average_rating: average_rating,
+            total_rating: total_rating,
+            is_verified: is_verified,
+            ratings: ratings,
+            show_personal_listings: false
           })
-          .catch((err) => console.log(err))
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
   })
 
   router.post("/signup", (req, res) => {
@@ -113,7 +110,7 @@ module.exports = function() {
       && req.body.password && req.body.housenumber && req.body.province && req.body.postalcode && req.body.country) res.status(400).send("Form data is invalid!")
     try {
       bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(req.body.password, salt, (err, hash) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
           if (err) throw err;
           const signup = {
             username: req.body.username,
@@ -143,7 +140,7 @@ module.exports = function() {
             })
         });
       });
-    } catch(err) {
+    } catch (err) {
       res.status(400).send('Bad request')
     }
 
@@ -172,43 +169,83 @@ module.exports = function() {
   })
 
   router.post("/search", (req, res) => {
-    try{
-      req.body.category_id = req.body.category_id? req.body.category_id:null
-      req.body.sub_category_id = req.body.sub_category_id? req.body.sub_category_id:null
-      req.body.keyword = req.body.keyword? req.body.keyword:null
+    try {
+      req.body.category_id = req.body.category_id ? req.body.category_id : null
+      req.body.sub_category_id = req.body.sub_category_id ? req.body.sub_category_id : null
+      req.body.keyword = req.body.keyword ? req.body.keyword : null
       Promise.all([
         axios.get(urlbase + "/category"),
         axios.get(urlbase + "/province"),
         axios.post(urlbase + "/posts/search", req.body)
       ])
-      .then(responses => {
-        // console.log(, values[1].data, values[2].data);
-        responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
-        responses[2].data.map((listing) => { listing.image_list = JSON.parse(listing.image_list) })
-        const header = req.user ? 'private-header' : 'public-header'
-        const msg = req.query.msg || null
-        res.render("pages/listing", 
-          {
-            title: "Listings",
-            css: "listings.css",
-            label: "search",
-            header: header,
-            category: responses[0].data,
-            province: responses[1].data,
-            message: msg,
-            listings: responses[2].data,
-            search: req.body.keyword,
-          }); 
-        // res.status(200).send(response.data); //testing purpose
-      })
+        .then(responses => {
+          // console.log(, values[1].data, values[2].data);
+          responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
+          responses[2].data.map((listing) => { listing.image_list = JSON.parse(listing.image_list) })
+          const header = req.user ? 'private-header' : 'public-header'
+          const msg = req.query.msg || null
+          res.render("pages/listing",
+            {
+              title: "Listings",
+              css: "listings.css",
+              label: "search",
+              header: header,
+              category: responses[0].data,
+              province: responses[1].data,
+              message: msg,
+              listings: responses[2].data,
+              search: req.body.keyword,
+            });
+          // res.status(200).send(response.data); //testing purpose
+        })
         .catch((err) => {
-        console.log("Error:", err.message);
-        res.status(500).send("oops, something is wrong");
-      })
-    } catch(err) {
-        res.status(400).send('Bad request'+ err.message)
+          console.log("Error:", err.message);
+          res.status(500).send("oops, something is wrong");
+        })
+    } catch (err) {
+      res.status(400).send('Bad request' + err.message)
     }
   });
 
   return router;
 }
+
+
+router.get('/listing/:id', (req, res) => {
+  let listingId = req.params.id;
+  Promise.all([
+    axios.get(`${urlbase}/posts/${listingId}`),
+    axios.get(urlbase + "/category"),
+    axios.get(urlbase + "/province")
+  ])
+    .then((responses) => {
+      // console.log("1",responses[0].data)
+      // console.log("2",responses[1].data)
+      // console.log("3",responses[2].data)
+      responses[1].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
+      const { post_title, post_description, post_price, username, item_condition,
+        average_rating, total_rating } = responses[0].data[0];
+      const images = JSON.parse(responses[0].data[0].image_list)
+      const header = req.user ? 'private-header' : 'public-header';
+      res.render('pages/singlePost', {
+        css: "singlePost.css",
+        header: header,
+        seller: username,
+        title: post_title,
+        description: post_description,
+        postPrice: post_price,
+        condition: item_condition,
+        averageRating: average_rating,
+        totalRating: total_rating,
+        images: images,
+        category: responses[1].data,
+        province: responses[2].data
+      });
+    })
+
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send("Internal server error")
+    })
+})
+
