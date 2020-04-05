@@ -1,10 +1,9 @@
 <!-- Search bar -->
 
-<form class="container h-75 d-flex justify-content-center" method="post" action="/search">
-
+<form  class="container h-75 d-flex justify-content-center" method="post" action="/search">
   <div class="my-auto w-75">
     <% if (message) { %>
-    <div class="font-weight-bold text-info"><%= message %></div>
+    <div class="font-weight-bolder text-info"><%= message %></div>
     <% }; %>
     <div class="input-group md-form form-sm form-2 active-cyan-4">
 
@@ -18,7 +17,7 @@
     </div>
     <div>
       <a id="advance-search-btn" type="button" class="btn btn-light mt-2" aria-hidden="true">Advanced</a>
-      <span class="invisible"><%- include('category-block', {label:"search"}) -%></span>
+      <span class="invisible"><%- include('category-block') -%></span>
     </div>
   </div>
 </form>

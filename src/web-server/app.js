@@ -7,7 +7,6 @@ const session = require('express-session')
 
 module.exports = function () {
   const publicRouter = require('./routes/public')()
-
   const usersRouter = require('./routes/users')()
 
   // Serve up the static front end code and image uploads

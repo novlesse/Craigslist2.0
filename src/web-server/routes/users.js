@@ -7,134 +7,67 @@ const imagUrlBase = "http://craiglist2.s3-website.ca-central-1.amazonaws.com/300
 module.exports = function (passport) {
     const authenticate = (req, res, next) => {
         if (req.isAuthenticated()) {
-            console.log("im authenticated, john")
-            // console.log("ressss:", res['req']['user']['id'])
+            console.log('success')
             next();
         } else {
-            res.redirect("/?msg=Please login to continue.");
+            if (req.url = "/listing-form") res.send("<h5>Please login to continue</h5>")
+            else res.redirect("/?msg=Please login to continue");
         }
     }
-    // router.get("/home", authenticate, (req, res) => {
-    //     // console.log(req.body.id)
-    //     axios.get(urlbase + "/category")
-    //         .then(response => {
-    //             response.data.map((category) => {
-    //                 category.sub_categories = JSON.parse(category.sub_categories)
-    //             })
-    //             const msg = req.query.msg || null
-    //             const isLoggedIn = msg === 'success' ? true : false
-    //             console.log(isLoggedIn)
-    //             res.render("pages/index", {
-    //                 title: "Index",
-    //                 css: "index.css",
-    //                 javascript: "index.js",
-    //                 label: "search",
-    //                 category: response.data,
-    //                 msg: msg,
-    //                 isLoggedIn: isLoggedIn
-    //             });
-    //         })
-    //         .catch(err => {
-    //             console.log("Error:", err.message);
-    //             res.status(500).send("oops, something is wrong");
-    //         })
-    // });
 
     router.get("/listing-form", authenticate, (req, res) => {
-        axios.get(urlbase + "/condition")
-            .then(condition => {
-                axios.get(urlbase + "/category")
-                    .then(response => {
-                        response.data.map((category) => {
-                            category.sub_categories = JSON.parse(category.sub_categories)
-                        })
-                        res.render('partials/index/listing-form', {
-                            condition: condition.data,
-                            label: "post",
-                            category: response.data
-                        })
-                    })
+        Promise.all([
+            axios.get(urlbase + "/condition"),
+            axios.get(urlbase + "/category")
+        ])
+        .then(responses => {
+            responses[1].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) });
+            res.render('partials/index/listing-form',
+            {
+                label: "post",
+                condition: responses[0].data,
+                category: responses[1].data
             })
-            .catch(err => {
-                console.log("Error:", err.message);
-                res.status(500).send("Oops, page cannot be reached.");
-            })
+        })
+        .catch(err => {
+            console.log("Error:", err.message);
+            res.status(500).send("oops, something is wrong");
+        })
     });
 
-    //get current user's profile
-    router.get('/account/', authenticate, (req, res) => {
-        userId = res['req']['user']['id'];
-        console.log("current users id:", userId)
-        axios.get(`${urlbase}/users/${userId}`)
-            // axios.get(urlbase + '/users/32')
-            .then((response) => {
-                const {
-                    username,
-                    email,
-                    average_rating,
-                    is_verified
-                } = response['data'][0];
-                console.log(userId);
-                axios.get(`http://99.79.9.84:8080/ratings/${userId}`)
-                    // axios.get('http://99.79.9.84:8080/ratings/32')
-                    .then((response) => {
-                        // console.log("my response", response)
-                        let ratings = response['data'];
-                        console.log(ratings)
-                        res.render('pages/userprofile', {
-                            css: "index.css",
-                            currentUser: res['req']['user'],
-                            usernameForProfile: username,
-                            username: username,
-                            email: email,
-                            average_rating: average_rating,
-                            is_verified: is_verified,
-                            ratings: ratings
-                        })
-                    })
-                    .catch((err) => console.log(err))
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    })
-
     //get a user's profile
-    router.get('/profile/:username', authenticate, (req, res) => {
-        usernameForProfile = req.params.username;
-        console.log("profile for:", req.params.username)
-        axios.get(`${urlbase}/users/username/${req.params.username}`)
-            .then((response) => {
-                console.log(response['data'][0]['id']);
-                const {
-                    username,
-                    email,
-                    average_rating,
-                    is_verified
-                } = response['data'][0];
-                axios.get(`http://99.79.9.84:8080/users/username/${req.params.username}`)
-                    // axios.get('http://99.79.9.84:8080/ratings/32')
-                    .then((response) => {
-                        let ratings = response['data'][0];
-                        console.log(ratings)
-                        res.render('pages/userprofile', {
-                            css: "index.css",
-                            currentUser: res['req']['user'],
-                            usernameForProfile: usernameForProfile,
-                            username: username,
-                            email: email,
-                            average_rating: average_rating,
-                            is_verified: is_verified,
-                            ratings: ratings
-                        })
-                    })
-                    .catch((err) => console.log(err))
+    router.get('/account', authenticate, (req, res) => {
+        console.log(req.user.id)
+        Promise.all([
+            axios.get(`${urlbase}/users/${req.user.id}`),
+            axios.get(`${urlbase}/ratings/${req.user.id}`),
+            axios.get(`${urlbase}/posts/seller/${req.user.id}`)
+        ])
+        .then((responses) => {
+            //console.log(response);
+            const { username, email, average_rating, total_rating, is_verified } = responses[0].data;
+            let ratings = responses[1].data;
+            // console.log(ratings)
+            ratings.map(rating => rating.created_at = rating.created_at.substr(0, 10));
+            res.render('pages/userprofile', {
+                username: username,
+                email: email,
+                average_rating: average_rating.toFixed(2),
+                total_rating: total_rating,
+                is_verified: is_verified,
+                ratings: ratings,
+                show_personal_listings: true,
+                listing: responses[2].data
             })
-            .catch((err) => {
-                console.log(err)
-            })
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).send("Internal server error")
+        })
+        
     })
 
+    
     //create new post
     router.post("/posts", authenticate, (req, res) => {
         try {

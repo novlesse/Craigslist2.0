@@ -1,4 +1,4 @@
-<h1><a class="letter-spacing h1-color" href="/home">POST IT</a></h1>
+<h1 class="letter-spacing-header h1-color">POST IT</h1>
 <!--Modal: Login / Register Form-->
 <div>
   <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -8,6 +8,9 @@
       <div class="modal-content">
         <!--Modal cascading tabs-->
         <div class="modal-c-tabs">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
           <!-- Nav tabs -->
           <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
             <li class="nav-item">
@@ -34,7 +37,7 @@
 
                   <div class="md-form form-sm mb-1 active-cyan-4">
                     <label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
-                    <input type="text" id="modalLRInput11" name="password"
+                    <input type="password" id="modalLRInput11" name="password"
                       class="form-control form-control-sm validate">
                   </div>
                   <div class="text-left form-sm mt-2">
@@ -59,55 +62,63 @@
               <form class="modal-body" method="post" action="/signup">
                 <div class="form-group">
                   <label for="inputusername">Username</label>
-                  <input type="text" class="form-control" id="inputusername" name="username">
+                  <input type="text" class="form-control" id="inputusername" name="username" required>
                 </div>
                 <div class="form-group">
                   <label for="inputpassword">Password</label>
-                  <input type="password" class="form-control" id="inputpassword" name="password">
+                  <input type="password" class="form-control" id="inputpassword" name="password" required>
                 </div>
                 <div class="form-group">
                   <label for="inputemail">Email</label>
-                  <input type="email" class="form-control" id="inputemail" name="email">
+                  <input type="email" class="form-control" id="inputemail" name="email" required>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputfirstname">First Name</label>
-                    <input type="text" class="form-control" id="inputfirstname" name="firstname">
+                    <input type="text" class="form-control" id="inputfirstname" name="firstname" required>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputlastname">Last Name</label>
-                    <input type="text" class="form-control" id="inputlastname" name="lastname">
+                    <input type="text" class="form-control" id="inputlastname" name="lastname" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="form-group">
-                    <label for="inputstreet">Street</label>
-                    <input type="text" class="form-control" id="inputstreet" name="street">
-                  </div>
-                  <div class="form-group">
-                    <label for="inputAddress">House Number</label>
-                    <input type="text" class="form-control" id="inputAddress" name="housenumber">
-                  </div>
-                  <div class="form-group">
-                    <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity" name="city">
+                  <label for="inputAddress">House Number</label>
+                  <input type="text" class="form-control" id="inputAddress" name="housenumber" required>
+                  <div class="form-group col-md-4">
+                    <label for="inputprovince">Province</label>
+                    <select name="province" id="province">
+                      <%if (province.length > 0) { %>
+                      <% for(let i=0; i < province.length; i++) { %>
+                      <option value="<%= province[i] %>"><%= province[i]["code"] %></option>
+                      <% } %>
+                      <% } %>
+                    </select>
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="inputpostalcode">Postal Code</label>
-                    <input type="text" class="form-control" id="inputpostalcode" maxlength="6" name="postalcode">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="inputprovince">Province</label>
-                    <input id="inputprovince" class="form-control" maxlength="2" name="province">
+                    <input type="text" class="form-control" id="inputpostalcode" maxlength="6" name="postalcode"
+                      required>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="inputcountry">Country</label>
-                    <input type="text" class="form-control" id="inputcountry" maxlength="2" name="country">
+                    <input type="text" class="form-control" id="inputcountry" maxlength="2" name="country" required>
                   </div>
                 </div>
-                <div class="text-left form-sm">
+
+                <div class="form-group">
+                  <label for="inputstreet">Street</label>
+                  <input type="text" class="form-control" id="inputstreet" name="street">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity" name="city">
+                  </div>
+                </div>
+                <div class="text-left form-sm mt-2">
                   <button type="submit" class="btn btn-info">Sign Up</button>
                 </div>
               </form>
@@ -115,7 +126,7 @@
               <!--Modal Footer-->
               <div class="modal-footer">
                 <div class="options text-right">
-                  <p class="pt-1">Already have an account? <a href="#panel7" class="blue-text">Log
+                  <p class="pt-1">Already have an account? <a href="#" class="blue-text">Log
                       In</a></p>
                 </div>
                 <button type="button" class="btn btn-outline-info waves-effect ml-auto"
@@ -126,7 +137,7 @@
           </div>
         </div>
       </div>
-      <!--/Content-->
+      <!--End Content-->
     </div>
   </div>
 </div>
@@ -137,35 +148,35 @@
   <button class="fas fa-compass mr-4" aria-hidden="true"></button>
   <a href="" class="active-link letter-spacing login-text h1-color mr-4" data-toggle="modal"
     data-target="#modalLRForm">Log In / Register</a>
-  <!-- <button id="new-listing-btn" type="button" class="btn btn-active ml-auto" data-toggle="modal"
+  <button id="new-listing-btn" type="button" class="btn btn-active ml-auto" data-toggle="modal"
     data-target=".bd-example-modal-xl">Post
-    a Listing</button> -->
+    a Listing</button>
   <!--Button for Posting a Listing-->
 </div>
 <!--End Link for Login / Register Form-->
 
-<!-- Modal: Listing Form-->
-<!-- <div id="new-listing-modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+<!--Modal: Listing Form-->
+<div id="new-listing-modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
   aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-dialog-centered cascading-modal modal-lg" role="document"> -->
-<!--Modal Content-->
-<!-- <div class="modal-content m-4"> -->
-<!-- Modal Header-->
-<!-- <div class="modal-header text-center">
+  <div class="modal-dialog  modal-dialog-centered cascading-modal modal-lg" role="document">
+    <!--Modal Content-->
+    <div class="modal-content m-4">
+      <!-- Modal Header-->
+      <div class="modal-header text-center">
         <h5 class="modal-title">Post a new listing</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div> End Modal Header -->
-<!-- Modal Body
+      </div> <!-- End Modal Header -->
+      <!-- Modal Body -->
       <div class="modal-body">
         <div id="listing-form-container">
-          <input type="text">
-          To be appended when user click new post
-        </div> -->
-<!-- </div> End Modal Body -->
-<!-- </div> -->
-<!--End Modal Content-->
-<!-- </div>
-</div> -->
-<!--End Modal: Listing Form -->
+          <!-- <input type="text"> -->
+          <!-- To be appended when user click new post -->
+        </div>
+      </div> <!-- End Modal Body -->
+    </div>
+    <!--End Modal Content-->
+  </div>
+</div>
+<!--End Modal: Listing Form-->
