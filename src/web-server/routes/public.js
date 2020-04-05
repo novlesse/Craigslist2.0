@@ -69,41 +69,37 @@ module.exports = function() {
     })
   })
 
-  //get a user's public profile
+  //get a user's public profile by id
   router.get('/user/:id', (req, res) => {
-    userId = res['req']['user']['id'];
-    console.log("current users id:", userId)
+    //if the user sent request logged in and his id equals to the user's id he required redirect to his own profile page
     if (req.user && req.user.id === req.params.id) res.redirect("/api/users/account")
-    axios.get(`${urlbase}/users/${userId}`)
-      // axios.get(urlbase + '/users/32')
-      .then((response) => {
-        const {
-          username,
-          email,
-          average_rating,
-          is_verified
-        } = response['data'][0];
-        console.log(userId);
-        axios.get(`http://99.79.9.84:8080/ratings/${userId}`)
-          // axios.get('http://99.79.9.84:8080/ratings/32')
-          .then((response) => {
-            // console.log("my response", response)
-            let ratings = response['data'];
-            console.log(ratings)
-            res.render('pages/userprofile', {
-              css: "index.css",
-              username: username,
-              email: email,
-              average_rating: average_rating,
-              is_verified: is_verified,
-              ratings: ratings,
-              show_personal_listings: false
-            })
-          })
-          .catch((err) => console.log(err))
+
+    Promise.all([
+      axios.get(`${urlbase}/users/${req.user.id}`),
+      axios.get(`${urlbase}/ratings/${req.user.id}`)
+    ])
+      .then((responses) => {
+        //console.log(response);
+        let ratings = responses[1].data;
+        //set average_rating to 0 if user has no rating
+        responses[0].data.average_rating = ratings.length == 0 ? 0 : responses[0].data.average_rating 
+        const { username, email, average_rating, total_rating, is_verified } = responses[0].data;
+        
+        // console.log(ratings)
+        ratings.map(rating => rating.created_at = rating.created_at.substr(0, 10));
+        res.render('pages/userprofile', {
+          username: username,
+          email: email,
+          average_rating: average_rating.toFixed(2),
+          total_rating: total_rating,
+          is_verified: is_verified,
+          ratings: ratings,
+          show_personal_listings: false
+        })
       })
       .catch((err) => {
         console.log(err)
+        res.status(500).send("Internal server error")
       })
   })
 
