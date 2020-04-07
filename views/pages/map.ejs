@@ -48,15 +48,14 @@
   <h1>👇 Meetup Location 📍</h1>
 
 	<iframe
-		src='
-			https://www.google.com/maps/embed/v1/place
+		src='https://www.google.com/maps/embed/v1/place
 			?q=place_id:<%= placeID %>
 			&zoom=15
 			&maptype=roadmap
 			&key=<%= key %>'>
 	</iframe>
 
-	<form method='post' action='/map'>
+	<form method='post' action='/api/users/map'>
 		<input
 			name='search'
 			value='<%= search %>'
