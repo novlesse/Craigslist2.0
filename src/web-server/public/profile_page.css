@@ -1,0 +1,187 @@
+* {
+    font-family: "Montserrat", sans-serif;
+    /* color: rgb(29, 29, 29); */
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: rgb(110, 216, 219);
+}
+
+a:hover {
+    color: grey;
+    text-decoration: none;
+}
+
+html,
+body {
+    height: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.background-image {
+    background:
+        /* top, transparency gradient */
+        linear-gradient(rgba(0, 0, 0, 0.45),
+            rgba(255, 255, 255, 0.45)),
+        /* bottom ransparency gradient, image */
+        url(images/science_world.jpg) no-repeat center center fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+
+.letter-spacing {
+    letter-spacing: 4px;
+}
+
+.letter-spacing-header {
+    letter-spacing: 20px;
+    font-family: "Montserrat Light";
+}
+
+.h1-color {
+    color: white;
+}
+
+.login-text:hover {
+    color: rgb(110, 216, 219);
+}
+
+.active-cyan-4 input[type="text"]:focus:not([readonly]) {
+    border: 1px solid rgb(110, 216, 219) !important;
+    box-shadow: 0 0 0 1px rgb(110, 216, 219) !important;
+}
+
+.btn-active {
+    padding: 10px 20px;
+    font-size: 20px;
+    text-align: center;
+    outline: none;
+    color: #fff;
+    background-color: rgb(231, 61, 61);
+    border: none;
+    border-radius: 3px;
+}
+
+.btn-active:hover,
+.btn-active:focus {
+    background-color: rgb(231, 61, 61);
+    outline: 0;
+    color: #fff;
+}
+
+.btn-active:active {
+    background-color: rgb(231, 61, 61);
+    transform: translateY(4px);
+    outline: 0;
+}
+
+.btn-active:hover span:after {
+    opacity: 1;
+    right: 0;
+    outline: 0;
+}
+
+.btn-search {
+    padding: 10px 20px;
+    font-size: 20px;
+    text-align: center;
+    outline: none;
+    color: #fff;
+    background-color: rgb(110, 216, 219);
+    border: none;
+    border-radius: 3px;
+}
+
+.btn-search:hover,
+.btn-search:focus {
+    background-color: rgb(110, 216, 219);
+    outline: 0;
+}
+
+.btn-search:active {
+    background-color: rgb(110, 216, 219);
+    transform: translateY(4px);
+    outline: 0;
+}
+
+.btn-search:hover span:after {
+    opacity: 1;
+    right: 0;
+    outline: 0;
+}
+
+.fa-compass {
+    font-size: 30px;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    outline: 0;
+}
+
+.fa-compass:hover,
+.fa-compass:focus {
+    font-size: 30px;
+    color: rgb(231, 61, 61);
+    outline: 0;
+}
+
+.fa-compass:focus {
+    font-size: 30px;
+    color: #fff;
+    outline: 0;
+}
+
+.fa-compass:active {
+    transform: translateY(4px);
+    color: rgb(231, 61, 61);
+    outline: 0;
+}
+
+.fa-compass:hover span:after {
+    opacity: 1;
+    right: 0;
+    outline: 0;
+}
+
+.star-rating {
+  color: #c5c5c5;
+  margin: 0 10px;
+  position: relative;
+  font-size: 1em;
+  padding: 0;
+ 
+}
+
+.back-stars {
+	padding: 0;
+  display: block;
+  
+  /* z-index: 0; */
+  width:100%;
+  height:auto;
+  text-shadow: 2px 2px 6px #c5c5c5;
+}
+
+.front-stars {
+  color: #e7711b !important;
+  white-space: nowrap;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom:0;
+  height:100%;
+  text-shadow: 2px 2px 5px #d29b09;
+  /* transition:0.5s ease; */
+  overflow: hidden;
+}

@@ -1,0 +1,22 @@
+<select id="category-<%= label %>" name="category_id" class="mdb-select validate md-form btn btn-light">
+    <%if (category.length > 0) { %>
+    <option value="" selected>Choose a Category</option>
+    <% for(let i=0; i < category.length; i++) { %>
+    <option name="category_id" value="<%= category[i].category_id %>"><%= category[i].category_name %></option>
+    <% } %>
+    <% } %>
+</select>
+
+<select id="sub-category-<%= label %>" name="sub_category_id" class="mdb-select validate md-form btn btn-light">
+    <%if (category.length > 0) { %>
+    <% for(let i=0; i < category.length; i++) { %>
+    <%if (category[i].sub_categories.length > 0) { %>
+    <option value="" data-value="<%=category[i].category_id%>" selected>Choose a Sub Category</option>
+    <% for(let j=0; j < category[i].sub_categories.length; j++) { %>
+    <option name="sub-category_id" value="<%= category[i].sub_categories[j].sub_category_id %>"
+        data-value="<%=category[i].category_id%>"><%= category[i].sub_categories[j].sub_category_name %></option>
+    <% } %>
+    <% } %>
+    <% } %>
+    <% } %>
+</select>

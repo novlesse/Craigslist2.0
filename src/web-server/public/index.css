@@ -24,12 +24,11 @@ body {
 
 .background-image {
   background:
-        /* top, transparency gradient */ linear-gradient(
-      rgba(0, 0, 0, 0.45),
-      rgba(255, 255, 255, 0.45)
-    ),
+    /* top, transparency gradient */
+    linear-gradient(rgba(0, 0, 0, 0.45),
+      rgba(255, 255, 255, 0.45)),
     /* bottom ransparency gradient, image */
-      url(images/science_world.jpg) no-repeat center center fixed;
+    url(images/science_world.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -117,6 +116,12 @@ body {
   outline: 0;
 }
 
+.search-form {
+    margin: auto;
+    width: 75%;
+    margin-bottom: 5%;
+    margin-top: 2.5%;
+}
 .fa-compass {
   font-size: 30px;
   color: #fff;
@@ -149,3 +154,5 @@ body {
   right: 0;
   outline: 0;
 }
+
+

@@ -1,0 +1,42 @@
+<h1 class="letter-spacing-header h1-color">POST IT</h1>
+
+<div class="d-flex flex-row ">
+  <!-- <a href="" class="active-link letter-spacing login-text h1-color mr-4" data-toggle="modal"
+    data-target="#modalLRForm"></a> -->
+  <button class="fas fa-compass mr-4" aria-hidden="true"></button>
+  <button id="new-listing-btn" type="button" class="btn btn-active ml-auto" data-toggle="modal"
+    data-target=".bd-example-modal-xl">Post
+    a Listing</button>
+  <div class="d-flex justify-content-end ml-5">
+    <a class="fas fa-user fa-2x btn btn-active  mr-2" href="/api/users/account"></a>
+    <a class="fas fa-sign-out-alt fa-2x btn btn-active mr-2" href="/api/users/logout"></a>
+  </div>
+
+  <!--Button for Posting a Listing-->
+</div>
+
+<!--Modal: Listing Form-->
+<div id="new-listing-modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered cascading-modal modal-lg" role="document">
+    <!--Modal Content-->
+    <div class="modal-content m-4">
+      <!-- Modal Header-->
+      <div class="modal-header text-center">
+        <h5 class="modal-title">Post a new listing</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> <!-- End Modal Header -->
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div id="listing-form-container">
+          <input type="text">
+          <!-- To be appended when user click new post -->
+        </div>
+      </div> <!-- End Modal Body -->
+    </div>
+    <!--End Modal Content-->
+  </div>
+</div>
+<!--End Modal: Listing Form-->
