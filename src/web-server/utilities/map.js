@@ -5,7 +5,7 @@ const cache = {}
 const getPlaceID = async ( search ) => {
   if (search in cache) return cache[search]
 
-  const placeID = (await client.findPlaceFromText({
+  const placeData = (await client.findPlaceFromText({
     params: {
       input: search,
       language: 'en',
@@ -13,9 +13,12 @@ const getPlaceID = async ( search ) => {
       fields: ['place_id'],
       // bias towards lat/lng of user
       // locationbias: '',
-      key: process.env.MAPS_APIKEY
+      key: process.env.MAPS_APIKEY_SERVER
     }
-  })).data.candidates[0].place_id
+  })).data
+
+  let placeID = ''
+  if (placeData.candidates.length) placeID = placeData.candidates[0].place_id
 
   console.log( `\nplaceID of "${search}":\n${placeID}` )
   cache[search] = placeID
