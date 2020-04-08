@@ -78,7 +78,7 @@ module.exports = function (passport) {
             const images = JSON.parse(req.body.images).map(element => imagUrlBase + element);
             //hard code user_id for testing purpose
             const listing = {
-                seller: 3,
+                seller: req.user.id,
                 title: req.body.title,
                 price: parseFloat(req.body.price),
                 item_condition_id: parseInt(req.body.condition_id),
