@@ -1,12 +1,19 @@
 <%- include ("../partials/head", {title:"Transaction Checkout", css:"../../transaction.css"}) -%>
-​
-​
+
+
+<header>
+  
+  <a href='/'><h1 style='font-family: "Montserrat Light"; text-align: center;' class="letter-spacing-header"> POST IT </h1></a>
+  <h4 style='font-family: "Montserrat Light"; text-align: center;'> Payment Transaction page </h4>
+
+</header>
+
 <body>
-​
-    <div class="row container">
+​<div class="row h-75 align-items-center justify-content-center">
+    <div class="row">
         <div class="col-75">
           <div class="container">
-            <form >
+            <form>
       
               <div class="row">
                 <div class="col-50">
@@ -18,16 +25,16 @@
                   <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
                   <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
                   <label for="city"><i class="fa fa-institution"></i> City</label>
-                  <input type="text" id="city" name="city" placeholder="New York">
+                  <input type="text" id="city" name="city" placeholder="Vancouver">
       
                   <div class="row">
                     <div class="col-50">
-                      <label for="state">State</label>
-                      <input type="text" id="state" name="state" placeholder="NY">
+                      <label for="state">Province</label>
+                      <input type="text" id="province" name="province" placeholder="BC">
                     </div>
                     <div class="col-50">
                       <label for="zip">Zip</label>
-                      <input type="text" id="zip" name="zip" placeholder="10001">
+                      <input type="text" id="zip" name="zip" placeholder='E7S 9S4'>
                     </div>
                   </div>
                 </div>
@@ -61,14 +68,13 @@
                 </div>
       
               </div>
-              <label>
-                <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-              </label>
               <button type="button" class="btn" data-toggle="modal" data-target="#completeTransactionModal"> Confirm Purchase</button>
             </form>
           </div>
         </div>
       
+        <!-- CART  -->
+
         <div class="col-25">
           <div class="container">
             <h4>Cart

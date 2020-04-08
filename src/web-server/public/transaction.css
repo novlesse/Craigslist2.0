@@ -1,3 +1,9 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
 .row {
     display: -ms-flexbox; /* IE10 */
     display: flex;
