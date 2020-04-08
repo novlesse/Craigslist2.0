@@ -72,7 +72,6 @@ module.exports = function() {
   //get a user's public profile by id
   router.get('/user/:id', (req, res) => {
     //if the user sent request logged in and his id equals to the user's id he required redirect to his own profile page
-    console.log(req.user.id, req.params.id)
     if (req.user && req.user.id === req.params.id) res.redirect("/api/users/account")
 
     Promise.all([
@@ -220,7 +219,7 @@ module.exports = function() {
         res.status(400).send('Bad request'+ err.message)
     }
   });
-  
+
   router.get('/listing/:id', (req, res) => {
     let listingId = req.params.id;
     Promise.all([
@@ -229,7 +228,7 @@ module.exports = function() {
       axios.get(urlbase + "/province")
     ])
       .then((responses) => {
-  
+        console.log(responses[0].data[0])
         responses[1].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
         const { post_title, post_description, post_price, username, item_condition,
           average_rating, total_rating } = responses[0].data[0];

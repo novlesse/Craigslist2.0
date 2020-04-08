@@ -44,7 +44,7 @@
             <div class="card-body text-container-body">
               <h5 class="card-title item-title"><%= title %>  </h5>
               <h4 class="card-text"> $<%= postPrice %> </h4>
-              <h4 class="card-text"> Sold By: <%= seller %></h4>
+              <h4 class="card-text" href="/user/<%= seller.id %>"> Sold By: <%= seller %></h4>
               <p class="card-text"><small class="text-muted"> Seller's Average Rating: <%=averageRating%> </small></p>
               <p class="card-text"> <%= description %> </p>
               <p class="card-text"> Item Condition: <%= condition %> </p>
