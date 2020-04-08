@@ -220,6 +220,41 @@ module.exports = function() {
         res.status(400).send('Bad request'+ err.message)
     }
   });
-
+  
+  router.get('/listing/:id', (req, res) => {
+    let listingId = req.params.id;
+    Promise.all([
+      axios.get(`${urlbase}/posts/${listingId}`),
+      axios.get(urlbase + "/category"),
+      axios.get(urlbase + "/province")
+    ])
+      .then((responses) => {
+  
+        responses[1].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
+        const { post_title, post_description, post_price, username, item_condition,
+          average_rating, total_rating } = responses[0].data[0];
+        const images = JSON.parse(responses[0].data[0].image_list)
+        const header = req.user ? 'private-header' : 'public-header';
+        res.render('pages/singlePost', {
+          css: "singlePost.css",
+          header: header,
+          seller: username,
+          title: post_title,
+          description: post_description,
+          postPrice: post_price,
+          condition: item_condition,
+          averageRating: average_rating,
+          totalRating: total_rating,
+          images: images,
+          category: responses[1].data,
+          province: responses[2].data
+        });
+      })
+  
+      .catch((err) => {
+        console.log(err)
+        res.status(500).send("Internal server error")
+      })
+  })
   return router;
 }
