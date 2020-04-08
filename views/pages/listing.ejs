@@ -12,7 +12,9 @@
             <% listings.forEach(function(listing) { %>
             <div class="card shadow" style="width: 18rem;">
                 <div class="image-container bg-light">
+                    <a href="/listing/<%=listing.post_id%>">
                     <img src='<%= listing.image_list[0] %>' class="card-img-top" alt="..." />
+                    </a>
                     <i class="far heart fa-heart fa-lg m-3 float-right"></i>
                 </div>
                 <div id="<%= listing.post_id %>" class="card-body bg-light">
