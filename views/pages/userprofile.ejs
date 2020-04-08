@@ -31,7 +31,11 @@
                         <h4 class="info-text">Last Active: </h4>
                         <p>8 Hours Ago</p>
                         <h4 class="info-text">User Rating: </h4>
-                        <%- include("../partials/listings/rating", {average_rating:average_rating, total_rating:total_rating}) -%>
+                        <% if (average_rating) {%>
+                            <%- include("../partials/listings/rating", {average_rating:average_rating, total_rating:total_rating}) -%>
+                        <% } else {%>
+                            <p>User has no ratings.</p>
+                        <% } %>
                         <h4><% if (is_verified == 0) {%> <p class="text-success mt-2">Verified User</p>
                             <%} else { %> <p class="text-danger mt-2">Unverified
                                 User</p>
@@ -68,7 +72,7 @@
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
     </script>
 
-    <%- include('../partials/script', {javascript:"../../index.js"}) -%>
+    <%- include('../partials/script', {javascript:javascript}) -%>
 </body>
 
 </html>
