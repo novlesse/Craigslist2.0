@@ -1,8 +1,10 @@
-# P O S T     I T
+# P O S T⠀I T
 
 Craigslist 2.0 / Amazon Clone
 
 COMP 2311 Final Project
+
+<br>
 
 ## Instructions
 

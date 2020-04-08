@@ -13,7 +13,7 @@ const getPlaceID = async ( search ) => {
       fields: ['place_id'],
       // bias towards lat/lng of user
       // locationbias: '',
-      key: process.env.MAPS_APIKEY_SERVER
+      key: process.env.MAPS_APIKEY_SERVER 
     }
   })).data
 
@@ -22,7 +22,7 @@ const getPlaceID = async ( search ) => {
 
   // console.log( `\nplaceID of "${search}":\n${placeID}` )
   cache[search] = placeID
-
+  console.log(placeID)
   return placeID
 }
 

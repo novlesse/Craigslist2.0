@@ -9,8 +9,7 @@
 			display: grid;
 			justify-content: center;
 			justify-items: center;
-			background-color: #222;
-			color: whitesmoke;
+			background-color: #f;
 		}
 		h1 {
 			margin: 0.5rem 0 2rem 0;
@@ -46,14 +45,16 @@
 
 <body>
   <h1>👇 Meetup Location 📍</h1>
-
-	<iframe
-		src='https://www.google.com/maps/embed/v1/place
-			?q=place_id:<%= placeID %>
-			&zoom=15
-			&maptype=roadmap
-			&key=<%= key %>'>
+  <iframe style="border: 0;" src="https://www.google.com/maps/embed/v1/search?
+		key=AIzaSyBkDmYytVsaGEmf6KhVSUACQVpCkGwzO2E
+		&q=<%= search %>
+		&zoom=12" 
+		width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen">
 	</iframe>
+
+	<!-- place_id:<%= placeID %>
+	 -->
+
 
 	<form method='post' action='/api/users/map'>
 		<input
