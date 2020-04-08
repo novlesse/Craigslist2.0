@@ -1,0 +1,45 @@
+<div class="d-flex flex-row justify-content-start">
+    <span>Rating:</span>
+  
+    <div class="star-rating">
+      <div class="back-stars">
+        <% for(let i=0; i < 5; i++) { %>
+        <span class="fa fa-star"></span>
+        <% } %>
+      </div>
+      <div class="front-stars" style="width:<%= Math.round(Math.round(averageRating/5*100))%>%">
+        <% for(let i=0; i < 5; i++) { %>
+        <span class="fa fa-star full"></span>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <p><%= averageRating %> average based on <%=totalRating%> ratings.</p>
+  
+
+  <div class="container">
+    <hr class="mt-5 mb-3">
+    <div class="row text-center text-lg-left">
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-4 h-100">
+          <img class="img-fluid img-thumbnail" src="<%= images[0] %>" alt="">
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-4 h-100">
+          <img class="img-fluid img-thumbnail" src="<%= images[1] %>" alt="">
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-4 h-100">
+          <img class="img-fluid img-thumbnail" src="<%= images[2] %>" alt="">
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-4 h-100">
+          <img class="img-fluid img-thumbnail" src="<%= images[3] %>" alt="">
+        </a>
+      </div>
+    </div>
+
+  </div>
