@@ -163,6 +163,7 @@ body {
 .back-stars {
 	padding: 0;
   display: block;
+  
   /* z-index: 0; */
   width:100%;
   height:auto;
@@ -170,7 +171,7 @@ body {
 }
 
 .front-stars {
-  color: #e7711b;
+  color: #e7711b !important;
   white-space: nowrap;
   padding: 0;
   position: absolute;

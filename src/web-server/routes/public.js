@@ -112,8 +112,9 @@ module.exports = function () {
 
   router.post("/signup", (req, res) => {
     //form data validation
-    if (req.body.username && req.body.firstname && req.body.lastname && req.body.email
-      && req.body.password && req.body.housenumber && req.body.province && req.body.postalcode && req.body.country) res.status(400).send("Form data is invalid!")
+    if (!(req.body.username && req.body.firstname && req.body.lastname && req.body.email
+        && req.body.password && req.body.housenumber && req.body.province && req.body.postalcode 
+        && req.body.country)) res.status(400).send("Form data is invalid!")
     try {
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -128,22 +129,31 @@ module.exports = function () {
             street: req.body.street,
             city: req.body.city,
             province_code: req.body.province.toUpperCase(),
+            country_code: req.body.country.toUpperCase(),
             postcode: req.body.postalcode,
-            country_code: req.body.country.toUpperCase()
           }
-          axios.post(urlbase + "/users", signup)
-            .then((response) => {
-              // console.log(response.data);
-
-              res.cookie('user_id', response.data.id);
-              console.log(response.data.id)
-              res.redirect('/?msg=success');
-              // res.redirect(`/api/users/user`);
-            })
-            .catch((err) => {
-              console.log("Error:", err.message);
-              res.status(500).send("oops, something is wrong");
-            })
+          Promise.all([
+            axios.get(`${urlbase}/users/email/${signup.email}`),
+            axios.get(`${urlbase}/users/username/${signup.username}`)
+          ])
+          .then(responses => {
+            if(responses[0].data.length != 0 && responses[1].data.length != 0) {
+              res.redirect('/?msg=username or email has already been used');
+            } else {
+              axios.post(urlbase + "/users", signup)
+              .then((response) => {
+                // console.log(response.data);
+                res.cookie('user_id', response.data.id);
+                console.log(response.data.id)
+                res.redirect('/?msg=success');
+                // res.redirect(`/api/users/user`);
+              })
+              .catch((err) => {
+                console.log("Error:", err.message);
+                res.status(500).send("oops, something is wrong");
+              })
+            }
+          })
         });
       });
     } catch (err) {
