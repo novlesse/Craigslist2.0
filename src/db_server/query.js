@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = function (db) {
-    const connection = db();
+    // const connection = db();
     router.get("/", (req, res) => {
         res.status(200).send("<h1>welcome</h1>")
     })
@@ -165,19 +165,11 @@ module.exports = function (db) {
 
     //search posts by category & keywords
     router.post("/posts/search", async (req, res) => {
-<<<<<<< HEAD
         req.body.category_id = req.body.category_id ? req.body.category_id : null
         req.body.sub_category_id = req.body.sub_category_id ? req.body.Sub_category_id : null
         req.body.keyword = req.body.keyword ? req.body.keyword : null
         connection.query(
             `SELECT * FROM view_post_detail 
-=======
-        req.body.category_id = req.body.category_id? req.body.category_id:null
-        req.body.sub_category_id = req.body.sub_category_id? req.body.sub_category_id:null
-        req.body.keyword = req.body.keyword? req.body.keyword:null
-            connection.query(
-                `SELECT * FROM view_post_detail 
->>>>>>> development
                 WHERE CASE WHEN ? IS NOT NULL THEN category_id = ? ELSE 1=1 END
                 AND CASE WHEN ? IS NOT NULL THEN sub_category_id = ? ELSE 1=1 END
                 AND CASE WHEN ? IS NOT NULL THEN (LOWER(\`post_title\`) LIKE CONCAT('%' , ?, '%')
@@ -273,22 +265,6 @@ module.exports = function (db) {
     //get province lists
     router.get("/province", async (req, res) => {
         connection.query("SELECT code FROM province", (err, rows) => {
-<<<<<<< HEAD
-            if (err) {
-                console.log(`Query not run`);
-                res.status(500).send(err.message);
-
-            } else {
-                res.status(200).send(rows);
-            }
-        });
-    })
-
-    //get item condition list
-    router.get("/condition", async (req, res) => {
-        connection.query("SELECT * FROM item_condition", ( err, rows) => {
-=======
->>>>>>> master
             if (err) {
                 console.log(`Query not run`);
                 res.status(500).send(err.message);

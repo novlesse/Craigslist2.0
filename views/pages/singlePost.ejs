@@ -3,21 +3,12 @@
     <%- include('../partials/index/'+header) -%>
 </header>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="row">
-                <% for (image of images) {%>
-                    <div class="col-lg-3 col-sm-1 col-xs-1 rounded-sm">
-                        <a title="Image 1" href="#">
-                        <img class="thumbnail img-responsive" src="<%= image %>">
-                        </a>
-                    </div>
-                <% } %>
-            </div>
-        </div>
-    </div>
-    <%- include('../partials/singlepost/modal') -%>
+
+    <%- include('../partials/singlepost/body') -%>
+    <%- include('../partials/singlepost/transaction') -%>
     <%- include('../partials/script', {javascript:"index.js"}) -%>   
 </body>
 
 </html>
+<%- include ("../partials/head", {title:"Post", css:"../../singlePost.css"}) -%>
+​

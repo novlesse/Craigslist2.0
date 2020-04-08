@@ -68,41 +68,46 @@ module.exports = function () {
         res.status(500).send("oops, something is wrong");
       })
   })
-
-  //get a user's public profile
+  //get a user's public profile by id
   router.get('/user/:id', (req, res) => {
-    console.log(req.user);
-    const publicId = req.params.id
-    if (!req.user) {
-      Promise.all([
-        axios.get(`${urlbase}/users/${publicId}`),
-        axios.get(`${urlbase}/ratings/${publicId}`)
-      ])
-        .then((response) => {
-          console.log("response:",response[0].data[0])
-          const {
-            email,
-            total_rating,
-            average_rating,
-            is_verified
-          } = response[0].data[0];
-          const userName = response[0].data[0]['username'];
-          let ratings = response[1].data[0];
-          res.render('pages/userprofile', {
-            css: "index.css",
-            username: userName,
-            email: email,
-            average_rating: average_rating,
-            total_rating: total_rating,
-            is_verified: is_verified,
-            ratings: ratings
-          })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    //if the user sent request logged in and his id equals to the user's id he required redirect to his own profile page
+    // console.log(req.user.id, req.params.id)
+    let searchParam = req.params.id
+    if (Number.isNaN(parseInt(searchParam))) {
+      let searchParam = `username/${searchParam}`;
     }
+    // if (req.user && req.user.id === req.params.id) res.redirect("/api/users/account")
 
+    Promise.all([
+      axios.get(`${urlbase}/users/${searchParam}`),
+      axios.get(`${urlbase}/ratings/${searchParam}`)
+    ])
+      .then((responses) => {
+        //console.log(response);
+        let ratings = responses[1].data;
+        //set average_rating to 0 if user has no rating
+
+        responses[0].data[0].average_rating = ratings.length == 0 ? 0 : responses[0].data[0].average_rating.toFixed(2)
+
+        const { username, email, average_rating, total_rating, is_verified } = responses[0].data[0];
+        
+        // console.log(ratings)
+        ratings.map(rating => rating.created_at = rating.created_at.substr(0, 10));
+        res.render('pages/userprofile', {
+          javascript:"index.js",
+          username: username,
+          email: email,
+          average_rating: average_rating,
+          total_rating: total_rating,
+          is_verified: is_verified,
+          ratings: ratings,
+          show_personal_listings: false
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+        res.status(500).send("This user does not exist.")
+      })
   })
 
   router.post("/signup", (req, res) => {
