@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const urlbase = "http://99.79.9.84:8080";
 const imagUrlBase = "http://craiglist2.s3-website.ca-central-1.amazonaws.com/300xAUTO/";
+const { getPlaceID } = require('../utilities/map')
 
 module.exports = function (passport) {
     const authenticate = (req, res, next) => {
@@ -135,5 +136,23 @@ module.exports = function (passport) {
     router.get("/transactions/:user_id", (req, res) => {
 
     })
+
+    router.get( '/map', async (req,res) => {
+        const search = '500 Seymour St'
+        const placeID = await getPlaceID( search )
+        const key = process.env.MAPS_APIKEY_CLIENT
+
+        res.render( 'pages/map', { search, placeID, key })
+    })
+
+    router.post( '/map', async (req,res) => {
+        const { search } = req.body
+        const placeID = await getPlaceID( search )
+        const key = process.env.MAPS_APIKEY_CLIENT
+
+        res.render( 'pages/map', { search, placeID, key })
+    })
+
+
     return router;
 }
