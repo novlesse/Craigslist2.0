@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const urlbase = "http://99.79.9.84:8080";
 const imagUrlBase = "http://craiglist2.s3-website.ca-central-1.amazonaws.com/300xAUTO/";
+const { getPlaceID } = require('../utilities/map')
 
 module.exports = function (passport) {
     const authenticate = (req, res, next) => {
@@ -78,7 +79,7 @@ module.exports = function (passport) {
             const images = JSON.parse(req.body.images).map(element => imagUrlBase + element);
             //hard code user_id for testing purpose
             const listing = {
-                seller: 3,
+                seller: req.user.id,
                 title: req.body.title,
                 price: parseFloat(req.body.price),
                 item_condition_id: parseInt(req.body.condition_id),
@@ -100,6 +101,12 @@ module.exports = function (passport) {
             res.status(400).send('Bad request')
         }
     });
+
+    router.get('/transaction', (req, res)=>{
+        res.render('pages/transaction', {  
+          css: 'transaction.css'    
+        })
+      }) 
 
     //logout a user
     router.get("/logout", (req, res) => {
@@ -135,5 +142,23 @@ module.exports = function (passport) {
     router.get("/transactions/:user_id", (req, res) => {
 
     })
+
+    router.get( '/map', async (req,res) => {
+        const search = '500 Seymour St'
+        const placeID = await getPlaceID( search )
+        const key = process.env.MAPS_APIKEY_CLIENT
+
+        res.render( 'pages/map', { search, placeID, key })
+    })
+
+    router.post( '/map', async (req,res) => {
+        const { search } = req.body
+        const placeID = await getPlaceID( search )
+        const key = process.env.MAPS_APIKEY_CLIENT
+
+        res.render( 'pages/map', { search, placeID, key })
+    })
+
+
     return router;
 }
