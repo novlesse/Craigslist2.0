@@ -20,7 +20,7 @@
                 <div id="<%= listing.post_id %>" class="card-body bg-light">
                     <h5 class="card-title"><%= listing.post_title %></h5>
                     <p class="card-text">$ <%= listing.post_price %></p>
-                    <a id="<%= listing.user_id %>" href="/user/<%= listing.user_id %>"><%= listing.username %></a>
+                    <a id="<%= listing.user_id %>" href="/user/<%= listing.seller %>"><%= listing.username %></a>
                     <div class="card-text">
                         <%- include("../partials/listings/rating", {average_rating:listing.average_rating, total_rating:listing.total_rating}) -%>
                     </div>
