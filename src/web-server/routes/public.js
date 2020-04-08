@@ -47,7 +47,10 @@ module.exports = function() {
     ])
     .then(responses => {
       responses[0].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
-      responses[2].data.map((listing) => { listing.image_list = JSON.parse(listing.image_list) })
+      responses[2].data.map((listing) => {
+        listing.image_list = JSON.parse(listing.image_list)
+        listing.average_rating = listing.average_rating ? listing.average_rating.toFixed(2) : 0
+      })
       const header = req.user ? 'private-header' : 'public-header'
       const msg = req.query.msg || null
       res.render("pages/listing",
