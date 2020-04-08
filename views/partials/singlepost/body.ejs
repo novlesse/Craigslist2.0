@@ -44,7 +44,12 @@
             <div class="card-body text-container-body">
               <h5 class="card-title item-title"><%= title %>  </h5>
               <h4 class="card-text"> $<%= postPrice %> </h4>
-              <h4 class="card-text" href="/user/<%= seller.id %>"> Sold By: <%= seller %></h4>
+              <div class="d-flex flex-row">
+              <h4 class="card-text" > Sold By: &nbsp</h4>
+              <a href="/user/<%= seller.id %>">
+              <h4 class="card-text"><%= seller %></h4>
+              </a>
+            </div>
               <p class="card-text"><small class="text-muted"> Seller's Average Rating: <%=averageRating%> </small></p>
               <p class="card-text"> <%= description %> </p>
               <p class="card-text"> Item Condition: <%= condition %> </p>
@@ -129,7 +134,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p> You're request to purchase this item has been sent to <%= seller %></p>
+          <p> Your request to purchase this item has been sent to <%= seller %></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary request-Transaction-exit-btn" data-dismiss="modal">Close</button>
