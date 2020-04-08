@@ -47,12 +47,6 @@
     margin: 1%;
   }
   
-  .card:hover {
-    -webkit-transform: scale(1.10);
-    -moz-transform: scale(1.10);
-    -o-transform: scale(1.10);
-    position: relative;
-  }
   
   .card-title {
     font-weight: bold;

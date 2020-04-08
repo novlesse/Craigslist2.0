@@ -1,0 +1,18 @@
+<div class="d-flex flex-row justify-content-start">
+    <span>Rating:</span>
+  
+    <div class="star-rating">
+      <div class="back-stars">
+        <% for(let i=0; i < 5; i++) { %>
+        <span class="fa fa-star"></span>
+        <% } %>
+      </div>
+      <div class="front-stars" style="width:<%= Math.round(Math.round(averageRating/5*100))%>%">
+        <% for(let i=0; i < 5; i++) { %>
+        <span class="fa fa-star full"></span>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <p><%= averageRating %> average based on <%=totalRating%> ratings.</p>
+  

@@ -197,7 +197,7 @@ module.exports = function() {
         responses[2].data.map((listing) => { listing.image_list = JSON.parse(listing.image_list) })
         const header = req.user ? 'private-header' : 'public-header'
         const msg = req.query.msg || null
-        res.render("pages/listing", 
+        res.render("pages/listing",  
           {
             title: "Listings",
             css: "listings.css",
@@ -229,22 +229,22 @@ module.exports = function() {
     ])
       .then((responses) => {
         console.log(responses[0].data[0])
-        responses[1].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
-        const { post_title, post_description, post_price, username, item_condition,
-          average_rating, total_rating } = responses[0].data[0];
-        const images = JSON.parse(responses[0].data[0].image_list)
         const header = req.user ? 'private-header' : 'public-header';
-        res.render('pages/singlePost', {
-          css: "singlePost.css",
-          header: header,
+        responses[1].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
+        const { post_title, post_description, post_price, item_condition, username,
+                user_id, average_rating, total_rating, image_list } = responses[0].data[0];
+        res.render('pages/singlePost', {   
+          css: "singlePost.css",  
+          header: header, 
           seller: username,
-          title: post_title,
+          seller_id: user_id,
+          post_title: post_title,
           description: post_description,
           postPrice: post_price,
           condition: item_condition,
           averageRating: average_rating,
           totalRating: total_rating,
-          images: images,
+          images: JSON.parse(image_list),
           category: responses[1].data,
           province: responses[2].data
         });
@@ -256,4 +256,4 @@ module.exports = function() {
       })
   })
   return router;
-}
+} 

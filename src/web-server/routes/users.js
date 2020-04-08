@@ -101,6 +101,12 @@ module.exports = function (passport) {
         }
     });
 
+    router.get('/transaction', (req, res)=>{
+        res.render('pages/transaction', {  
+          css: 'transaction.css'    
+        })
+      }) 
+
     //logout a user
     router.get("/logout", (req, res) => {
         req.logout();

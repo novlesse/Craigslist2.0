@@ -1,94 +1,141 @@
-<main class="d-flex bd-highlight mt-5 ml-3">
-        
-    <div id="demo" class="carousel slide col-md-5 carousel-container" data-ride="carousel">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 ​
-        <!-- Indicators -->
-        <ul class="carousel-indicators">
-          <li data-target="#demo" data-slide-to="0" class="active"></li>
-        <% for (i=1; i<images.length; i++) {%>
-          <li data-target="#demo" data-slide-to="<%= i %>"></li>
-        <% } %>
-        </ul>
+
+<script>
+  
+
+  $( ".item-title" ).click(function() {
+    console.log('from transaction post')
       
-        <!-- The slideshow -->
+  });
+
+  $('document').ready(()=>{
+    console.log('doc ready')
+  })
 ​
-        <div class="carousel-inner" style='width: 100%; height: 50rem; background-color: grey'>
-            <div class="carousel-item wrapper active" >
-                <img src=" <%= images[0] %>" class="d-block w-100" alt="firstimage">
-            </div>
+</script>
+
+
+<main class="h-100 mt-5">
+
+  <div class="w-50 container d-flex mt-5">
+
+    <div id="demo" class="carousel slide col-md-5 carousel-container m-5" data-ride="carousel">
+
+      <div class="container">
+        <!-- The slideshow -->
+
+        <div class="carousel-inner mt-5" style='width: 100%; height: 20rem'>
+          <div class="carousel-item wrapper active">
+            <img src=" <%= images[0] %>" class="d-block w-100" alt="firstimage">
+          </div>
           <% for (i=1; i<images.length; i++) {%>
-            <div class="carousel-item wrapper" >
-            <img src=" <%= images[i] %> " class="w-100" alt="..." >
-            </div>
-        <% } %> 
+          <div class="carousel-item wrapper">
+            <img src=" <%= images[i] %> " class="w-100" alt="...">
+          </div>
+          <% } %>
         </div>
+
       
         <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <a class="carousel-control-prev pt-4 pr-5" href="#demo" data-slide="prev">
           <span class="carousel-control-prev-icon" style='filter: invert();'></span>
         </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
+        <a class="carousel-control-next pt-4 pl-5" href="#demo" data-slide="next">
           <span class="carousel-control-next-icon" style='filter: invert();'></span>
         </a>
-      
-      </div>
-​
-<!--carousel end-->
-​
-    <div class='p-2 bd-highlight'>
-    <div class="card mb-3 p-2 bd-highlight" style="min-width: 500px;">
-​
-        <div class="row no-gutters">
-          
-          <div class="col-md-6">
-            <div class="card-body text-container-body">
-              <h5 class="card-title item-title"><%= title %>  </h5>
-              <h4 class="card-text"> $<%= postPrice %> </h4>
-              <div class="d-flex flex-row">
-              <h4 class="card-text" > Sold By: &nbsp</h4>
-              <a href="/user/<%= seller.id %>">
-              <h4 class="card-text"><%= seller %></h4>
+
+
+        <div class="container">
+          <hr class="mt-4 mb-4">
+          <div class="row text-center text-lg-left">
+            <% for (image of images) {%>
+            <div class="col-lg-3 col-md-4 col-6">
+              <a href="#" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" src="<%= image %>" alt="">
               </a>
             </div>
-              <p class="card-text"><small class="text-muted"> Seller's Average Rating: <%=averageRating%> </small></p>
+            <%}%>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    ​
+    <!--carousel end-->
+    ​
+    <div class='mt-5'>
+      <div class="card mb-3" style="min-width: 500px;">
+        ​
+        <div class="row no-gutters card-body">
+       
+            <div class="card-body card-text">
+              <h1 class="card-title item-title"><%= post_title %> </h1>
+              <br>
+              <h4 class="card-text"> $ <%= postPrice %> </h4>
+              <div class="d-flex flex-row">
+                <h4 class="card-text"> Sold By: &nbsp </h4>
+                <a href="/user/<%= seller_id %>">
+                  <h4 class="card-text"><%= seller %> </h4>
+                </a>
+              </div>
+              <br>
+                <div class="d-flex flex-row justify-content-start">
+                  <span>Rating:</span>
+                
+                  <div class="star-rating">
+                    <div class="back-stars">
+                      <% for(let i=0; i < 5; i++) { %>
+                      <span class="fa fa-star"></span>
+                      <% } %>
+                    </div>
+                    <div class="front-stars" style="width:<%= Math.round(Math.round(averageRating/5*100))%>%">
+                      <% for(let i=0; i < 5; i++) { %>
+                      <span class="fa fa-star full"></span>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+                <p><%= averageRating %> average based on <%=totalRating%> ratings.</p>
+
+              <br>
               <p class="card-text"> <%= description %> </p>
               <p class="card-text"> Item Condition: <%= condition %> </p>
               <p class="card-text">Categories</p>
-​
-              <div class="dropdown show">
-                <% for (i=0; i<category.length; i++) {%>   
-                <a class="btn btn-secondary dropdown-toggle my-2 mr-2" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <%= category[i]['category_name'] %>
+              <div class="dropdown show mb-4">
+                <% for (i=0; i<category.length; i++) {%>
+                <a class="btn btn-secondary dropdown-toggle my-2 mr-2" href="#" role="button" id="dropdownMenuLink"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= category[i]['category_name'] %>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <% for (j=0; j<category[i]['sub_categories'].length; j++) {%> 
-                    <a class="dropdown-item" href="#"><%= category[i]['sub_categories'][j]['sub_category_name'] %></a>
-                    <% } %>
+                  <% for (j=0; j<category[i]['sub_categories'].length; j++) {%>
+                  <a class="dropdown-item" href="#"><%= category[i]['sub_categories'][j]['sub_category_name'] %></a>
+                  <% } %>
                 </div>
                 <% } %>
-                 
-                <p class="card-text">Location: <%= province[0]['code'] %> </p>
-                
               </div>
-​
+              <p class="card-text">Location: <%= province[0]['code'] %> </p>
             </div>
-          </div>
         </div>
+        <!-- Buttons -->
+       <div class="button-container d-flex bd-highlight justify-content-around mb-5">
+        <button type='button' class='btn btn-outline-danger btn-lg my-3' data-toggle="modal"
+          data-target="#purchaseModalCenter">Purchase Now</button>
+        <button type='button' class='btn btn-outline-info btn-lg my-3 '>Message Seller</button>
       </div>
-​
-     
-​
-      <!-- Buttons -->
-      <div class="button-container d-flex bd-highlight justify-content-around">
-        <button type='button' class='btn btn-outline-danger btn-lg my-3' data-toggle="modal" data-target="#purchaseModalCenter">Purchase Now</button>
-        <button type='button' class='btn btn-outline-primary btn-lg my-3 '>Message Seller</button>
       </div>
     </div>
-</div>
-​
-  
+  </div>
+  ​
+
   <!-- Purchase Now Modal -->
-  <div class="modal fade" id="purchaseModalCenter" tabindex="-1" role="dialog" aria-labelledby="purchaseModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="purchaseModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="purchaseModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -100,31 +147,33 @@
         <div class="modal-body">
           <p><%= seller %>'s preferred place of transaction is at Pacific Place.</p>
           <p>Please <a href="#">Message Seller</a> if you wish to request a different location. </p>
-        
+
           <div class="date-container">
             <label for="transactionDate">Date:</label>
-            <input type="date" id="transactionDate" name="transactionDate">  
+            <input type="date" id="transactionDate" name="transactionDate">
           </div>
-​
+          ​
           <div class="time-container">
             <label for="appt-time">Choose a time: </label>
             <input id="appt-time" type="time" name="appt-time" value="13:30">
           </div>
-          
-          
-        </div>
-        <div class="modal-footer">
+
+
+        </div method="POST" action="/api/users/transaction/">
+        <form class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" data-dismiss="modal" class="btn btn-outline-danger" data-toggle="modal" data-target="#requestTransModalCenter">Request Transaction</button>
-        </div>
+          <button type="submit" data-dismiss="modal" class="btn btn-outline-danger" data-toggle="modal"
+            data-target="#requestTransModalCenter">Request Transaction</button>
+        </form>
       </div>
     </div>
   </div>
-​
-​
-​
-<!-- Request Transaction Modal -->
-<div class="modal fade" id="requestTransModalCenter" tabindex="-1" role="dialog" aria-labelledby="requestTransModalTitle" aria-hidden="true">
+  ​
+  ​
+  ​
+  <!-- Request Transaction Modal -->
+  <div class="modal fade" id="requestTransModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="requestTransModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -137,9 +186,29 @@
           <p> Your request to purchase this item has been sent to <%= seller %></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary request-Transaction-exit-btn" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary request-Transaction-exit-btn"
+            data-dismiss="modal" onclick='showtoast()'>Close</button>
         </div>
       </div>
     </div>
   </div>
+
+<!-- Transaction went through toast -->
+<a href="/api/users/transaction">
+  <div class="toast" style="position: absolute; top: 6rem; right: 10rem; min-width: 10rem;" data-autohide="false">
+    <div class="toast-header">  
+      <strong class="mr-auto text-primary"><%= post_title %> Request Approved</strong>
+      <small class="text-muted">5 mins ago</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+    </div>
+    <div class="toast-body">
+        Your request has been approved by <%= seller %>
+    </div>
+  </div>
+</a>
+
+
+
+​
+
 </main>
