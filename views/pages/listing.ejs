@@ -11,11 +11,11 @@
         <div class="card-container d-flex flex-row flex-wrap justify-content-start">
             <% listings.forEach(function(listing) { %>
             <div class="card shadow" style="width: 18rem;">
-                <div class="image-container">
+                <div class="image-container bg-light">
                     <img src='<%= listing.image_list[0] %>' class="card-img-top" alt="..." />
-                    <i class="far heart fa-heart"></i>
+                    <i class="far heart fa-heart fa-lg m-3 float-right"></i>
                 </div>
-                <div id="<%= listing.post_id %>" class="card-body">
+                <div id="<%= listing.post_id %>" class="card-body bg-light">
                     <h5 class="card-title"><%= listing.post_title %></h5>
                     <p class="card-text">$ <%= listing.post_price %></p>
                     <a id="<%= listing.user_id %>" href="/user/<%= listing.user_id %>"><%= listing.username %></a>
@@ -33,4 +33,5 @@
     <% } %>
     <%- include('../partials/script', {javascript:"index.js"}) -%>
 </body>
+
 </html>

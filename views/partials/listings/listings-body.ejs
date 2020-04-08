@@ -1,11 +1,12 @@
-<form class="search-form form-group d-flex flex-row align-items-center justify-content-center" method="post" action="/search">
+<form class="search-form form-group d-flex flex-row align-items-center justify-content-center" method="post"
+  action="/search">
   <div class="my-auto w-75">
     <% if (message) { %>
     <div class="font-weight-bolder text-info"><%= message %></div>
     <% }; %>
     <div class="input-group md-form form-sm form-2 active-cyan-4">
-      <input class="form-control letter-spacing p-4" type="text" name="keyword" placeholder="Products, categories, or users?"
-          aria-label="Search">
+      <input class="form-control letter-spacing p-4" type="text" name="keyword"
+        placeholder="Products, categories, or users?" aria-label="Search">
       <div class="input-group-append">
         <span class="input-group md-form form-sm form-2" id="basic-text1">
           <button class="btn-search" type="submit" aria-hidden="true">Search</button>
@@ -13,7 +14,7 @@
       </div>
     </div>
     <div>
-      <a id="advance-search-btn" type="button" class="btn btn-link" aria-hidden="true">Advanced</a>
+      <a id="advance-search-btn" type="button" class="btn btn-light mt-2" aria-hidden="true">Advanced</a>
       <span class="invisible"><%- include('../index/category-block') -%></span>
     </div>
   </div>
