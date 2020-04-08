@@ -20,7 +20,7 @@ const getPlaceID = async ( search ) => {
   let placeID = ''
   if (placeData.candidates.length) placeID = placeData.candidates[0].place_id
 
-  console.log( `\nplaceID of "${search}":\n${placeID}` )
+  // console.log( `\nplaceID of "${search}":\n${placeID}` )
   cache[search] = placeID
 
   return placeID
