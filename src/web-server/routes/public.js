@@ -264,27 +264,33 @@ module.exports = function () {
       axios.get(urlbase + "/province")
     ])
       .then((responses) => {
-        console.log(responses[0].data[0])
+        // console.log(responses[0].data[0])
         const header = req.user ? 'private-header' : 'public-header';
-        responses[1].data.map((category) => { category.sub_categories = JSON.parse(category.sub_categories) })
-        const { post_title, post_description, post_price, item_condition, username,
-          user_id, average_rating, total_rating, image_list } = responses[0].data[0]; 
-        res.render('pages/singlePost', {
-          css: "singlePost.css",
-          header: header,
-          seller: username,
-          seller_id: user_id,
-          post_title: post_title,
-          description: post_description,
-          postPrice: post_price,
-          condition: item_condition,
-          averageRating: average_rating,
-          totalRating: total_rating,
-          images: JSON.parse(image_list),
-          category: category_name,
-          sub_category: sub_category_name,
-          province: responses[2].data
-        });
+        if (responses[0].data[0]) {
+          const { post_title, post_description, post_price, item_condition, username,
+            user_id, average_rating, total_rating, image_list, category_name, sub_category_name } = responses[0].data[0]; 
+          res.render('pages/singlePost', {
+            css: "singlePost.css",
+            header: header,
+            seller: username,
+            seller_id: user_id,
+            post_title: post_title,
+            description: post_description,
+            postPrice: post_price,
+            condition: item_condition,
+            averageRating: average_rating,
+            totalRating: total_rating,
+            images: JSON.parse(image_list),
+            category: category_name,
+            sub_category: sub_category_name,
+            province: responses[2].data
+          });
+        }
+        else {
+          res.render('pages/err', {
+            message: "Sorry, no listing found!"
+          })
+        }
       })
 
       .catch((err) => {

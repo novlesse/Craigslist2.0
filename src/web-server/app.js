@@ -10,7 +10,8 @@ module.exports = function () {
   const usersRouter = require('./routes/users')()
 
   // Serve up the static front end code and image uploads
-  app.use(express.static(path.join(__dirname, 'public')))
+  app.use('/api/user', express.static(path.join(__dirname, 'public')))
+  app.use('/', express.static(path.join(__dirname, 'public')))
 
   app.set('view engine', 'ejs');
   app.use(bodyParser.json());

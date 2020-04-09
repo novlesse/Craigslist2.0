@@ -104,7 +104,7 @@ module.exports = function (passport) {
 
     router.get('/transaction', (req, res)=>{
         res.render('pages/transaction', {  
-          css: 'transaction.css'    
+          css: 'transaction.css'
         })
       }) 
 
@@ -143,12 +143,26 @@ module.exports = function (passport) {
 
     })
 
-    router.get( '/map', async (req,res) => {
+    router.get( '/map/:seller_id', async (req,res) => {
+        axios.get(`${urlbase}/addr/${req.params.seller_id}`)
+        .then(async (response) => {
+            // console.log(response.data[0])
+            const { house_num, street, city, province_code, postcode } = response.data[0]
+            // const search = house_num + " " + street + " " + city + " " + province_code + " " + postcode
+            search = "500 Seymour St"
+            const placeID = await getPlaceID(search)
+            const key = process.env.MAPS_APIKEY_CLIENT
+
+            res.render('pages/map', { search, placeID, key })
+        })
+    })
+
+    router.get('/map', async (req, res) => {
         const search = '500 Seymour St'
-        const placeID = await getPlaceID( search )
+        const placeID = await getPlaceID(search)
         const key = process.env.MAPS_APIKEY_CLIENT
 
-        res.render( 'pages/map', { search, placeID, key })
+        res.render('pages/map', { search, placeID, key })
     })
 
     router.post( '/map', async (req,res) => {

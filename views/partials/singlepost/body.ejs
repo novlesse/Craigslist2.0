@@ -61,6 +61,8 @@
                 <a href="/user/<%= seller_id %>">
                   <h4 class="card-text"><%= seller %> </h4>
                 </a>
+                <!--  -->
+                <a href="/api/users/map/<%= seller_id %>" class="fas fa-compass mr-4" aria-hidden="true"></a>
               </div>
               <br>
                 <div class="d-flex flex-row justify-content-start">
@@ -84,20 +86,8 @@
               <br>
               <p class="card-text"> <%= description %> </p>
               <p class="card-text"> Item Condition: <%= condition %> </p>
-              <p class="card-text">Categories</p>
-              <div class="dropdown show mb-4">
-                <% for (i=0; i<category.length; i++) {%>
-                <a class="btn btn-outline-secondary m-1" href="/category/<%= category[i]['category_name']%>" role="button" id="dropdownMenuLink"
-                   aria-haspopup="true" aria-expanded="false">
-                  <%= category[i]['category_name'] %>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <% for (j=0; j<category[i]['sub_categories'].length; j++) {%>
-                  <a class="dropdown-item" href="/category/<%= category[i]['sub_categories'][j]['sub_category_name']%>"><%= category[i]['sub_categories'][j]['sub_category_name'] %></a>
-                  <% } %>
-                </div>
-                <% } %>
-              </div>
+              <p class="card-text">Category: <%= category %></p>
+              <p class="card-text"> Sub_category: <%= sub_category %></p>
               <p class="card-text">Location: <%= province[0]['code'] %> </p>
             </div>
         </div>
