@@ -1,5 +1,4 @@
-DROP VIEW IF EXISTS 'view_all_category';
-CREATE VIEW view_all_category AS
+CREATE OR REPLACE VIEW view_all_category AS
 SELECT
    category.id AS category_id,
    category.name AS category_name,
@@ -12,10 +11,9 @@ FROM
     INNER JOIN category ON category_id = category.id
     GROUP BY category.id;
 
-DROP VIEW IF EXISTS 'view_user_rating_summary';
-CREATE VIEW view_user_rating_summary AS
+CREATE OR REPLACE VIEW view_user_rating_summary AS
 SELECT 
-    AVG(r.stars) AS average_rating,
+    CAST(AVG(r.stars) AS DECIMAL(4,2)) AS average_rating,
     COUNT(r.id) AS total_rating,
     u.id AS user_id,
     u.username 
@@ -24,23 +22,20 @@ FROM
     INNER JOIN rating AS r ON u.id = r.ratee
     GROUP BY u.id;
 
-DROP VIEW IF EXISTS 'view_user_detail';
-CREATE VIEW view_user_detail AS
+CREATE OR REPLACE VIEW view_user_detail AS
 SELECT
     u.*, ur.average_rating, ur.total_rating
 FROM user AS u
      LEFT JOIN view_user_rating_summary AS ur ON u.id = ur.user_id;
 
-DROP VIEW IF EXISTS 'view_post_image_list';
-CREATE VIEW view_post_image_list AS
+CREATE OR REPLACE VIEW view_post_image_list AS
 SELECT 
     post_id, 
     JSON_ARRAYAGG(images_link) image_list 
 FROM image_list 
 GROUP BY post_id;
 
-DROP VIEW IF EXISTS 'view_post_detail';
-CREATE VIEW view_post_detail AS
+CREATE OR REPLACE VIEW view_post_detail AS
 SELECT
    p.id AS post_id,
    p.title AS post_title,
@@ -67,8 +62,7 @@ FROM
     INNER JOIN category AS c ON sc.category_id = c.id
     INNER JOIN view_post_image_list AS vi ON vi.post_id = p.id;
 
-DROP VIEW IF EXISTS 'view_highest_biding';
-CREATE VIEW view_highest_biding AS
+CREATE OR REPLACE VIEW view_highest_biding AS
 SELECT 
     MAX(bid) AS max_bid, 
     b.bidder,
@@ -78,8 +72,7 @@ FROM
     INNER JOIN user AS u ON u.id = b.bidder
     GROUP BY u.id;
 
-DROP VIEW IF EXISTS 'view_rating_list';
-CREATE VIEW view_rating_list AS
+CREATE OR REPLACE VIEW view_rating_list AS
 SELECT
     r.stars AS stars,
     r.ratee AS ratee,
