@@ -260,7 +260,6 @@ module.exports = function () {
     let listingId = req.params.id;
     Promise.all([
       axios.get(`${urlbase}/posts/${listingId}`),
-      axios.get(urlbase + "/category"),
       axios.get(urlbase + "/province")
     ])
       .then((responses) => {
@@ -283,16 +282,12 @@ module.exports = function () {
             images: JSON.parse(image_list),
             category: category_name,
             sub_category: sub_category_name,
-            province: responses[2].data
+            province: responses[1].data
           });
-        }
-        else {
-          res.render('pages/err', {
-            message: "Sorry, no listing found!"
-          })
+        } else {
+          res.status(400).send("Bad request")
         }
       })
-
       .catch((err) => {
         console.log(err)
         res.status(500).send("Internal server error")

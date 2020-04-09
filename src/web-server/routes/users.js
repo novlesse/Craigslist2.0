@@ -145,14 +145,14 @@ module.exports = function (passport) {
 
     router.get( '/map/:seller_id', async (req,res) => {
         axios.get(`${urlbase}/addr/${req.params.seller_id}`)
-        .then(async (response) => {
+        .then( async (response) => {
             // console.log(response.data[0])
             const { house_num, street, city, province_code, postcode } = response.data[0]
-            // const search = house_num + " " + street + " " + city + " " + province_code + " " + postcode
-            search = "500 Seymour St"
+            const search = house_num + " " + street + " " + city + " " + province_code + " " + postcode
+            // search = "500 Seymour St"
             const placeID = await getPlaceID(search)
             const key = process.env.MAPS_APIKEY_CLIENT
-
+            console.log(placeID)
             res.render('pages/map', { search, placeID, key })
         })
     })
