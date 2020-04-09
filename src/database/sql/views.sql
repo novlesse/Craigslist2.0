@@ -13,7 +13,7 @@ FROM
 
 CREATE OR REPLACE VIEW view_user_rating_summary AS
 SELECT 
-    AVG(r.stars) AS average_rating,
+    CAST(AVG(r.stars) AS DECIMAL(4,2)) AS average_rating,
     COUNT(r.id) AS total_rating,
     u.id AS user_id,
     u.username 
